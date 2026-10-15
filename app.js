@@ -690,7 +690,370 @@ const CURATED_REALITY_SHOWS = [
 ];
 
 // ═══════════════════════════════════════════════════════════════════
-// 3. VERIFIED WORKING STREAMING SERVERS (10 HIGH-SPEED CLOUD NODES)
+// 2.6 CURATED ANIME & CARTOON SHOWS (TOP 20 WITH MULTI-AUDIO SUPPORT)
+//     Best servers: Server 2 (VidLink Pro), Server 4 (2Embed), Server 9 (AutoEmbed)
+// ═══════════════════════════════════════════════════════════════════
+const CURATED_ANIME_SHOWS = [
+  {
+    id: 37854,
+    title: "One Piece",
+    name: "One Piece",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 22,
+    poster_path: "/cMD9Ygz11zjJzAovURpO75Qg7rT.jpg",
+    backdrop_path: "/1t0gBMHFfIKZnmzaQeMqbUQzRFx.jpg",
+    ott: "crunchyroll",
+    first_air_date: "1999-10-20",
+    vote_average: 8.9,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Telugu Dub • Portuguese • Spanish • Multi-Subs",
+    overview: "Monkey D. Luffy sets out to become King of the Pirates. Along his epic journey across the Grand Line he assembles a legendary crew, battles warlords and gods, and unravels the mystery of the One Piece treasure across 1000+ episodes."
+  },
+  {
+    id: 1396,
+    title: "Attack on Titan",
+    name: "Attack on Titan",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 4,
+    poster_path: "/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg",
+    backdrop_path: "/y0YA2H6CYzIhXMOpYicxIkM5Vla.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2013-04-07",
+    vote_average: 9.0,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Telugu Dub • German Dub • 20+ Subtitles",
+    overview: "In a world where humanity hides behind walls from monstrous Titans, young Eren Yeager joins the Survey Corps to fight back. A masterpiece of modern anime with jaw-dropping plot twists and world-building."
+  },
+  {
+    id: 31911,
+    title: "Fullmetal Alchemist: Brotherhood",
+    name: "Fullmetal Alchemist: Brotherhood",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 1,
+    poster_path: "/8iorHVWPH1bpB2mqTFvqL0MtRIV.jpg",
+    backdrop_path: "/paqDpwnZmx4ZSFxbC9OxFx7a4F4.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2009-04-05",
+    vote_average: 9.1,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Telugu Dub • Portuguese • Spanish • 20+ Subtitles",
+    overview: "Two alchemist brothers seek the Philosopher's Stone after a forbidden transmutation costs them everything. Widely regarded as the greatest anime of all time, with 64 episodes of non-stop story perfection."
+  },
+  {
+    id: 46260,
+    title: "Dragon Ball Super",
+    name: "Dragon Ball Super",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 1,
+    poster_path: "/mmRBHs8vVJgHkYALtcYVVrZKEbN.jpg",
+    backdrop_path: "/o2H4RJpRiAhBrVE2MhQqaZJjTFV.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2015-07-05",
+    vote_average: 8.3,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Telugu Dub • Spanish Dub",
+    overview: "Goku and friends face the Gods of Destruction and the multiverse's most powerful warriors in epic tournament arcs and universal survival battles."
+  },
+  {
+    id: 85937,
+    title: "Demon Slayer",
+    name: "Demon Slayer: Kimetsu no Yaiba",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 4,
+    poster_path: "/xUfRZu2mi8jH6SzQEJGP6tjBuYj.jpg",
+    backdrop_path: "/pFyDPGEFbhRMj5oMpVUkGwFKgzm.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2019-04-06",
+    vote_average: 8.8,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Telugu Dub • 20+ Subtitles",
+    overview: "Tanjiro Kamado becomes a Demon Slayer to avenge his family and save his demonized sister Nezuko. Features the most breathtaking animation in anime history from Ufotable studio."
+  },
+  {
+    id: 46298,
+    title: "Naruto Shippuden",
+    name: "Naruto: Shippuden",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 21,
+    poster_path: "/zAYRe2RDv4mMZyeKmbOHDaivQsn.jpg",
+    backdrop_path: "/oJ0r1hfDqEHJ5J9mqnbKVgLHvQV.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2007-02-15",
+    vote_average: 8.7,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Telugu Dub • Portuguese • Spanish • 20+ Subtitles",
+    overview: "Naruto Uzumaki returns as a teenager to face Akatsuki, the war, and his destiny as a ninja. 500 episodes of epic friendship, tragedy, and jaw-dropping battles."
+  },
+  {
+    id: 65930,
+    title: "My Hero Academia",
+    name: "My Hero Academia",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 7,
+    poster_path: "/AoFKtBVFdxuuFTqCLIVrPSoJAAE.jpg",
+    backdrop_path: "/6HaGqKFEBvLOh8FQKF4K4ZBH9lx.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2016-04-03",
+    vote_average: 8.6,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Telugu Dub • 20+ Subtitles",
+    overview: "In a world where nearly everyone has superpowers called Quirks, quirkless Izuku Midoriya inherits the world's greatest power from his hero All Might and trains to become the greatest hero."
+  },
+  {
+    id: 83097,
+    title: "Jujutsu Kaisen",
+    name: "Jujutsu Kaisen",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 2,
+    poster_path: "/HFbI1JgLLQvq5DjNJJJlL8IXHJ.jpg",
+    backdrop_path: "/wDyVqUkpNUzJCvQT5Sxlw7v3e0A.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2020-10-03",
+    vote_average: 8.7,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • 20+ Subtitles",
+    overview: "High school student Yuji Itadori swallows a cursed relic and becomes host to a powerful Curse, joining Jujutsu Tech to fight Cursed Spirits. The hottest modern shonen anime."
+  },
+  {
+    id: 42705,
+    title: "Tokyo Ghoul",
+    name: "Tokyo Ghoul",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 4,
+    poster_path: "/k4JB0MpGCNRjFbYxnMbJU6kqQhL.jpg",
+    backdrop_path: "/1khf4DM2xFqVHtXN3bJrWL3Zy7h.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2014-07-04",
+    vote_average: 8.4,
+    genre_ids: [16, 10759, 27],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • 20+ Subtitles",
+    overview: "Ken Kaneki survives a ghoul attack but becomes half-ghoul himself, forced to navigate a secret world between humans and man-eating monsters in modern Tokyo."
+  },
+  {
+    id: 94605,
+    title: "Spy x Family",
+    name: "Spy x Family",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 2,
+    poster_path: "/ld1grMRdPnGrxV7R5j5wBApBxVt.jpg",
+    backdrop_path: "/zhUVpPetTTk0xCbMlPiEF1gFKGP.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2022-04-09",
+    vote_average: 8.7,
+    genre_ids: [16, 35, 10749],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • 20+ Subtitles",
+    overview: "A spy must form a fake family to complete a secret mission, but his fake daughter can read minds and his fake wife is an assassin — without any of them knowing each other's secrets!"
+  },
+  {
+    id: 1429,
+    title: "Dragon Ball Z",
+    name: "Dragon Ball Z",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 9,
+    poster_path: "/s3qlmTXqXmMU1qFPpvJo2h6j0lS.jpg",
+    backdrop_path: "/zxdZ8vGdVCXN1xCJm9H5hDoUi9I.jpg",
+    ott: "crunchyroll",
+    first_air_date: "1989-04-26",
+    vote_average: 8.8,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub (Cartoon Network) • Tamil Dub • Telugu Dub • Spanish • Portuguese",
+    overview: "Goku and Earth's warriors defend the planet against Saiyans, Frieza, Cell and Majin Buu. The iconic classic that defined anime for an entire generation — with Hindi Cartoon Network dub everyone knows."
+  },
+  {
+    id: 15260,
+    title: "Doraemon",
+    name: "Doraemon",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 14,
+    poster_path: "/knH2m3gdpb1HJpVFMGFsG3UdMBG.jpg",
+    backdrop_path: "/lS3RqNvKpLOBl5QaxHV0lCvbWOx.jpg",
+    ott: "hotstar",
+    first_air_date: "1979-04-02",
+    vote_average: 8.9,
+    genre_ids: [16, 35, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • Hindi Dub (Hungama TV) • Tamil Dub • Telugu Dub • Malayalam Dub • English Dub",
+    overview: "A robotic cat from the 22nd century travels back in time to help a clumsy boy named Nobita Nobi with his magical gadgets from the future. India's most beloved anime cartoon with full Hindi, Tamil, Telugu dubs."
+  },
+  {
+    id: 12429,
+    title: "Shinchan",
+    name: "Crayon Shin-chan",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 33,
+    poster_path: "/lrMUHSqWBLM8yXM8yvBjWS2tvW1.jpg",
+    backdrop_path: "/oXC7jBGvt8bUbRbWdQD8q6Eiyom.jpg",
+    ott: "hotstar",
+    first_air_date: "1992-04-13",
+    vote_average: 8.5,
+    genre_ids: [16, 35],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • Hindi Dub (Hungama TV) • Tamil Dub • Telugu Dub • Malayalam Dub • Bhojpuri Dub",
+    overview: "The hilariously naughty adventures of 5-year-old Shinnosuke Nohara (Shinchan) and his family in Kasukabe. India's most popular anime cartoon with iconic Hungama TV Hindi dub across 1000+ episodes."
+  },
+  {
+    id: 46260,
+    title: "Dragon Ball Z (Hindi Cartoon Network)",
+    name: "Dragon Ball Z",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 9,
+    poster_path: "/s3qlmTXqXmMU1qFPpvJo2h6j0lS.jpg",
+    backdrop_path: "/zxdZ8vGdVCXN1xCJm9H5hDoUi9I.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2015-07-05",
+    vote_average: 8.3,
+    genre_ids: [16, 10759],
+    isAnime: true,
+    audioTracksLabel: "Hindi Dub • Telugu Dub • Tamil Dub • English Dub • Japanese (Original)",
+    overview: "The legendary Cartoon Network Hindi dubbed version. Goku, Vegeta and the Z warriors face ultimate battles against alien invaders and cosmic monsters."
+  },
+  {
+    id: 30984,
+    title: "Bleach",
+    name: "Bleach",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 16,
+    poster_path: "/lL7jEytzNuGUHKEo5bRSQIHO4Ou.jpg",
+    backdrop_path: "/xJCeXNpwdBuMRvjgOsatSLMrZRN.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2004-10-05",
+    vote_average: 8.6,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • 20+ Subtitles",
+    overview: "High school student Ichigo Kurosaki gains the powers of a Soul Reaper and defends the living world from evil spirits and rogue Soul Reapers. The TYBW arc (2022) is peak anime."
+  },
+  {
+    id: 61664,
+    title: "Sword Art Online",
+    name: "Sword Art Online",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 5,
+    poster_path: "/v9VE6LZEZ0W15KaSfQDzRLFmM1u.jpg",
+    backdrop_path: "/5RWZPzDOcBJ7h5VQ0AGMUvGBKDu.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2012-07-07",
+    vote_average: 8.1,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Portuguese • Spanish • 20+ Subtitles",
+    overview: "Players of a virtual reality MMORPG are trapped in the game — dying in-game means dying in real life. Kirito fights his way to the top floor to unlock freedom."
+  },
+  {
+    id: 72636,
+    title: "Hunter x Hunter",
+    name: "Hunter x Hunter (2011)",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 6,
+    poster_path: "/4dMHDBE8PaSGRRDDwARoFZSiamP.jpg",
+    backdrop_path: "/oL86UNs8mCPnT9PNTlwMjJJJGJ9.jpg",
+    ott: "crunchyroll",
+    first_air_date: "2011-10-02",
+    vote_average: 9.0,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Portuguese • Spanish • 20+ Subtitles",
+    overview: "12-year-old Gon Freecss discovers his father is a legendary Hunter and sets out to find him, meeting lifelong friends along a journey through incredible battles and dark story arcs."
+  },
+  {
+    id: 890,
+    title: "Pokemon",
+    name: "Pokemon",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 25,
+    poster_path: "/xOBmAI5bZxOPYeRSGBjBerFphrS.jpg",
+    backdrop_path: "/wjt5M1GNZB1P2yTjD44MXAA5x60.jpg",
+    ott: "netflix",
+    first_air_date: "1997-04-01",
+    vote_average: 8.5,
+    genre_ids: [16, 10759, 10765],
+    isAnime: true,
+    audioTracksLabel: "Hindi Dub (Cartoon Network/Disney) • English Dub • Tamil Dub • Telugu Dub • Japanese (Original) • 20+ Languages",
+    overview: "Ash Ketchum's legendary journey to become the greatest Pokemon Master alongside Pikachu. Beloved by every 90s and 2000s Indian kid across Hindi, Tamil, and Telugu Cartoon Network dubs."
+  },
+  {
+    id: 31917,
+    title: "Death Note",
+    name: "Death Note",
+    original_language: "ja",
+    origin_country: ["JP"],
+    totalSeasons: 1,
+    poster_path: "/2wyj5JszmNBMOCnGqr6GKUM5pgj.jpg",
+    backdrop_path: "/AvnGKJv0fPKGRETSmIJABfQFuKv.jpg",
+    ott: "netflix",
+    first_air_date: "2006-10-04",
+    vote_average: 9.0,
+    genre_ids: [16, 9648, 80],
+    isAnime: true,
+    audioTracksLabel: "Japanese (Original) • English Dub • Hindi Dub • Tamil Dub • Telugu Dub • 20+ Subtitles",
+    overview: "Light Yagami discovers a supernatural notebook that kills anyone whose name is written in it, and uses it to become God of a new world — until detective L begins his hunt."
+  },
+  {
+    id: 1413,
+    title: "Family Guy",
+    name: "Family Guy",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 22,
+    poster_path: "/cJYjGIp2JFEALXKYCECTSKDqgb9.jpg",
+    backdrop_path: "/dBYJR8kVrWrQrz4NVLKAZ0A5f4c.jpg",
+    ott: "hotstar",
+    first_air_date: "1999-01-31",
+    vote_average: 8.0,
+    genre_ids: [16, 35],
+    isAnime: false,
+    audioTracksLabel: "English (Original) • Hindi Dub • Multi-Subs",
+    overview: "The hilarious misadventures of the Griffin family — Peter, Lois, Meg, Chris, Stewie, and Brian — in Quahog, Rhode Island. Adult animated comedy gold across 400+ episodes."
+  },
+  {
+    id: 1408,
+    title: "The Simpsons",
+    name: "The Simpsons",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 35,
+    poster_path: "/q8JAtd0vOGiInRZ7bNzEBNxMBqX.jpg",
+    backdrop_path: "/lhB7Vs7O3rKjZZDLAtcJPFLHp5i.jpg",
+    ott: "hotstar",
+    first_air_date: "1989-12-17",
+    vote_average: 8.1,
+    genre_ids: [16, 35],
+    isAnime: false,
+    audioTracksLabel: "English (Original) • Hindi Dub • Multi-Subs",
+    overview: "Homer, Marge, Bart, Lisa and Maggie Simpson navigate life in Springfield — America's longest running primetime animated series with 35 seasons of comedy, satire and heart."
+  }
+];
+
+
 // ═══════════════════════════════════════════════════════════════════
 function isTmdbId(id) {
   return !String(id).startsWith("tt");
@@ -703,15 +1066,18 @@ const STREAM_SERVERS = {
     badge: "MAIN STREAM",
     desc: "Primary high-speed CDN stream with zero buffering and instant playback for movies, series & anime",
     hasMultiAudio: false,
+    isAnimeFriendly: true,
     movie: (id) => `https://embedwave.cc/embed/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://embedwave.cc/embed/tv/${id}/${s}/${e}`
   },
-  // Server 2: VidLink Pro (Ultra HD 4K with Multi-Audio & Subtitles)
+  // Server 2: VidLink Pro (Ultra HD 4K with Multi-Audio & Subtitles — Best for Anime Dubs)
   vidlink: {
-    name: "Server 2: VidLink Pro (Ultra HD • Multi-Audio)",
-    badge: "MULTI-AUDIO 4K",
-    desc: "Verified 4K/1080p stream with built-in Multi-Audio (Hindi, Tamil, Telugu, Malayalam, English, Japanese) & Subtitles",
+    name: "Server 2: VidLink Pro (Anime Dubs & Multi-Audio)",
+    badge: "ANIME DUBS",
+    desc: "Best for anime: Japanese original + Hindi/English/Tamil/Telugu dubs & 20+ subtitle tracks. 4K stream.",
     hasMultiAudio: true,
+    isAnimeFriendly: true,
+    isAnimeRecommended: true,
     movie: (id) => `https://vidlink.pro/movie/${id}?primaryColor=ff0033&secondaryColor=111111&iconColor=ffffff&icons=vid&nextbutton=true`,
     tv: (id, s = 1, e = 1) => `https://vidlink.pro/tv/${id}/${s}/${e}?primaryColor=ff0033&secondaryColor=111111&iconColor=ffffff&icons=vid&nextbutton=true`
   },
@@ -721,15 +1087,18 @@ const STREAM_SERVERS = {
     badge: "HIGH SPEED",
     desc: "Ultra-fast direct cloud mirror with zero buffering across movies, web series, and anime",
     hasMultiAudio: false,
+    isAnimeFriendly: true,
     movie: (id) => `https://vidsrc.su/embed/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://vidsrc.su/embed/tv/${id}/${s}/${e}`
   },
-  // Server 4: 2Embed (Dedicated Anime Hub & Global CDN)
+  // Server 4: 2Embed (Dedicated Anime Hub — Japanese Original + Dubs + Subs)
   twoembed: {
-    name: "Server 4: 2Embed (Global & Anime CDN)",
-    badge: "GLOBAL CDN",
-    desc: "Renowned global anime and series node with Japanese original audio, English/Hindi dubs & multi-subs",
+    name: "Server 4: 2Embed (Anime Hub — JPN/DUB/SUB)",
+    badge: "ANIME HUB",
+    desc: "Dedicated anime node: Japanese original audio, English/Hindi dubs & 20+ subtitle tracks. Best for Crunchyroll anime.",
     hasMultiAudio: true,
+    isAnimeFriendly: true,
+    isAnimeRecommended: true,
     movie: (id) => `https://www.2embed.cc/embed/${id}`,
     tv: (id, s = 1, e = 1) => `https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}`
   },
@@ -739,6 +1108,7 @@ const STREAM_SERVERS = {
     badge: "DIRECT CDN",
     desc: "Direct CDN node with instant buffering for movies and TV series",
     hasMultiAudio: false,
+    isAnimeFriendly: true,
     movie: (id) => `https://vidsrc.pm/embed/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://vidsrc.pm/embed/tv/${id}/${s}/${e}`
   },
@@ -748,6 +1118,7 @@ const STREAM_SERVERS = {
     badge: "REALITY HUB",
     desc: "High-compatibility cloud node dedicated to reality TV shows, web series, and regional releases",
     hasMultiAudio: false,
+    isAnimeFriendly: false,
     movie: (id) => `https://netmirror.center/movie/${id}/?embed=1`,
     tv: (id, s = 1, e = 1) => `https://netmirror.center/tv/${id}/?season=${s}&episode=${e}&embed=1`
   },
@@ -755,8 +1126,9 @@ const STREAM_SERVERS = {
   multiembed: {
     name: "Server 7: MultiEmbed (Global Cloud)",
     badge: "GLOBAL EMBED",
-    desc: "Global multi-source streaming aggregator with high coverage across TV series and reality shows",
+    desc: "Global multi-source streaming aggregator with high coverage across TV series, anime and reality shows",
     hasMultiAudio: false,
+    isAnimeFriendly: true,
     movie: (id) => `https://multiembed.mov/?video_id=${id}&tmdb=1`,
     tv: (id, s = 1, e = 1) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
   },
@@ -764,17 +1136,20 @@ const STREAM_SERVERS = {
   smashystream: {
     name: "Server 8: SmashyStream (Fast CDN)",
     badge: "FAST CDN",
-    desc: "Fast responsive media streaming node supporting full TV and reality show catalog",
+    desc: "Fast responsive media streaming node supporting full TV, anime and reality show catalog",
     hasMultiAudio: false,
+    isAnimeFriendly: true,
     movie: (id) => `https://player.smashy.stream/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://player.smashy.stream/tv/${id}?s=${s}&e=${e}`
   },
-  // Server 9: AutoEmbed (Direct Edge Player)
+  // Server 9: AutoEmbed (Direct Edge Player — Anime & Cartoon Friendly)
   autoembed: {
-    name: "Server 9: AutoEmbed (Direct Edge)",
-    badge: "DIRECT EDGE",
-    desc: "Direct low-latency edge player with automated source discovery for series and movies",
-    hasMultiAudio: false,
+    name: "Server 9: AutoEmbed (Anime & Cartoons)",
+    badge: "ANIME/CARTOONS",
+    desc: "Direct low-latency player with strong anime & cartoon coverage including dubbed and subbed tracks",
+    hasMultiAudio: true,
+    isAnimeFriendly: true,
+    isAnimeRecommended: true,
     movie: (id) => `https://player.autoembed.cc/embed/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}`
   },
@@ -782,12 +1157,16 @@ const STREAM_SERVERS = {
   vidsrccc: {
     name: "Server 10: VidSrc CC (Backup Stream)",
     badge: "BACKUP NODE",
-    desc: "Secondary verified cloud mirror for movies, series, and reality shows",
+    desc: "Secondary verified cloud mirror for movies, series, anime and reality shows",
     hasMultiAudio: false,
+    isAnimeFriendly: true,
     movie: (id) => `https://vidsrc.cc/v2/embed/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`
   }
 };
+
+// Anime-specific server priority order (best for Japanese + dubbed content)
+const ANIME_SERVER_PRIORITY = ["vidlink", "twoembed", "autoembed", "vidsrcsu", "embedwave"];
 
 // ═══════════════════════════════════════════════════════════════════
 // 4. WATCH HISTORY & PROGRESS TRACKER (LOCALSTORAGE PERSISTENCE)
@@ -1663,6 +2042,16 @@ async function loadRowData(rowId, url, defaultOtt) {
       items = CURATED_REALITY_SHOWS.map(show => adaptTmdbItem(show, "tv", show.ott));
     }
 
+    // Pre-seed anime row with curated anime & cartoon shows (One Piece, AoT, Demon Slayer, Doraemon, Shinchan, etc.)
+    if (rowId === "sec-anime" && typeof CURATED_ANIME_SHOWS !== "undefined") {
+      items = CURATED_ANIME_SHOWS.map(show => {
+        const adapted = adaptTmdbItem(show, "tv", show.ott);
+        adapted.isAnime = show.isAnime !== false; // preserve anime flag
+        adapted.audioTracksLabel = show.audioTracksLabel || adapted.audioTracksLabel;
+        return adapted;
+      });
+    }
+
     try {
       const res = await fetch(url);
       if (res.ok) {
@@ -2072,27 +2461,53 @@ async function fetchFilterItems(page = 1, isInitial = false) {
   STATE.isFetchingMore = true;
 
   try {
-    const defaultType = STATE.activeFilterType === "tv" || STATE.activeCategory === "series" || STATE.activeCategory === "reality" || STATE.activePlatform === "crunchyroll" ? "tv" : "movie";
+    const defaultType = STATE.activeFilterType === "tv" || STATE.activeCategory === "series" || STATE.activeCategory === "reality" || STATE.activeCategory === "anime" || STATE.activePlatform === "crunchyroll" ? "tv" : "movie";
     const currentOtt = STATE.activePlatform !== "all" ? STATE.activePlatform : null;
 
-    // 1. Gather curated reality shows if viewing Reality Shows or if curated items match current active filters
+    // 1. Gather curated shows based on active category
     let curatedItems = [];
-    if (isInitial && typeof CURATED_REALITY_SHOWS !== "undefined") {
-      let preList = CURATED_REALITY_SHOWS;
-      if (STATE.activeCategory === "reality") {
-        if (STATE.activeLanguage !== "all") {
-          preList = preList.filter(s => s.original_language === STATE.activeLanguage);
-        }
-        if (STATE.activePlatform !== "all") {
+    if (isInitial) {
+      // Curated reality shows
+      if (typeof CURATED_REALITY_SHOWS !== "undefined") {
+        let preList = CURATED_REALITY_SHOWS;
+        if (STATE.activeCategory === "reality") {
+          if (STATE.activeLanguage !== "all") {
+            preList = preList.filter(s => s.original_language === STATE.activeLanguage);
+          }
+          if (STATE.activePlatform !== "all") {
+            preList = preList.filter(s => s.ott === STATE.activePlatform);
+          }
+          curatedItems = preList.map(s => adaptTmdbItem(s, "tv", s.ott || currentOtt));
+        } else if (STATE.activePlatform !== "all") {
           preList = preList.filter(s => s.ott === STATE.activePlatform);
+          if (STATE.activeLanguage !== "all") {
+            preList = preList.filter(s => s.original_language === STATE.activeLanguage);
+          }
+          curatedItems = preList.map(s => adaptTmdbItem(s, "tv", s.ott || currentOtt));
         }
-        curatedItems = preList.map(s => adaptTmdbItem(s, "tv", s.ott || currentOtt));
-      } else if (STATE.activePlatform !== "all") {
-        preList = preList.filter(s => s.ott === STATE.activePlatform);
-        if (STATE.activeLanguage !== "all") {
-          preList = preList.filter(s => s.original_language === STATE.activeLanguage);
+      }
+
+      // Curated anime & cartoon shows — shown on "anime" category or "crunchyroll" platform
+      if (typeof CURATED_ANIME_SHOWS !== "undefined" &&
+          (STATE.activeCategory === "anime" || STATE.activePlatform === "crunchyroll")) {
+        let animeList = CURATED_ANIME_SHOWS;
+        if (STATE.activePlatform !== "all" && STATE.activePlatform !== "crunchyroll") {
+          animeList = animeList.filter(s => s.ott === STATE.activePlatform);
         }
-        curatedItems = preList.map(s => adaptTmdbItem(s, "tv", s.ott || currentOtt));
+        const animeItems = animeList.map(s => {
+          const adapted = adaptTmdbItem(s, "tv", s.ott || "crunchyroll");
+          adapted.isAnime = s.isAnime !== false;
+          adapted.audioTracksLabel = s.audioTracksLabel || adapted.audioTracksLabel;
+          return adapted;
+        });
+        // Merge with any reality curated items (avoid duplicates)
+        const existingIds = new Set(curatedItems.map(x => String(x.id)));
+        animeItems.forEach(ai => {
+          if (!existingIds.has(String(ai.id))) {
+            curatedItems.push(ai);
+            existingIds.add(String(ai.id));
+          }
+        });
       }
     }
 
@@ -2909,9 +3324,16 @@ function openPlayer(item, season = null, episode = null) {
     (item.audioTracks && item.audioTracks.length > 1) ||
     (item.audioTracksLabel && (item.audioTracksLabel.includes("Hindi") || item.audioTracksLabel.includes("Tamil") || item.audioTracksLabel.includes("Malayalam")));
 
-  // Default to Server 1: EmbedWave if activeServer not in STREAM_SERVERS
+  // Smart default server selection:
+  // For anime/cartoons → auto-pick Server 2 (VidLink Pro) which has Japanese + dub support
+  // For everything else → Server 1 (EmbedWave) for fastest stream
+  const isAnimaItem = item.isAnime || item.lang === 'ja' || item.lang === 'anime' ||
+    item.ott === 'crunchyroll' || (item.origin_country && item.origin_country.includes('JP')) ||
+    (item.genres && (item.genres.includes('Animation') || item.genres.includes('Anime')));
+
   if (!STATE.activeServer || !STREAM_SERVERS[STATE.activeServer]) {
-    STATE.activeServer = "embedwave";
+    // Auto-select best server for content type
+    STATE.activeServer = isAnimaItem ? "vidlink" : "embedwave";
   }
 
   // Synchronize server button active state
