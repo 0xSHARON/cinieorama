@@ -1316,20 +1316,82 @@ html, body {
 }
 .season-tabs-row {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.season-jump-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #141414;
+  padding: 6px 12px;
+  border: 1px solid #333;
+  width: fit-content;
+}
+.season-jump-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--brutal-yellow);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+.modal-season-select {
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  background: #000;
+  color: #fff;
+  border: 1px solid #555;
+  cursor: pointer;
+  border-radius: 0;
+}
+.modal-season-select:focus {
+  border-color: var(--netflix-red);
+  outline: none;
+}
+.season-tabs-scroll-wrap {
+  display: flex;
   gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0 8px;
+  max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--netflix-red) #111;
+  -webkit-overflow-scrolling: touch;
+}
+.season-tabs-scroll-wrap::-webkit-scrollbar {
+  height: 5px;
+}
+.season-tabs-scroll-wrap::-webkit-scrollbar-thumb {
+  background: var(--netflix-red);
+}
+.season-tabs-scroll-wrap::-webkit-scrollbar-track {
+  background: #111;
 }
 .season-tab {
-  background: #222;
-  border: 1px solid #444;
-  color: #fff;
+  background: #1e1e1e;
+  border: 1px solid #383838;
+  color: #ccc;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  padding: 4px 10px;
+  font-weight: 800;
+  padding: 6px 14px;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+.season-tab:hover {
+  background: #2a2a2a;
+  border-color: #fff;
+  color: #fff;
 }
 .season-tab.active {
   background: var(--netflix-red);
-  border-color: #000;
+  border-color: #ff0033;
+  color: #fff;
+  box-shadow: 2px 2px 0px #000;
 }
 /* Enhanced Episode Section with Thumbnails */
 .episodes-container {
@@ -1748,6 +1810,9 @@ html, body {
   width: 100%;
   aspect-ratio: 16 / 9;
   background: #000000;
+  overflow: hidden;
+  transform: translateZ(0);
+  will-change: transform;
 }
 .player-loader {
   position: absolute;
@@ -1755,14 +1820,17 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #070707;
+  background: rgba(8, 8, 8, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 14px;
-  z-index: 2;
-  transition: opacity 0.3s ease;
+  z-index: 10;
+  transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
 }
 .brutal-spinner {
   width: 48px;

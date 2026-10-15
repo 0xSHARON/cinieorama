@@ -30,6 +30,7 @@ const TMDB_CONFIG = {
   baseUrl: "https://api.tmdb.org/3",
   apiKey: "4e44d9029b1270a757cddc766a1bcb63",
   imgBase: "https://image.tmdb.org/t/p/w500",
+  imageBase: "https://image.tmdb.org/t/p",
   backdropBase: "https://image.tmdb.org/t/p/original"
 };
 
@@ -682,7 +683,7 @@ function adaptTmdbItem(raw, defaultType = "movie", defaultOtt = null) {
     ? ["Reality TV", "Entertainment", "Episodes"]
     : (isAnime
       ? ["Anime", "Japanese", "Multi-Audio"]
-      : (isAnimated ? ["Animation", "Family", "Multi-Audio"] : ["Cinema", "Stream", "Multi-Audio"]));
+      : (isAnimated ? ["Animation", "Family", "Multi-Audio"] : ["Movies", "Cinema", "Multi-Audio"]));
 
   const adapted = {
     id: raw.id,
@@ -801,7 +802,7 @@ async function renderCatalog() {
     container.appendChild(watchlistRow);
   }
 
-  // Curated Pre-Seeded Reality TV Shows (Bigg Boss Hindi/Malayalam/Tamil/Telugu, Kapil Show, Shark Tank India, Roadies, Splitsvilla)
+  // Curated Pre-Seeded Reality TV Shows (Bigg Boss Hindi 20 Seasons, Roadies 21 Seasons, Splitsvilla 16 Seasons, etc.)
   const CURATED_REALITY_SHOWS = [
     {
       id: 11436,
@@ -809,13 +810,14 @@ async function renderCatalog() {
       name: "Bigg Boss",
       original_language: "hi",
       origin_country: ["IN"],
+      totalSeasons: 20,
       poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
       backdrop_path: "/hyPQPnMLlUqmLuFpzoUe6Hp8oXG.jpg",
       ott: "jio",
       first_air_date: "2006-11-03",
       vote_average: 8.6,
       genre_ids: [10764],
-      overview: "Hosted by Salman Khan. Celebrities are locked inside an isolated, camera-rigged house under constant 24/7 surveillance, facing high-tension tasks, nominations, and explosive drama."
+      overview: "Hosted by Salman Khan. Celebrities are locked inside an isolated, camera-rigged house under constant 24/7 surveillance, facing high-tension tasks, nominations, and explosive drama across 20 blockbuster seasons."
     },
     {
       id: 80372,
@@ -823,6 +825,7 @@ async function renderCatalog() {
       name: "Bigg Boss",
       original_language: "ml",
       origin_country: ["IN"],
+      totalSeasons: 8,
       poster_path: "/o75RAzbauCTLnchulrlLGK3mTgo.jpg",
       backdrop_path: "/cogvLaZrWRZYjSgRHTvVhkORbPj.jpg",
       ott: "hotstar",
@@ -837,6 +840,7 @@ async function renderCatalog() {
       name: "The Great Indian Kapil Show",
       original_language: "hi",
       origin_country: ["IN"],
+      totalSeasons: 2,
       poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
       backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
       ott: "netflix",
@@ -851,13 +855,14 @@ async function renderCatalog() {
       name: "Shark Tank India",
       original_language: "hi",
       origin_country: ["IN"],
+      totalSeasons: 5,
       poster_path: "/iGw6R4e4G07xjffVifFLSN3dEAb.jpg",
       backdrop_path: "/tLL91JBiCCvBF7oKSN6dFR7yd8c.jpg",
       ott: "sonyliv",
       first_air_date: "2021-12-20",
       vote_average: 8.5,
       genre_ids: [10764],
-      overview: "Aspiring Indian entrepreneurs pitch their business models to a panel of self-made business titans ('Sharks') to secure life-changing investments and mentorship."
+      overview: "Aspiring Indian entrepreneurs pitch their business models to a panel of self-made business titans ('Sharks') to secure life-changing investments and mentorship across 5 seasons."
     },
     {
       id: 72908,
@@ -865,13 +870,14 @@ async function renderCatalog() {
       name: "Bigg Boss",
       original_language: "ta",
       origin_country: ["IN"],
+      totalSeasons: 10,
       poster_path: "/8O1LjYsGvLQY8XxajupuDwpaJa2.jpg",
       backdrop_path: "/wzHxE333DkZIlTLSuTgbqP23UP5.jpg",
       ott: "hotstar",
       first_air_date: "2017-06-25",
       vote_average: 8.4,
       genre_ids: [10764],
-      overview: "The mega Tamil reality phenomenon featuring intense house rivalries, psychological warfare, dramatic twists, and public eliminations."
+      overview: "The mega Tamil reality phenomenon featuring intense house rivalries, psychological warfare, dramatic twists, and public eliminations across 10 seasons."
     },
     {
       id: 73085,
@@ -879,13 +885,14 @@ async function renderCatalog() {
       name: "Bigg Boss",
       original_language: "te",
       origin_country: ["IN"],
+      totalSeasons: 10,
       poster_path: "/f0NBdGndpAc7ySIqE9eQlE3tkOo.jpg",
       backdrop_path: "/bt1utXk5wn1zcUSv6WWlt55iSmV.jpg",
       ott: "hotstar",
       first_air_date: "2017-07-16",
       vote_average: 8.3,
       genre_ids: [10764],
-      overview: "Hosted by King Akkineni Nagarjuna. South cinema stars and social influencers face emotional trials, captaincy tasks, and nominations in Hyderabad."
+      overview: "Hosted by King Akkineni Nagarjuna. South cinema stars and social influencers face emotional trials, captaincy tasks, and nominations in Hyderabad across 10 seasons."
     },
     {
       id: 130780,
@@ -893,6 +900,7 @@ async function renderCatalog() {
       name: "Bigg Boss OTT",
       original_language: "hi",
       origin_country: ["IN"],
+      totalSeasons: 3,
       poster_path: "/ev0pJtwCG0oeaQHSO2VToMEPyne.jpg",
       backdrop_path: "/1Oh6jcDYkjtndtgWw58Afh3qyEt.jpg",
       ott: "jio",
@@ -907,13 +915,14 @@ async function renderCatalog() {
       name: "MTV Splitsvilla",
       original_language: "hi",
       origin_country: ["IN"],
+      totalSeasons: 16,
       poster_path: "/hbdX2LLJhJemnf3HLodwhjwNaFx.jpg",
       backdrop_path: "/b09hHDE3xNMUxAHCn453Hk0C9Nh.jpg",
       ott: "jio",
       first_air_date: "2008-06-20",
       vote_average: 8.0,
       genre_ids: [10764],
-      overview: "Young singles check into a luxury retreat searching for love and supremacy, navigating wild date twists, mischief makers, dome sessions, and toxic eliminations."
+      overview: "Young singles check into a luxury retreat searching for love and supremacy, navigating wild date twists, mischief makers, dome sessions, and toxic eliminations across 16 seasons."
     },
     {
       id: 8426,
@@ -921,13 +930,14 @@ async function renderCatalog() {
       name: "MTV Roadies",
       original_language: "hi",
       origin_country: ["IN"],
+      totalSeasons: 21,
       poster_path: "/rxuX0kszEyVJLDVIZLiZHOcM65y.jpg",
       backdrop_path: "/2kEe8kiXc0cJUdmwIjnhXwxIEPL.jpg",
       ott: "jio",
       first_air_date: "2003-08-15",
       vote_average: 8.1,
       genre_ids: [10764],
-      overview: "India's longest-running youth adventure reality show. Gang leaders battle across extreme terrains on motorcycles, facing grueling survival tests and vote-outs."
+      overview: "India's longest-running youth adventure reality show. Gang leaders battle across extreme terrains on motorcycles, facing grueling survival tests and vote-outs across 21 seasons."
     },
     {
       id: 7523,
@@ -935,13 +945,14 @@ async function renderCatalog() {
       name: "Fear Factor: Khatron Ke Khiladi",
       original_language: "hi",
       origin_country: ["IN"],
+      totalSeasons: 12,
       poster_path: "/1PBuOGJ6uJKu5MIKXEGrP6Ti4ic.jpg",
       backdrop_path: "/1PBuOGJ6uJKu5MIKXEGrP6Ti4ic.jpg",
       ott: "jio",
       first_air_date: "2008-07-21",
       vote_average: 8.2,
       genre_ids: [10764],
-      overview: "Hosted by action maestro Rohit Shetty. Celebrities face terrifying adrenaline stunts involving high-altitude jumps, fire, wild predators, and deep-water cages."
+      overview: "Hosted by action maestro Rohit Shetty. Celebrities face terrifying adrenaline stunts involving high-altitude jumps, fire, wild predators, and deep-water cages across 12 seasons."
     },
     {
       id: 80386,
@@ -949,13 +960,14 @@ async function renderCatalog() {
       name: "Bigg Boss",
       original_language: "kn",
       origin_country: ["IN"],
+      totalSeasons: 11,
       poster_path: "/appTzzKcwZvksjtiwkVfqT3zyZl.jpg",
       backdrop_path: "/sIHsoe6Qg4RvwmOvTXvp6szR2f8.jpg",
       ott: "jio",
       first_air_date: "2013-03-24",
       vote_average: 8.3,
       genre_ids: [10764],
-      overview: "Hosted by Kiccha Sudeep. Sandalwood stars and public personalities live together in the Bigg Boss house, facing tasks, eliminations, and intense public voting."
+      overview: "Hosted by Kiccha Sudeep. Sandalwood stars and public personalities live together in the Bigg Boss house, facing tasks, eliminations, and intense public voting across 11 seasons."
     },
     {
       id: 80435,
@@ -963,13 +975,14 @@ async function renderCatalog() {
       name: "Bigg Boss Marathi",
       original_language: "mr",
       origin_country: ["IN"],
+      totalSeasons: 5,
       poster_path: "/k7t9rasrRd5pmzpYEc9JmfN54WH.jpg",
       backdrop_path: "/anVkNevFHao1Vb9VITzM0f6pFLD.jpg",
       ott: "jio",
       first_air_date: "2018-04-15",
       vote_average: 8.2,
       genre_ids: [10764],
-      overview: "The high-voltage Marathi reality show bringing regional superstars and controversial personalities into one house for non-stop drama and challenges."
+      overview: "The high-voltage Marathi reality show bringing regional superstars and controversial personalities into one house for non-stop drama and challenges across 5 seasons."
     }
   ];
 
@@ -1961,12 +1974,38 @@ async function loadRealTvSeasons(item) {
   if (tabsContainer) tabsContainer.innerHTML = '<span style="color:#888;font-family:monospace">FETCHING SEASONS FROM TMDB…</span>';
   if (listContainer) listContainer.innerHTML = '<span style="color:#888;font-family:monospace">CONNECTING…</span>';
 
+  const knownShow = typeof CURATED_REALITY_SHOWS !== "undefined" && CURATED_REALITY_SHOWS.find(s => String(s.id) === String(item.id));
+  const expectedSeasonsCount = (knownShow && knownShow.totalSeasons) ? knownShow.totalSeasons : (item.totalSeasons || 0);
+
   if (isTmdbId(item.id)) {
     try {
       const res = await fetch(`${TMDB_CONFIG.baseUrl}/tv/${item.id}?api_key=${TMDB_CONFIG.apiKey}`);
       if (res.ok) {
         const tvData = await res.json();
-        const validSeasons = (tvData.seasons || []).filter(s => s.season_number > 0);
+        let validSeasons = (tvData.seasons || []).filter(s => s.season_number > 0);
+
+        // Ensure all seasons are present up to expected count (e.g. Bigg Boss 20 seasons, Roadies 21 seasons, Splitsvilla 16 seasons)
+        const maxKnownSeason = Math.max(
+          expectedSeasonsCount,
+          tvData.number_of_seasons || 0,
+          validSeasons.reduce((max, s) => Math.max(max, s.season_number), 0)
+        );
+
+        if (maxKnownSeason > validSeasons.length) {
+          const existingSeasonNums = new Set(validSeasons.map(s => s.season_number));
+          for (let sNum = 1; sNum <= maxKnownSeason; sNum++) {
+            if (!existingSeasonNums.has(sNum)) {
+              validSeasons.push({
+                season_number: sNum,
+                name: `Season ${sNum}`,
+                episode_count: 25
+              });
+            }
+          }
+        }
+
+        // Sort seasons in ascending numerical order
+        validSeasons.sort((a, b) => a.season_number - b.season_number);
 
         if (tvData.first_air_date && yearTag) {
           const startYr = tvData.first_air_date.slice(0, 4);
@@ -1976,7 +2015,16 @@ async function loadRealTvSeasons(item) {
 
         if (validSeasons.length > 0) {
           STATE.tvSeasons = validSeasons;
-          STATE.currentSeason = validSeasons[0].season_number;
+          const history = WATCH_HISTORY.getItem(item.id);
+          if (history && history.season) {
+            STATE.currentSeason = parseInt(history.season, 10);
+          } else if (validSeasons.length >= 6) {
+            // For long-running reality shows (e.g. Bigg Boss Season 20, Roadies 21), default to the latest season!
+            STATE.currentSeason = validSeasons[validSeasons.length - 1].season_number;
+          } else {
+            STATE.currentSeason = validSeasons[0].season_number;
+          }
+
           renderSeasonTabs(validSeasons);
           loadRealSeasonEpisodes(item.id, STATE.currentSeason);
           return;
@@ -1987,37 +2035,92 @@ async function loadRealTvSeasons(item) {
     }
   }
 
-  const dummySeasons = Array.from({ length: 3 }, (_, i) => ({
+  const fallbackCount = expectedSeasonsCount || 5;
+  const dummySeasons = Array.from({ length: fallbackCount }, (_, i) => ({
     season_number: i + 1,
     name: `Season ${i + 1}`,
-    episode_count: 10
+    episode_count: 20
   }));
   STATE.tvSeasons = dummySeasons;
+  STATE.currentSeason = fallbackCount >= 6 ? fallbackCount : 1;
   renderSeasonTabs(dummySeasons);
-  renderFallbackEpisodes(10);
+  renderFallbackEpisodes(20);
 }
 
 function renderSeasonTabs(seasons) {
   const tabsContainer = document.getElementById("modalSeasonTabs");
   if (!tabsContainer) return;
 
-  tabsContainer.innerHTML = seasons.map(s => `
-    <button class="season-tab ${s.season_number === STATE.currentSeason ? 'active' : ''}" data-season="${s.season_number}">
-      SEASON ${s.season_number}
-    </button>
-  `).join("");
+  const total = seasons.length;
+
+  // Dropdown selector for rapid navigation on mobile/desktop for shows with many seasons (Bigg Boss 20, Roadies 21, etc.)
+  let dropdownHtml = "";
+  if (total > 5) {
+    dropdownHtml = `
+      <div class="season-jump-wrap">
+        <span class="season-jump-label">QUICK JUMP:</span>
+        <select id="modalSeasonSelectDropdown" class="brutal-select modal-season-select">
+          ${[...seasons].reverse().map(s => `
+            <option value="${s.season_number}" ${s.season_number === STATE.currentSeason ? 'selected' : ''}>
+              Season ${s.season_number} ${s.season_number === total ? '⚡ (Latest)' : ''}
+            </option>
+          `).join("")}
+        </select>
+      </div>
+    `;
+  }
+
+  tabsContainer.innerHTML = `
+    ${dropdownHtml}
+    <div class="season-tabs-scroll-wrap">
+      ${seasons.map(s => `
+        <button class="season-tab ${s.season_number === STATE.currentSeason ? 'active' : ''}" data-season="${s.season_number}">
+          SEASON ${s.season_number} ${s.season_number === total && total > 4 ? '⚡' : ''}
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  const dropdown = document.getElementById("modalSeasonSelectDropdown");
+  if (dropdown) {
+    dropdown.onchange = (e) => {
+      switchModalSeason(parseInt(e.target.value, 10));
+    };
+  }
 
   tabsContainer.querySelectorAll(".season-tab").forEach(tab => {
     tab.onclick = (e) => {
-      STATE.currentSeason = parseInt(e.target.dataset.season, 10);
-      tabsContainer.querySelectorAll(".season-tab").forEach(t => t.classList.toggle("active", parseInt(t.dataset.season, 10) === STATE.currentSeason));
-      if (isTmdbId(STATE.selectedMedia.id)) {
-        loadRealSeasonEpisodes(STATE.selectedMedia.id, STATE.currentSeason);
-      } else {
-        renderFallbackEpisodes(10);
-      }
+      const targetSeason = parseInt(e.currentTarget.dataset.season, 10);
+      switchModalSeason(targetSeason);
     };
   });
+
+  // Auto-scroll active season button into visible area
+  setTimeout(() => {
+    const activeBtn = tabsContainer.querySelector(`.season-tab[data-season="${STATE.currentSeason}"]`);
+    if (activeBtn) activeBtn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }, 50);
+}
+
+function switchModalSeason(seasonNum) {
+  STATE.currentSeason = seasonNum;
+  const tabsContainer = document.getElementById("modalSeasonTabs");
+  if (tabsContainer) {
+    tabsContainer.querySelectorAll(".season-tab").forEach(t => {
+      t.classList.toggle("active", parseInt(t.dataset.season, 10) === STATE.currentSeason);
+    });
+    const dropdown = document.getElementById("modalSeasonSelectDropdown");
+    if (dropdown) dropdown.value = seasonNum;
+
+    const activeBtn = tabsContainer.querySelector(`.season-tab[data-season="${STATE.currentSeason}"]`);
+    if (activeBtn) activeBtn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }
+
+  if (isTmdbId(STATE.selectedMedia.id)) {
+    loadRealSeasonEpisodes(STATE.selectedMedia.id, STATE.currentSeason);
+  } else {
+    renderFallbackEpisodes(20);
+  }
 }
 
 async function loadRealSeasonEpisodes(tvId, seasonNum) {
@@ -2027,7 +2130,7 @@ async function loadRealSeasonEpisodes(tvId, seasonNum) {
   listContainer.innerHTML = `
     <div style="grid-column:1/-1; padding:32px; text-align:center; font-family:monospace; color:#888">
       <div class="brutal-spinner" style="margin: 0 auto 10px; width:32px; height:32px"></div>
-      LOADING SEASON ${seasonNum} EPISODES &amp; THUMBNAILS FROM TMDB…
+      LOADING SEASON ${seasonNum} EPISODES &amp; 16:9 THUMBNAILS FROM TMDB…
     </div>
   `;
 
@@ -2042,7 +2145,7 @@ async function loadRealSeasonEpisodes(tvId, seasonNum) {
 
         listContainer.innerHTML = sData.episodes.map(ep => {
           const stillUrl = ep.still_path
-            ? `${TMDB_CONFIG.imageBase}/w500${ep.still_path}`
+            ? `https://image.tmdb.org/t/p/w500${ep.still_path}`
             : itemBackdrop;
           const isEpActive = (STATE.currentSeason === seasonNum && STATE.currentEpisode === ep.episode_number);
           const hasEpHistory = history && parseInt(history.season, 10) === seasonNum && parseInt(history.episode, 10) === ep.episode_number;
@@ -2094,7 +2197,7 @@ async function loadRealSeasonEpisodes(tvId, seasonNum) {
     console.warn("Episode fetch failed:", e);
   }
 
-  renderFallbackEpisodes(10);
+  renderFallbackEpisodes(25);
 }
 
 function renderFallbackEpisodes(count) {
@@ -2620,7 +2723,7 @@ function populateInPlayerEpisodeDrawer() {
 
   drawerGrid.innerHTML = episodes.map(ep => {
     const stillUrl = ep.still_path
-      ? `${TMDB_CONFIG.imageBase}/w300${ep.still_path}`
+      ? `https://image.tmdb.org/t/p/w300${ep.still_path}`
       : itemBackdrop;
     const isActive = ep.episode_number === STATE.currentEpisode;
 
@@ -2689,7 +2792,7 @@ function loadStreamUrl() {
   updatePlayerMultiAudioBanner();
 
   const serverKey = STATE.activeServer;
-  const server = STREAM_SERVERS[serverKey] || STREAM_SERVERS.vidlink;
+  const server = STREAM_SERVERS[serverKey] || STREAM_SERVERS.embedwave;
 
   let streamUrl = "";
   if (item.type === "tv") {
@@ -2708,30 +2811,33 @@ function loadStreamUrl() {
   }
   if (statusMsg) {
     statusMsg.textContent = item.type === "tv"
-      ? `CONNECTING TO ${server.name.toUpperCase()} (S${STATE.currentSeason} : E${STATE.currentEpisode})…`
-      : `CONNECTING TO ${server.name.toUpperCase()}…`;
+      ? `STREAMING ${server.name.toUpperCase()} (S${STATE.currentSeason} : E${STATE.currentEpisode})…`
+      : `STREAMING ${server.name.toUpperCase()}…`;
   }
 
   if (iframe) {
+    iframe.loading = "eager";
+    iframe.setAttribute("allow", "autoplay; fullscreen; encrypted-media; picture-in-picture");
     iframe.src = streamUrl;
     iframe.onload = () => {
+      // Rapid instant fadeout so video is visible immediately
       setTimeout(() => {
         if (loader) {
           loader.style.opacity = "0";
           loader.style.pointerEvents = "none";
         }
-      }, 700);
+      }, 120);
     };
   }
 
-  // Auto-dismiss spinner watchdog if stream takes longer than 4.5s
+  // Fast auto-dismiss watchdog (2.2s) prevents any device from getting stuck in loading state
   if (STATE.playerWatchdogTimer) clearTimeout(STATE.playerWatchdogTimer);
   STATE.playerWatchdogTimer = setTimeout(() => {
     if (loader && loader.style.opacity !== "0") {
       loader.style.opacity = "0";
       loader.style.pointerEvents = "none";
     }
-  }, 4500);
+  }, 2200);
 
   const popoutBtn = document.getElementById("playerPopoutBtn");
   if (popoutBtn) {
