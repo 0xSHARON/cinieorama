@@ -2606,3 +2606,538 @@ html, body {
   text-decoration: underline;
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   16. MASTER RESPONSIVE SUITE FOR ALL SCREENS & DEVICES
+   (Mobile Small 320px, Mobile 480px, Tablet 768px, Laptop 1024px, 4K)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── 1. LARGE TABLETS & SMALL LAPTOPS (≤ 1024px) ─── */
+@media (max-width: 1024px) {
+  .nav-container {
+    padding: 10px 18px;
+    gap: 14px;
+  }
+  .nav-brand-group {
+    gap: 16px;
+  }
+  .hero-billboard {
+    min-height: 60vh;
+  }
+  .hero-container {
+    padding: 40px 24px 32px;
+  }
+  .hero-heading {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+  }
+  .modal-card {
+    max-width: 760px;
+  }
+  .footer-wrap {
+    gap: 28px;
+  }
+}
+
+/* ─── 2. STANDARD TABLETS & MOBILE SCREENS (≤ 768px) ─── */
+@media (max-width: 768px) {
+  /* Ticker */
+  .brutal-ticker {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+
+  /* Responsive Header & Navbar */
+  .navbar {
+    border-bottom-width: 2px;
+  }
+  .nav-container {
+    padding: 8px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .nav-brand-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+  }
+  .brand-logo {
+    gap: 6px;
+  }
+  .brand-badge {
+    width: 30px;
+    height: 30px;
+    font-size: 1.15rem;
+  }
+  .brand-title {
+    font-size: 1.35rem;
+    letter-spacing: -0.03em;
+  }
+  .brand-year {
+    font-size: 0.72rem;
+    padding: 1px 4px;
+  }
+  .nav-search-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .brutal-search {
+    flex: 1;
+    min-width: 0;
+  }
+  .brutal-search input {
+    font-size: 0.78rem;
+    padding: 7px 10px 7px 30px;
+  }
+  .search-symbol {
+    left: 8px;
+    font-size: 0.95rem;
+  }
+  .install-nav-btn {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    gap: 4px;
+  }
+
+  /* Horizontal Scrollable Menu Pill Strip */
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 4px 2px 2px 2px;
+    width: 100%;
+  }
+  .nav-menu::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    font-size: 0.72rem;
+  }
+
+  /* OTT Platforms & Regional Languages Bars */
+  .ott-bar {
+    padding: 6px 12px;
+  }
+  .ott-chips {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px;
+    gap: 6px;
+  }
+  .ott-chips::-webkit-scrollbar {
+    display: none;
+  }
+  .ott-pill {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+  }
+  .lang-bar {
+    padding: 6px 12px;
+  }
+  .lang-inner {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px;
+    gap: 6px;
+  }
+  .lang-inner::-webkit-scrollbar {
+    display: none;
+  }
+  .lang-pill {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+
+  /* Hero Billboard */
+  .hero-billboard {
+    min-height: 52vh;
+    border-bottom-width: 2px;
+  }
+  .hero-container {
+    padding: 24px 16px 20px;
+  }
+  .hero-heading {
+    font-size: clamp(1.6rem, 6.5vw, 2.6rem);
+    max-width: 100%;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 0px #000;
+  }
+  .hero-synopsis {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    margin-bottom: 14px;
+    max-width: 100%;
+  }
+  .hero-cta-group {
+    gap: 8px;
+  }
+  .hero-cta-group .brutal-btn {
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    gap: 6px;
+  }
+
+  /* Media Rows & Cards */
+  .catalog-row {
+    margin-bottom: 22px;
+  }
+  .row-header {
+    padding: 0 14px 8px;
+  }
+  .row-title {
+    font-size: 1.1rem;
+  }
+  .row-slider {
+    padding: 6px 14px 14px;
+    gap: 10px;
+    scroll-snap-type: x mandatory;
+  }
+  .row-arrow {
+    display: none !important; /* Touch swipe replaces desktop arrows */
+  }
+  .media-card {
+    flex: 0 0 148px;
+    scroll-snap-align: start;
+    border-width: 1.5px;
+    box-shadow: 3px 3px 0px #000;
+  }
+  .card-info {
+    padding: 8px 10px;
+  }
+  .card-title {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+  .card-genres {
+    font-size: 0.65rem;
+  }
+  .card-watchlist-btn {
+    top: 30px;
+    right: 4px;
+    padding: 2px 5px;
+    font-size: 0.58rem;
+  }
+
+  /* Media Grid (Search / Filter Views) */
+  .media-grid {
+    grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
+    gap: 10px;
+    padding: 14px;
+  }
+
+  /* Details Modal on Mobile */
+  .brutal-modal {
+    padding: 8px;
+    align-items: flex-end;
+  }
+  .modal-card {
+    width: 100%;
+    max-height: 92vh;
+    border-width: 2px;
+    box-shadow: 4px 4px 0px #000;
+    overflow-y: auto;
+  }
+  .modal-close {
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  .modal-backdrop-img {
+    height: 170px;
+  }
+  .modal-gradient {
+    height: 170px;
+  }
+  .modal-content {
+    flex-direction: column;
+    margin-top: -65px;
+    padding: 14px;
+    gap: 14px;
+  }
+  .modal-poster-wrap {
+    width: 130px;
+    margin: 0 auto;
+  }
+  .modal-meta-wrap {
+    gap: 10px;
+  }
+  .modal-title {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  .modal-tags-row, .modal-genres {
+    justify-content: center;
+  }
+  .modal-synopsis {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .modal-actions-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  .modal-actions-row .brutal-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+  }
+
+  /* Episode Cards on Mobile (Horizontal List View with Thumbnails) */
+  .episodes-container {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    max-height: 320px;
+    padding: 4px 2px;
+  }
+  .ep-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-width: 1.5px;
+    background: #141414;
+  }
+  .ep-thumb-wrap {
+    width: 115px;
+    height: 65px;
+    flex-shrink: 0;
+    aspect-ratio: auto;
+  }
+  .ep-badge-pill {
+    top: 4px;
+    left: 4px;
+    font-size: 0.6rem;
+    padding: 1px 4px;
+  }
+  .ep-duration-pill {
+    bottom: 4px;
+    right: 4px;
+    font-size: 0.58rem;
+    padding: 1px 4px;
+  }
+  .ep-card-body {
+    padding: 6px 10px;
+    min-width: 0;
+    flex: 1;
+  }
+  .ep-card-title {
+    font-size: 0.78rem;
+    margin: 0 0 2px;
+  }
+  .ep-card-overview {
+    font-size: 0.68rem;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+
+  /* Full-Screen Streaming Video Player on Mobile */
+  .brutal-player-modal {
+    padding: 0;
+  }
+  .player-box {
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border: 0;
+    box-shadow: none;
+    overflow-y: auto;
+  }
+  .player-topbar {
+    padding: 6px 10px;
+  }
+  .player-title {
+    font-size: 0.82rem;
+  }
+  .player-tools {
+    gap: 4px;
+  }
+  .brutal-tool-btn {
+    padding: 4px 6px;
+    font-size: 0.65rem;
+  }
+  .player-close-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+  .player-audio-banner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .audio-banner-right {
+    width: 100%;
+  }
+  .brutal-btn-multi-switch {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+  .server-btn-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    width: 100%;
+  }
+  .server-btn {
+    width: 100%;
+    padding: 7px 10px;
+    font-size: 0.7rem;
+    text-align: left;
+  }
+  .player-ep-drawer {
+    padding: 10px;
+    max-height: 220px;
+  }
+  .player-drawer-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+  }
+  .drawer-ep-title {
+    font-size: 0.72rem;
+  }
+
+  /* Install App Modal & Policy Modal on Mobile */
+  .install-modal-window, .policy-modal-card {
+    width: 100vw;
+    max-height: 94vh;
+    border-width: 2px;
+  }
+  .install-modal-body, .policy-modal-body {
+    padding: 14px;
+    gap: 14px;
+  }
+  .install-hero-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 14px;
+    gap: 12px;
+  }
+  .install-app-icon {
+    width: 72px;
+    height: 72px;
+  }
+  .install-action-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .install-action-row .brutal-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .os-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* Footer on Mobile */
+  .brutal-footer {
+    padding: 28px 14px 20px;
+  }
+  .footer-wrap {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .footer-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+/* ─── 3. ULTRA-COMPACT SMARTPHONES (≤ 380px) ─── */
+@media (max-width: 380px) {
+  .brand-badge {
+    width: 26px;
+    height: 26px;
+    font-size: 1rem;
+  }
+  .brand-title {
+    font-size: 1.15rem;
+  }
+  .install-nav-btn {
+    padding: 4px 6px;
+    font-size: 0.65rem;
+  }
+  .media-card {
+    flex: 0 0 130px;
+  }
+  .media-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    padding: 10px;
+  }
+  .hero-billboard {
+    min-height: 48vh;
+  }
+  .hero-heading {
+    font-size: 1.45rem;
+  }
+  .footer-columns {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+/* ─── 4. TOUCH DEVICE OPTIMIZATION (PHONES & TABLETS) ─── */
+@media (hover: none) and (pointer: coarse) {
+  .media-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-brutal);
+  }
+  .nav-tab:hover {
+    background: transparent;
+  }
+  .nav-tab.active {
+    background: #000;
+  }
+  .brutal-btn, .install-nav-btn, .nav-tab, .ott-pill, .lang-pill, .server-btn, .ep-card {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* ─── 5. ULTRA-WIDE & 4K DISPLAYS (≥ 1920px) ─── */
+@media (min-width: 1920px) {
+  .nav-container, .hero-container, .footer-wrap, .footer-bottom, .catalog-main {
+    max-width: 1880px;
+  }
+  .media-card {
+    flex: 0 0 210px;
+  }
+  .player-box {
+    max-width: 1540px;
+  }
+}
+
+

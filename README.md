@@ -1,7 +1,19 @@
-# 🎬 CINIEORAMA // NEO-BRUTALIST CINEMA STREAMING HUB
+<p align="center">
+  <img src="icon.svg" alt="Cinieorama Logo" width="128" height="128" />
+</p>
 
-> **Ultra-Fast, Zero-Registration Streaming Engine with Multi-Audio Regional Cinema, OTT Hubs, Cinema Ambilight & Client-Side Bookmarks.**  
-> *100% Client-Side Static Architecture — Fully Compatible with GitHub Pages, Cloudflare Pages, Vercel & Netlify.*
+<h1 align="center">CINIEORAMA // CINEMA &amp; ANIME HUB</h1>
+
+<p align="center">
+  <strong>Ultra-Fast, Zero-Registration Streaming Engine with Multi-Audio Regional Cinema, OTT Hubs, Cinema Ambilight, Episode Thumbnails &amp; Progressive Web App (PWA).</strong><br>
+  <em>100% Client-Side Static Architecture — Hosted live on GitHub Pages: <a href="https://0xsharon.github.io/cinieorama/">0xsharon.github.io/cinieorama</a></em>
+</p>
+
+<p align="center">
+  <a href="https://0xsharon.github.io/cinieorama/"><img src="https://img.shields.io/badge/Live_Site-GitHub_Pages-E50914?style=for-the-badge&logo=github" alt="Live Site" /></a>
+  <a href="INSTALL.md"><img src="https://img.shields.io/badge/PWA-Installable-FFCC00?style=for-the-badge&logo=pwa&logoColor=black" alt="PWA Installable" /></a>
+  <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-00E676?style=for-the-badge" alt="MIT License" /></a>
+</p>
 
 ---
 
