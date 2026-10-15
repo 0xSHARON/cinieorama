@@ -1,0 +1,150 @@
+# 🎬 CINIEORAMA // NEO-BRUTALIST CINEMA STREAMING HUB
+
+> **Ultra-Fast, Zero-Registration Streaming Engine with Multi-Audio Regional Cinema, OTT Hubs, Cinema Ambilight & Client-Side Bookmarks.**  
+> *100% Client-Side Static Architecture — Fully Compatible with GitHub Pages, Cloudflare Pages, Vercel & Netlify.*
+
+---
+
+## 🌟 Overview
+
+**CINIEORAMA** is a high-performance, dark-mode cinema streaming web application built with a **Neo-Brutalist + Netflix** aesthetic. It brings together content from major OTT platforms, regional Indian cinema hubs (Malayalam, Tamil, Telugu, Hindi, Kannada), Hollywood blockbusters, and Anime into a unified, lightning-fast streaming interface.
+
+All media indexing is queried dynamically from TMDB and public CDN endpoints with **zero hardcoded database entries**. User data (Watchlist and Continue Watching history) is stored 100% client-side in `localStorage`, eliminating the need for server-side databases or user authentication.
+
+---
+
+## 🚀 Key Features
+
+### 1. 💡 Cinema Ambilight Engine (Philips OLED Simulator)
+- **Reactive LED Backlight Halo:** Surrounds the video player in dark viewing sessions with a soft, breathing ambient aura that dynamically matches the dominant colors of the movie or show.
+- **Dynamic Color Extraction:** Samples colors directly from high-resolution poster artwork via HTML5 Canvas, falling back to curated platform-specific HDR palettes (Netflix Crimson, Prime Azure, Hotstar Deep Cyan, Jio Magenta, Crunchyroll Amber).
+- **One-Click Toggle:** Toggle Ambilight on or off via the `💡 AMBILIGHT: ON / OFF` button in the player control bar. User preference persists in `localStorage`.
+
+### 2. ★ "+ My Watchlist" Bookmarks System
+- **Quick Poster Bookmark Badge:** Every poster card features a sleek, high-contrast `+ LIST` badge. Click to instantly bookmark or remove titles without interrupting browsing.
+- **In-Modal Watchlist Button:** Seamlessly add or remove titles from the full movie/show details modal.
+- **Homepage Watchlist Slider:** A dedicated `+ MY WATCHLIST // SAVED TO STREAM` horizontal carousel appears right alongside Continue Watching whenever titles are saved.
+- **Top Navigation "★ MY LIST" Tab:** A dedicated navigation tab with a real-time badge count (`★ MY LIST (N)`) that opens a full-page grid view with filter chips (*All*, *Movies*, *Series/Anime*) and empty-state guidance.
+- **100% Client-Side:** Persists via `localStorage` under `cinieorama_watchlist` — no accounts, passwords, or tracking cookies.
+
+### 3. 🌐 Curated 5-Server Streaming Infrastructure (Movies, Shows & Anime)
+Cinieorama features a verified 5-server streaming node architecture that prioritizes reliable, zero-buffer playback without `X-Frame-Options` blocking:
+- **★ Server 1: EmbedWave (`embedwave.cc`) [DEFAULT]:** Primary zero-buffer stream node powered by global edge CDN.
+- **🎬 Server 2: VidLink Pro (`vidlink.pro`):** Ultra HD 4K streaming with Multi-Audio (Hindi, Tamil, Telugu, Malayalam, English, Japanese) and multi-language subtitles.
+- **⚡ Server 3: VidSrc SU (`vidsrc.su`):** High-speed cloud mirror node with instant playback across movies, web series, and anime.
+- **🎌 Server 4: 2Embed (`2embed.cc`):** Dedicated Anime hub & global CDN with Japanese original audio, English/Hindi dubs, and multi-subs.
+- **🚀 Server 5: VidSrc PM (`vidsrc.pm`):** Direct stream CDN node for fast failover.
+
+### 4. 🌴 Regional Indian Cinema & Composable Multi-Audio Hubs
+- **Mollywood (Malayalam):** Dedicated Malayalam cinema hub streaming blockbusters, crime thrillers, and indie films (`with_origin_country=IN`).
+- **Kollywood (Tamil):** High-octane Tamil action, drama, and regional releases.
+- **Tollywood (Telugu):** Mass Telugu commercial cinema and spectacles.
+- **Bollywood (Hindi):** Latest Hindi theatrical releases and streaming originals.
+- **Sandalwood (Kannada):** Kannada cinema hits.
+- **Multi-Audio Pan-India (`multi`):** Filter specifically for pan-India multi-audio titles spanning Hindi, Telugu, Tamil, Malayalam, and Kannada.
+- **Composable Filtering:** Combine OTT platform and regional language filters freely (e.g. Netflix + Malayalam or Prime Video + Telugu) without one filter clobbering the other. Click any active filter pill again to toggle it off.
+
+### 5. 📺 Authentic OTT Platform Direct Hubs
+Filtered discovery for major streaming platforms with authentic dynamic platform mapping and zero forced overrides:
+- **Netflix Originals**
+- **Amazon Prime Video Exclusives**
+- **Disney+ Hotstar Specials & Marvel**
+- **JioCinema Blockbusters & HBO**
+- **Sony LIV Crime Thrillers**
+- **ZEE5 Regional Cinema**
+- **Apple TV+ Award Winners & Sci-Fi**
+- **Crunchyroll Dubbed & Subbed Anime**
+
+### 6. ▶ In-Modal 4K Official Trailer Viewer
+- Live TMDB YouTube API integration providing official 4K trailers directly inside the details modal.
+- Multi-trailer switcher chips (`[TRAILER 1]`, `[TRAILER 2]`, `[TEASER]`).
+- Auto-dismisses trailer stream upon starting movie playback or closing modal.
+
+### 7. ⏱️ Continue Watching & Watch Progress Tracking
+- Automatically records stream start and increments progress every 15 seconds.
+- Interactive progress bar and scrub slider inside the player modal with quick jump shortcuts (+10%, +25%, +50%, +75%, +100%).
+- Card visual progress bar and `RESUME (X%)` buttons.
+- Dedicated `▶ CONTINUE WATCHING` page and homepage slider.
+
+### 8. 🔍 Real-Time Global Search
+- Debounced real-time search across 10,000+ movies, web series, and anime.
+- Dual-source querying combining TMDB Multi-Search and IMDb Public Suggestion API.
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+| Layer | Technology |
+|---|---|
+| **Structure** | Semantic HTML5 |
+| **Styling** | Vanilla CSS3 (Custom Design Tokens, Neo-Brutalist Layouts, Ambilight Glow, Glassmorphism) |
+| **Logic** | Vanilla Modern JavaScript (ES6+, Async/Await, IntersectionObserver, Canvas API) |
+| **Data Source** | TMDB REST API v3 (Live Discover, Search, Videos, Watch Providers) |
+| **Storage** | Client-Side Web Storage API (`localStorage`) |
+| **Deployment** | 100% Static (GitHub Pages, Vercel, Netlify, Cloudflare Pages) |
+
+---
+
+## 💻 Local Development & Setup
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-username/cinieorama.git
+   cd cinieorama
+   ```
+
+2. **Serve with Any Static HTTP Server:**
+   ```bash
+   # Using Node.js (included server.js):
+   node server.js
+
+   # Or using npx serve:
+   npx serve .
+
+   # Or using Python:
+   python -m http.server 3000
+   ```
+
+3. **Open in Browser:**
+   Navigate to `http://localhost:3000/`.
+
+---
+
+## 🚀 GitHub Pages Deployment
+
+Because Cinieorama is 100% static client-side JavaScript, it runs flawlessly on GitHub Pages:
+
+1. Push your repository to GitHub.
+2. Go to **Settings > Pages**.
+3. Under **Build and deployment > Source**, choose **Deploy from a branch**.
+4. Select `main` branch and `/ (root)` folder, then click **Save**.
+5. Your streaming portal will be live at `https://<username>.github.io/<repo-name>/`.
+
+---
+
+## ⌨️ Keyboard Shortcuts & Controls
+
+- **`Esc`**: Instantly close movie details modal or streaming video player.
+- **`‹ / ›`**: Scroll horizontal movie carousels left or right.
+- **`Popout`**: Open stream in an isolated, borderless window.
+
+---
+
+## 📚 Documentation & Project Guides
+
+- **[System Architecture](ARCHITECTURE.md):** Complete data flow, TMDB ingestion engine, and streaming node failover details.
+- **[Changelog](CHANGELOG.md):** Release notes and version history.
+- **[Terms of Service](TERMS.md):** Terms of use, permitted activities, and legal conditions.
+- **[Privacy Policy](POLICY.md):** Zero-telemetry guarantee and client-side data handling.
+- **[Contributing Guidelines](CONTRIBUTING.md):** How to run locally, test stream nodes, and open pull requests.
+- **[Security Policy](SECURITY.md):** Security practices, iframe isolation, and vulnerability reporting.
+- **[Code of Conduct](CODE_OF_CONDUCT.md):** Community engagement standards and pledge.
+- **[Content Disclaimer](DISCLAIMER.md):** Non-hosting policy, copyright, and DMCA notice.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE.md](LICENSE.md) file for details.
+
+**Disclaimer:** Cinieorama does not host, upload, or store any video media files on its servers. All media content is indexed from public third-party CDN streaming nodes. All trademarks, posters, and video properties belong to their respective owners.
