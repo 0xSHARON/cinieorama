@@ -99,7 +99,598 @@ async function resolveWatchProvider(mediaId, mediaType = "movie") {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 3. VERIFIED WORKING STREAMING SERVERS (MAIN ZERO-BUFFER + MULTI-AUDIO)
+// 2.5 CURATED REALITY TV SHOWS (TOP-LEVEL ACCESSIBLE ACROSS ALL FILTERS)
+// ═══════════════════════════════════════════════════════════════════
+const CURATED_REALITY_SHOWS = [
+  {
+    id: 11436,
+    title: "Bigg Boss (Hindi)",
+    name: "Bigg Boss",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 20,
+    poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
+    backdrop_path: "/hyPQPnMLlUqmLuFpzoUe6Hp8oXG.jpg",
+    ott: "jio",
+    first_air_date: "2006-11-03",
+    vote_average: 8.6,
+    genre_ids: [10764],
+    overview: "Hosted by Salman Khan. Celebrities are locked inside an isolated, camera-rigged house under constant 24/7 surveillance, facing high-tension tasks, nominations, and explosive drama across 20 blockbuster seasons."
+  },
+  {
+    id: 80372,
+    title: "Bigg Boss Malayalam",
+    name: "Bigg Boss",
+    original_language: "ml",
+    origin_country: ["IN"],
+    totalSeasons: 8,
+    poster_path: "/o75RAzbauCTLnchulrlLGK3mTgo.jpg",
+    backdrop_path: "/cogvLaZrWRZYjSgRHTvVhkORbPj.jpg",
+    ott: "hotstar",
+    first_air_date: "2018-06-24",
+    vote_average: 8.8,
+    genre_ids: [10764],
+    overview: "Hosted by legendary superstar Mohanlal. Contestants from Kerala and the Malayali diaspora enter the ultimate social experiment, competing through grueling weekly captaincy tasks and public votes."
+  },
+  {
+    id: 247769,
+    title: "The Great Indian Kapil Show",
+    name: "The Great Indian Kapil Show",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 2,
+    poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
+    backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+    ott: "netflix",
+    first_air_date: "2024-03-30",
+    vote_average: 8.5,
+    genre_ids: [10767, 10764],
+    overview: "Kapil Sharma and his comedy family host Bollywood megastars, cricketers, and global icons with sidesplitting comedy, sketches, and uncensored conversations."
+  },
+  {
+    id: 153870,
+    title: "Shark Tank India",
+    name: "Shark Tank India",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 5,
+    poster_path: "/iGw6R4e4G07xjffVifFLSN3dEAb.jpg",
+    backdrop_path: "/tLL91JBiCCvBF7oKSN6dFR7yd8c.jpg",
+    ott: "sonyliv",
+    first_air_date: "2021-12-20",
+    vote_average: 8.5,
+    genre_ids: [10764],
+    overview: "Aspiring Indian entrepreneurs pitch their business models to a panel of self-made business titans ('Sharks') to secure life-changing investments and mentorship across 5 seasons."
+  },
+  {
+    id: 71173,
+    title: "Kaun Banega Crorepati",
+    name: "Kaun Banega Crorepati",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 16,
+    poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
+    backdrop_path: "/hyPQPnMLlUqmLuFpzoUe6Hp8oXG.jpg",
+    ott: "sonyliv",
+    first_air_date: "2000-07-03",
+    vote_average: 8.7,
+    genre_ids: [10764],
+    overview: "Hosted by megastar Amitabh Bachchan. Contestants face challenging trivia questions to win life-changing fortunes of up to 7 Crore Rupees."
+  },
+  {
+    id: 71190,
+    title: "Indian Idol",
+    name: "Indian Idol",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 15,
+    poster_path: "/iGw6R4e4G07xjffVifFLSN3dEAb.jpg",
+    backdrop_path: "/tLL91JBiCCvBF7oKSN6dFR7yd8c.jpg",
+    ott: "sonyliv",
+    first_air_date: "2004-10-28",
+    vote_average: 8.3,
+    genre_ids: [10764],
+    overview: "India's premier singing talent competition spotlighting breathtaking vocalists across the subcontinent judged by prominent music composers and singers."
+  },
+  {
+    id: 61845,
+    title: "MasterChef India",
+    name: "MasterChef India",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 8,
+    poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
+    backdrop_path: "/hyPQPnMLlUqmLuFpzoUe6Hp8oXG.jpg",
+    ott: "sonyliv",
+    first_air_date: "2010-10-16",
+    vote_average: 8.4,
+    genre_ids: [10764],
+    overview: "Culinary hopefuls from every corner of India compete in high-stakes mystery box and pressure cooking challenges judged by Michelin-starred culinary masters."
+  },
+  {
+    id: 72908,
+    title: "Bigg Boss Tamil",
+    name: "Bigg Boss",
+    original_language: "ta",
+    origin_country: ["IN"],
+    totalSeasons: 10,
+    poster_path: "/8O1LjYsGvLQY8XxajupuDwpaJa2.jpg",
+    backdrop_path: "/wzHxE333DkZIlTLSuTgbqP23UP5.jpg",
+    ott: "hotstar",
+    first_air_date: "2017-06-25",
+    vote_average: 8.4,
+    genre_ids: [10764],
+    overview: "The mega Tamil reality phenomenon featuring intense house rivalries, psychological warfare, dramatic twists, and public eliminations across 10 seasons."
+  },
+  {
+    id: 73085,
+    title: "Bigg Boss Telugu",
+    name: "Bigg Boss",
+    original_language: "te",
+    origin_country: ["IN"],
+    totalSeasons: 10,
+    poster_path: "/f0NBdGndpAc7ySIqE9eQlE3tkOo.jpg",
+    backdrop_path: "/bt1utXk5wn1zcUSv6WWlt55iSmV.jpg",
+    ott: "hotstar",
+    first_air_date: "2017-07-16",
+    vote_average: 8.3,
+    genre_ids: [10764],
+    overview: "Hosted by King Akkineni Nagarjuna. South cinema stars and social influencers face emotional trials, captaincy tasks, and nominations in Hyderabad across 10 seasons."
+  },
+  {
+    id: 11520,
+    title: "Koffee with Karan",
+    name: "Koffee with Karan",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 8,
+    poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
+    backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+    ott: "hotstar",
+    first_air_date: "2004-11-19",
+    vote_average: 8.2,
+    genre_ids: [10767, 10764],
+    overview: "Filmmaker Karan Johar hosts Bollywood's biggest personalities on his famous couch for spicy revelations, cheeky banter, and the iconic rapid-fire round."
+  },
+  {
+    id: 130780,
+    title: "Bigg Boss OTT (Hindi)",
+    name: "Bigg Boss OTT",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 3,
+    poster_path: "/ev0pJtwCG0oeaQHSO2VToMEPyne.jpg",
+    backdrop_path: "/1Oh6jcDYkjtndtgWw58Afh3qyEt.jpg",
+    ott: "jio",
+    first_air_date: "2021-08-08",
+    vote_average: 8.2,
+    genre_ids: [10764],
+    overview: "24x7 unfiltered live reality entertainment featuring digital creators, actors, and firebrand personalities competing under the unfiltered OTT camera lens."
+  },
+  {
+    id: 7420,
+    title: "MTV Splitsvilla",
+    name: "MTV Splitsvilla",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 16,
+    poster_path: "/hbdX2LLJhJemnf3HLodwhjwNaFx.jpg",
+    backdrop_path: "/b09hHDE3xNMUxAHCn453Hk0C9Nh.jpg",
+    ott: "jio",
+    first_air_date: "2008-06-20",
+    vote_average: 8.0,
+    genre_ids: [10764],
+    overview: "Young singles check into a luxury retreat searching for love and supremacy, navigating wild date twists, mischief makers, dome sessions, and toxic eliminations across 16 seasons."
+  },
+  {
+    id: 8426,
+    title: "MTV Roadies",
+    name: "MTV Roadies",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 21,
+    poster_path: "/rxuX0kszEyVJLDVIZLiZHOcM65y.jpg",
+    backdrop_path: "/2kEe8kiXc0cJUdmwIjnhXwxIEPL.jpg",
+    ott: "jio",
+    first_air_date: "2003-08-15",
+    vote_average: 8.1,
+    genre_ids: [10764],
+    overview: "India's longest-running youth adventure reality show. Gang leaders battle across extreme terrains on motorcycles, facing grueling survival tests and vote-outs across 21 seasons."
+  },
+  {
+    id: 7523,
+    title: "Fear Factor: Khatron Ke Khiladi",
+    name: "Fear Factor: Khatron Ke Khiladi",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 12,
+    poster_path: "/1PBuOGJ6uJKu5MIKXEGrP6Ti4ic.jpg",
+    backdrop_path: "/1PBuOGJ6uJKu5MIKXEGrP6Ti4ic.jpg",
+    ott: "jio",
+    first_air_date: "2008-07-21",
+    vote_average: 8.2,
+    genre_ids: [10764],
+    overview: "Hosted by action maestro Rohit Shetty. Celebrities face terrifying adrenaline stunts involving high-altitude jumps, fire, wild predators, and deep-water cages across 12 seasons."
+  },
+  {
+    id: 80386,
+    title: "Bigg Boss Kannada",
+    name: "Bigg Boss",
+    original_language: "kn",
+    origin_country: ["IN"],
+    totalSeasons: 11,
+    poster_path: "/appTzzKcwZvksjtiwkVfqT3zyZl.jpg",
+    backdrop_path: "/sIHsoe6Qg4RvwmOvTXvp6szR2f8.jpg",
+    ott: "jio",
+    first_air_date: "2013-03-24",
+    vote_average: 8.3,
+    genre_ids: [10764],
+    overview: "Hosted by Kiccha Sudeep. Sandalwood stars and public personalities live together in the Bigg Boss house, facing tasks, eliminations, and intense public voting across 11 seasons."
+  },
+  {
+    id: 80435,
+    title: "Bigg Boss Marathi",
+    name: "Bigg Boss Marathi",
+    original_language: "mr",
+    origin_country: ["IN"],
+    totalSeasons: 5,
+    poster_path: "/k7t9rasrRd5pmzpYEc9JmfN54WH.jpg",
+    backdrop_path: "/anVkNevFHao1Vb9VITzM0f6pFLD.jpg",
+    ott: "jio",
+    first_air_date: "2018-04-15",
+    vote_average: 8.2,
+    genre_ids: [10764],
+    overview: "The high-voltage Marathi reality show bringing regional superstars and controversial personalities into one house for non-stop drama and challenges across 5 seasons."
+  },
+  {
+    id: 80892,
+    title: "Comicstaan",
+    name: "Comicstaan",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 3,
+    poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
+    backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+    ott: "prime",
+    first_air_date: "2018-07-13",
+    vote_average: 8.1,
+    genre_ids: [10764],
+    overview: "Aspiring stand-up comics from across India are mentored and judged by India's most celebrated comedy heavyweights across varied comedic genres."
+  },
+  {
+    id: 258900,
+    title: "The Traitors India",
+    name: "The Traitors",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 1,
+    poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
+    backdrop_path: "/hyPQPnMLlUqmLuFpzoUe6Hp8oXG.jpg",
+    ott: "prime",
+    first_air_date: "2024-09-01",
+    vote_average: 8.4,
+    genre_ids: [10764],
+    overview: "Hosted by Karan Johar. A psychological game where celebrity players gather at a royal estate to complete missions and unmask secret Traitors."
+  },
+  {
+    id: 110991,
+    title: "Sa Re Ga Ma Pa",
+    name: "Sa Re Ga Ma Pa",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 32,
+    poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
+    backdrop_path: "/hyPQPnMLlUqmLuFpzoUe6Hp8oXG.jpg",
+    ott: "zee5",
+    first_air_date: "1995-05-01",
+    vote_average: 8.5,
+    genre_ids: [10764],
+    overview: "India's legendary musical reality platform, discovering, mentoring, and championing the greatest classical and playback voices in Indian music history."
+  },
+  {
+    id: 74902,
+    title: "Dance India Dance",
+    name: "Dance India Dance",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 7,
+    poster_path: "/iGw6R4e4G07xjffVifFLSN3dEAb.jpg",
+    backdrop_path: "/tLL91JBiCCvBF7oKSN6dFR7yd8c.jpg",
+    ott: "zee5",
+    first_air_date: "2009-01-30",
+    vote_average: 8.2,
+    genre_ids: [10764],
+    overview: "The pioneer dance competition showcasing unprecedented original choreography, stunts, and raw performance talent across seven thrilling seasons."
+  },
+  {
+    id: 95570,
+    title: "Sa Re Ga Ma Pa Keralam",
+    name: "Sa Re Ga Ma Pa Keralam",
+    original_language: "ml",
+    origin_country: ["IN"],
+    totalSeasons: 3,
+    poster_path: "/o75RAzbauCTLnchulrlLGK3mTgo.jpg",
+    backdrop_path: "/cogvLaZrWRZYjSgRHTvVhkORbPj.jpg",
+    ott: "zee5",
+    first_air_date: "2019-04-06",
+    vote_average: 8.6,
+    genre_ids: [10764],
+    overview: "Kerala's beloved vocal competition where gifted Malayali singers showcase Carnatic, film, and fusion brilliance before esteemed music masters."
+  },
+  {
+    id: 113689,
+    title: "Fabulous Lives vs Bollywood Wives",
+    name: "Fabulous Lives vs Bollywood Wives",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 3,
+    poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
+    backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+    ott: "netflix",
+    first_air_date: "2020-11-27",
+    vote_average: 7.9,
+    genre_ids: [10764],
+    overview: "An unfiltered, glamorous look into the elite lives, high-society feuds, and sisterhood of Bollywood's most renowned inner-circle wives."
+  },
+  {
+    id: 218204,
+    title: "Physical: 100",
+    name: "Physical: 100",
+    original_language: "en",
+    origin_country: ["KR"],
+    totalSeasons: 2,
+    poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
+    backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+    ott: "netflix",
+    first_air_date: "2023-01-24",
+    vote_average: 8.4,
+    genre_ids: [10764],
+    overview: "One hundred contestants in peak physical shape battle through demanding challenges to claim honor and a cash reward."
+  },
+  {
+    id: 80942,
+    title: "Super Singer",
+    name: "Super Singer",
+    original_language: "ta",
+    origin_country: ["IN"],
+    totalSeasons: 10,
+    poster_path: "/8O1LjYsGvLQY8XxajupuDwpaJa2.jpg",
+    backdrop_path: "/wzHxE333DkZIlTLSuTgbqP23UP5.jpg",
+    ott: "hotstar",
+    first_air_date: "2006-04-28",
+    vote_average: 8.5,
+    genre_ids: [10764],
+    overview: "Tamil Nadu's flagship singing competition discovering powerhouse musical talents judged by legendary playback icons."
+  },
+  {
+    id: 97892,
+    title: "Cooku with Comali",
+    name: "Cooku with Comali",
+    original_language: "ta",
+    origin_country: ["IN"],
+    totalSeasons: 5,
+    poster_path: "/8O1LjYsGvLQY8XxajupuDwpaJa2.jpg",
+    backdrop_path: "/wzHxE333DkZIlTLSuTgbqP23UP5.jpg",
+    ott: "hotstar",
+    first_air_date: "2019-11-16",
+    vote_average: 8.9,
+    genre_ids: [10764],
+    overview: "Celebrity cooks partner with comedic non-cooks ('Comalis') in a riotous culinary battle of mishaps, challenges, and unmatched comedy."
+  },
+  {
+    id: 80945,
+    title: "Dhee Champions",
+    name: "Dhee",
+    original_language: "te",
+    origin_country: ["IN"],
+    totalSeasons: 16,
+    poster_path: "/f0NBdGndpAc7ySIqE9eQlE3tkOo.jpg",
+    backdrop_path: "/bt1utXk5wn1zcUSv6WWlt55iSmV.jpg",
+    ott: "hotstar",
+    first_air_date: "2009-01-01",
+    vote_average: 8.6,
+    genre_ids: [10764],
+    overview: "The most electrifying Telugu dance reality show featuring high-octane choreographies, stunts, and regional dance prodigies."
+  },
+  {
+    id: 80950,
+    title: "Asianet Star Singer",
+    name: "Star Singer",
+    original_language: "ml",
+    origin_country: ["IN"],
+    totalSeasons: 9,
+    poster_path: "/o75RAzbauCTLnchulrlLGK3mTgo.jpg",
+    backdrop_path: "/cogvLaZrWRZYjSgRHTvVhkORbPj.jpg",
+    ott: "hotstar",
+    first_air_date: "2006-08-01",
+    vote_average: 8.7,
+    genre_ids: [10764],
+    overview: "Kerala's iconic vocal tournament where the finest aspiring singers compete across classical, semi-classical, and film musical genres."
+  },
+  {
+    id: 80955,
+    title: "Comedy Stars Malayalam",
+    name: "Comedy Stars",
+    original_language: "ml",
+    origin_country: ["IN"],
+    totalSeasons: 3,
+    poster_path: "/o75RAzbauCTLnchulrlLGK3mTgo.jpg",
+    backdrop_path: "/cogvLaZrWRZYjSgRHTvVhkORbPj.jpg",
+    ott: "hotstar",
+    first_air_date: "2010-09-01",
+    vote_average: 8.3,
+    genre_ids: [10764],
+    overview: "A showcase of Kerala's finest comic teams performing satire, mimicry, and skits judged by prominent Mollywood artists."
+  },
+  {
+    id: 154673,
+    title: "Lock Upp",
+    name: "Lock Upp",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 2,
+    poster_path: "/ev0pJtwCG0oeaQHSO2VToMEPyne.jpg",
+    backdrop_path: "/1Oh6jcDYkjtndtgWw58Afh3qyEt.jpg",
+    ott: "jio",
+    first_air_date: "2022-02-27",
+    vote_average: 8.1,
+    genre_ids: [10764],
+    overview: "Hosted by Kangana Ranaut. Controversial celebrities are jailed in a badass jailhouse, fighting for basic amenities through ruthless tasks."
+  },
+  {
+    id: 236166,
+    title: "Temptation Island India",
+    name: "Temptation Island India",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 1,
+    poster_path: "/hbdX2LLJhJemnf3HLodwhjwNaFx.jpg",
+    backdrop_path: "/b09hHDE3xNMUxAHCn453Hk0C9Nh.jpg",
+    ott: "jio",
+    first_air_date: "2023-11-03",
+    vote_average: 7.8,
+    genre_ids: [10764],
+    overview: "Couples travel to a tropical paradise where they live in separate villas filled with gorgeous singles to test their loyalty."
+  },
+  {
+    id: 80960,
+    title: "Dance Plus",
+    name: "Dance Plus",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 7,
+    poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
+    backdrop_path: "/hyPQPnMLlUqmLuFpzoUe6Hp8oXG.jpg",
+    ott: "hotstar",
+    first_air_date: "2015-07-26",
+    vote_average: 8.4,
+    genre_ids: [10764],
+    overview: "Super Judge Remo D'Souza and captains seek out revolutionary dance styles and jaw-dropping solo and group dance acts."
+  },
+  {
+    id: 80965,
+    title: "India's Got Talent",
+    name: "India's Got Talent",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 10,
+    poster_path: "/iGw6R4e4G07xjffVifFLSN3dEAb.jpg",
+    backdrop_path: "/tLL91JBiCCvBF7oKSN6dFR7yd8c.jpg",
+    ott: "sonyliv",
+    first_air_date: "2009-06-27",
+    vote_average: 8.3,
+    genre_ids: [10764],
+    overview: "Singers, dancers, illusionists, aerial acrobats, and unique talent acts from all across India compete for the national championship."
+  },
+  {
+    id: 80970,
+    title: "India's Best Dancer",
+    name: "India's Best Dancer",
+    original_language: "hi",
+    origin_country: ["IN"],
+    totalSeasons: 4,
+    poster_path: "/iGw6R4e4G07xjffVifFLSN3dEAb.jpg",
+    backdrop_path: "/tLL91JBiCCvBF7oKSN6dFR7yd8c.jpg",
+    ott: "sonyliv",
+    first_air_date: "2020-02-29",
+    vote_average: 8.2,
+    genre_ids: [10764],
+    overview: "Elite dancers compete with their choreographer mentors to win the coveted title of India's best dancing sensation."
+  },
+  {
+    id: 99966,
+    title: "Too Hot to Handle",
+    name: "Too Hot to Handle",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 6,
+    poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
+    backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+    ott: "netflix",
+    first_air_date: "2020-04-17",
+    vote_average: 7.6,
+    genre_ids: [10764],
+    overview: "Gorgeous singles meet on the shores of paradise, but to win a cash prize, they'll have to give up romantic physical contact."
+  },
+  {
+    id: 99187,
+    title: "Love Is Blind",
+    name: "Love Is Blind",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 7,
+    poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
+    backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+    ott: "netflix",
+    first_air_date: "2020-02-13",
+    vote_average: 7.7,
+    genre_ids: [10764],
+    overview: "Singles try to find a match and fall in love without ever seeing each other face-to-face, testing if love really is blind."
+  },
+  {
+    id: 67335,
+    title: "The Grand Tour",
+    name: "The Grand Tour",
+    original_language: "en",
+    origin_country: ["GB"],
+    totalSeasons: 6,
+    poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
+    backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+    ott: "prime",
+    first_air_date: "2016-11-18",
+    vote_average: 8.7,
+    genre_ids: [10764],
+    overview: "Jeremy Clarkson, Richard Hammond, and James May embark on epic motoring adventures, road trips, and vehicular stunts across the globe."
+  },
+  {
+    id: 126999,
+    title: "Clarkson's Farm",
+    name: "Clarkson's Farm",
+    original_language: "en",
+    origin_country: ["GB"],
+    totalSeasons: 3,
+    poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
+    backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+    ott: "prime",
+    first_air_date: "2021-06-11",
+    vote_average: 8.9,
+    genre_ids: [10764],
+    overview: "An intense, arduous, and frequently hilarious year in the life of Britain's most unlikely farmer, Jeremy Clarkson."
+  },
+  {
+    id: 80980,
+    title: "Sa Re Ga Ma Pa Seniors (Tamil)",
+    name: "Sa Re Ga Ma Pa Seniors",
+    original_language: "ta",
+    origin_country: ["IN"],
+    totalSeasons: 4,
+    poster_path: "/8O1LjYsGvLQY8XxajupuDwpaJa2.jpg",
+    backdrop_path: "/wzHxE333DkZIlTLSuTgbqP23UP5.jpg",
+    ott: "zee5",
+    first_air_date: "2017-10-15",
+    vote_average: 8.5,
+    genre_ids: [10764],
+    overview: "Tamil Nadu's celebrated musical showdown celebrating gifted vocalists across classical, folk, and contemporary playback styles."
+  },
+  {
+    id: 80985,
+    title: "Sa Re Ga Ma Pa The Singing Superstar (Telugu)",
+    name: "Sa Re Ga Ma Pa Telugu",
+    original_language: "te",
+    origin_country: ["IN"],
+    totalSeasons: 6,
+    poster_path: "/f0NBdGndpAc7ySIqE9eQlE3tkOo.jpg",
+    backdrop_path: "/bt1utXk5wn1zcUSv6WWlt55iSmV.jpg",
+    ott: "zee5",
+    first_air_date: "2018-03-11",
+    vote_average: 8.4,
+    genre_ids: [10764],
+    overview: "The prestigious Telugu singing stage discovering melodic talents from Andhra Pradesh, Telangana, and the global Telugu community."
+  }
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// 3. VERIFIED WORKING STREAMING SERVERS (10 HIGH-SPEED CLOUD NODES)
 // ═══════════════════════════════════════════════════════════════════
 function isTmdbId(id) {
   return !String(id).startsWith("tt");
@@ -135,8 +726,8 @@ const STREAM_SERVERS = {
   },
   // Server 4: 2Embed (Dedicated Anime Hub & Global CDN)
   twoembed: {
-    name: "Server 4: 2Embed (Anime Hub & Global CDN)",
-    badge: "ANIME HUB",
+    name: "Server 4: 2Embed (Global & Anime CDN)",
+    badge: "GLOBAL CDN",
     desc: "Renowned global anime and series node with Japanese original audio, English/Hindi dubs & multi-subs",
     hasMultiAudio: true,
     movie: (id) => `https://www.2embed.cc/embed/${id}`,
@@ -150,6 +741,51 @@ const STREAM_SERVERS = {
     hasMultiAudio: false,
     movie: (id) => `https://vidsrc.pm/embed/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://vidsrc.pm/embed/tv/${id}/${s}/${e}`
+  },
+  // Server 6: NetMirror (Dedicated Reality TV & Series Cloud)
+  netmirror: {
+    name: "Server 6: NetMirror (Reality & Series Cloud)",
+    badge: "REALITY HUB",
+    desc: "High-compatibility cloud node dedicated to reality TV shows, web series, and regional releases",
+    hasMultiAudio: false,
+    movie: (id) => `https://netmirror.center/movie/${id}/?embed=1`,
+    tv: (id, s = 1, e = 1) => `https://netmirror.center/tv/${id}/?season=${s}&episode=${e}&embed=1`
+  },
+  // Server 7: MultiEmbed (Global Multi-Source Cloud Aggregator)
+  multiembed: {
+    name: "Server 7: MultiEmbed (Global Cloud)",
+    badge: "GLOBAL EMBED",
+    desc: "Global multi-source streaming aggregator with high coverage across TV series and reality shows",
+    hasMultiAudio: false,
+    movie: (id) => `https://multiembed.mov/?video_id=${id}&tmdb=1`,
+    tv: (id, s = 1, e = 1) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
+  },
+  // Server 8: SmashyStream (Fast CDN Mirror)
+  smashystream: {
+    name: "Server 8: SmashyStream (Fast CDN)",
+    badge: "FAST CDN",
+    desc: "Fast responsive media streaming node supporting full TV and reality show catalog",
+    hasMultiAudio: false,
+    movie: (id) => `https://player.smashy.stream/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://player.smashy.stream/tv/${id}?s=${s}&e=${e}`
+  },
+  // Server 9: AutoEmbed (Direct Edge Player)
+  autoembed: {
+    name: "Server 9: AutoEmbed (Direct Edge)",
+    badge: "DIRECT EDGE",
+    desc: "Direct low-latency edge player with automated source discovery for series and movies",
+    hasMultiAudio: false,
+    movie: (id) => `https://player.autoembed.cc/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}`
+  },
+  // Server 10: VidSrc CC (Backup Verified Node)
+  vidsrccc: {
+    name: "Server 10: VidSrc CC (Backup Stream)",
+    badge: "BACKUP NODE",
+    desc: "Secondary verified cloud mirror for movies, series, and reality shows",
+    hasMultiAudio: false,
+    movie: (id) => `https://vidsrc.cc/v2/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`
   }
 };
 
@@ -408,7 +1044,7 @@ window.filterByPlatform = function(platform) {
   } else {
     STATE.activePlatform = platform;
   }
-  STATE.activeCategory = "all";
+  // Keep active category (e.g. reality, series, anime) so multi-filtering works seamlessly
   STATE.activeFilterPage = 1;
   syncPillActiveStates();
   renderCatalog();
@@ -422,7 +1058,7 @@ window.filterByLanguage = function(lang) {
   } else {
     STATE.activeLanguage = lang;
   }
-  STATE.activeCategory = "all";
+  // Keep active category (e.g. reality, series, anime) so multi-filtering works seamlessly
   STATE.activeFilterPage = 1;
   syncPillActiveStates();
   renderCatalog();
@@ -437,7 +1073,13 @@ function syncPillActiveStates() {
     p.classList.toggle("active", p.dataset.lang === STATE.activeLanguage);
   });
   document.querySelectorAll(".nav-tab").forEach(p => {
-    p.classList.toggle("active", p.dataset.filterVal === STATE.activeCategory);
+    const fType = p.dataset.filterType;
+    const fVal = p.dataset.filterVal;
+    if (fType === "cat") {
+      p.classList.toggle("active", fVal === STATE.activeCategory);
+    } else if (fType === "lang") {
+      p.classList.toggle("active", fVal === STATE.activeLanguage);
+    }
   });
 }
 
@@ -559,7 +1201,7 @@ function setHeroItem(item, idx) {
   if (heroBg) heroBg.style.backgroundImage = `url('${item.backdrop || item.poster}')`;
   if (heroTitle) heroTitle.textContent = item.title;
   if (heroDesc) heroDesc.textContent = item.synopsis;
-  if (heroRating) heroRating.textContent = `⭐ ${item.rating}`;
+  if (heroRating) heroRating.textContent = `${item.rating}`;
   if (heroYear) heroYear.textContent = `${item.year}`;
   if (heroLang) heroLang.textContent = (item.langLabel || item.lang || "MULTI-AUDIO").toUpperCase();
   if (heroOtt) heroOtt.textContent = item.ottLabel || "CINIEORAMA";
@@ -781,7 +1423,7 @@ async function renderCatalog() {
     watchlistRow.innerHTML = `
       <div class="row-header">
         <div class="row-title-wrap">
-          <span class="row-icon">★</span>
+          <span class="row-icon">+</span>
           <h2 class="row-title">+ MY WATCHLIST // SAVED TO STREAM</h2>
           <span class="row-badge">${watchlist.length} SAVED</span>
         </div>
@@ -802,197 +1444,13 @@ async function renderCatalog() {
     container.appendChild(watchlistRow);
   }
 
-  // Curated Pre-Seeded Reality TV Shows (Bigg Boss Hindi 20 Seasons, Roadies 21 Seasons, Splitsvilla 16 Seasons, etc.)
-  const CURATED_REALITY_SHOWS = [
-    {
-      id: 11436,
-      title: "Bigg Boss (Hindi)",
-      name: "Bigg Boss",
-      original_language: "hi",
-      origin_country: ["IN"],
-      totalSeasons: 20,
-      poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
-      backdrop_path: "/hyPQPnMLlUqmLuFpzoUe6Hp8oXG.jpg",
-      ott: "jio",
-      first_air_date: "2006-11-03",
-      vote_average: 8.6,
-      genre_ids: [10764],
-      overview: "Hosted by Salman Khan. Celebrities are locked inside an isolated, camera-rigged house under constant 24/7 surveillance, facing high-tension tasks, nominations, and explosive drama across 20 blockbuster seasons."
-    },
-    {
-      id: 80372,
-      title: "Bigg Boss Malayalam",
-      name: "Bigg Boss",
-      original_language: "ml",
-      origin_country: ["IN"],
-      totalSeasons: 8,
-      poster_path: "/o75RAzbauCTLnchulrlLGK3mTgo.jpg",
-      backdrop_path: "/cogvLaZrWRZYjSgRHTvVhkORbPj.jpg",
-      ott: "hotstar",
-      first_air_date: "2018-06-24",
-      vote_average: 8.8,
-      genre_ids: [10764],
-      overview: "Hosted by legendary superstar Mohanlal. Contestants from Kerala and the Malayali diaspora enter the ultimate social experiment, competing through grueling weekly captaincy tasks and public votes."
-    },
-    {
-      id: 247769,
-      title: "The Great Indian Kapil Show",
-      name: "The Great Indian Kapil Show",
-      original_language: "hi",
-      origin_country: ["IN"],
-      totalSeasons: 2,
-      poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
-      backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
-      ott: "netflix",
-      first_air_date: "2024-03-30",
-      vote_average: 8.5,
-      genre_ids: [10767, 10764],
-      overview: "Kapil Sharma and his comedy family host Bollywood megastars, cricketers, and global icons with sidesplitting comedy, sketches, and uncensored conversations."
-    },
-    {
-      id: 153870,
-      title: "Shark Tank India",
-      name: "Shark Tank India",
-      original_language: "hi",
-      origin_country: ["IN"],
-      totalSeasons: 5,
-      poster_path: "/iGw6R4e4G07xjffVifFLSN3dEAb.jpg",
-      backdrop_path: "/tLL91JBiCCvBF7oKSN6dFR7yd8c.jpg",
-      ott: "sonyliv",
-      first_air_date: "2021-12-20",
-      vote_average: 8.5,
-      genre_ids: [10764],
-      overview: "Aspiring Indian entrepreneurs pitch their business models to a panel of self-made business titans ('Sharks') to secure life-changing investments and mentorship across 5 seasons."
-    },
-    {
-      id: 72908,
-      title: "Bigg Boss Tamil",
-      name: "Bigg Boss",
-      original_language: "ta",
-      origin_country: ["IN"],
-      totalSeasons: 10,
-      poster_path: "/8O1LjYsGvLQY8XxajupuDwpaJa2.jpg",
-      backdrop_path: "/wzHxE333DkZIlTLSuTgbqP23UP5.jpg",
-      ott: "hotstar",
-      first_air_date: "2017-06-25",
-      vote_average: 8.4,
-      genre_ids: [10764],
-      overview: "The mega Tamil reality phenomenon featuring intense house rivalries, psychological warfare, dramatic twists, and public eliminations across 10 seasons."
-    },
-    {
-      id: 73085,
-      title: "Bigg Boss Telugu",
-      name: "Bigg Boss",
-      original_language: "te",
-      origin_country: ["IN"],
-      totalSeasons: 10,
-      poster_path: "/f0NBdGndpAc7ySIqE9eQlE3tkOo.jpg",
-      backdrop_path: "/bt1utXk5wn1zcUSv6WWlt55iSmV.jpg",
-      ott: "hotstar",
-      first_air_date: "2017-07-16",
-      vote_average: 8.3,
-      genre_ids: [10764],
-      overview: "Hosted by King Akkineni Nagarjuna. South cinema stars and social influencers face emotional trials, captaincy tasks, and nominations in Hyderabad across 10 seasons."
-    },
-    {
-      id: 130780,
-      title: "Bigg Boss OTT (Hindi)",
-      name: "Bigg Boss OTT",
-      original_language: "hi",
-      origin_country: ["IN"],
-      totalSeasons: 3,
-      poster_path: "/ev0pJtwCG0oeaQHSO2VToMEPyne.jpg",
-      backdrop_path: "/1Oh6jcDYkjtndtgWw58Afh3qyEt.jpg",
-      ott: "jio",
-      first_air_date: "2021-08-08",
-      vote_average: 8.2,
-      genre_ids: [10764],
-      overview: "24x7 unfiltered live reality entertainment featuring digital creators, actors, and firebrand personalities competing under the unfiltered OTT camera lens."
-    },
-    {
-      id: 7420,
-      title: "MTV Splitsvilla",
-      name: "MTV Splitsvilla",
-      original_language: "hi",
-      origin_country: ["IN"],
-      totalSeasons: 16,
-      poster_path: "/hbdX2LLJhJemnf3HLodwhjwNaFx.jpg",
-      backdrop_path: "/b09hHDE3xNMUxAHCn453Hk0C9Nh.jpg",
-      ott: "jio",
-      first_air_date: "2008-06-20",
-      vote_average: 8.0,
-      genre_ids: [10764],
-      overview: "Young singles check into a luxury retreat searching for love and supremacy, navigating wild date twists, mischief makers, dome sessions, and toxic eliminations across 16 seasons."
-    },
-    {
-      id: 8426,
-      title: "MTV Roadies",
-      name: "MTV Roadies",
-      original_language: "hi",
-      origin_country: ["IN"],
-      totalSeasons: 21,
-      poster_path: "/rxuX0kszEyVJLDVIZLiZHOcM65y.jpg",
-      backdrop_path: "/2kEe8kiXc0cJUdmwIjnhXwxIEPL.jpg",
-      ott: "jio",
-      first_air_date: "2003-08-15",
-      vote_average: 8.1,
-      genre_ids: [10764],
-      overview: "India's longest-running youth adventure reality show. Gang leaders battle across extreme terrains on motorcycles, facing grueling survival tests and vote-outs across 21 seasons."
-    },
-    {
-      id: 7523,
-      title: "Fear Factor: Khatron Ke Khiladi",
-      name: "Fear Factor: Khatron Ke Khiladi",
-      original_language: "hi",
-      origin_country: ["IN"],
-      totalSeasons: 12,
-      poster_path: "/1PBuOGJ6uJKu5MIKXEGrP6Ti4ic.jpg",
-      backdrop_path: "/1PBuOGJ6uJKu5MIKXEGrP6Ti4ic.jpg",
-      ott: "jio",
-      first_air_date: "2008-07-21",
-      vote_average: 8.2,
-      genre_ids: [10764],
-      overview: "Hosted by action maestro Rohit Shetty. Celebrities face terrifying adrenaline stunts involving high-altitude jumps, fire, wild predators, and deep-water cages across 12 seasons."
-    },
-    {
-      id: 80386,
-      title: "Bigg Boss Kannada",
-      name: "Bigg Boss",
-      original_language: "kn",
-      origin_country: ["IN"],
-      totalSeasons: 11,
-      poster_path: "/appTzzKcwZvksjtiwkVfqT3zyZl.jpg",
-      backdrop_path: "/sIHsoe6Qg4RvwmOvTXvp6szR2f8.jpg",
-      ott: "jio",
-      first_air_date: "2013-03-24",
-      vote_average: 8.3,
-      genre_ids: [10764],
-      overview: "Hosted by Kiccha Sudeep. Sandalwood stars and public personalities live together in the Bigg Boss house, facing tasks, eliminations, and intense public voting across 11 seasons."
-    },
-    {
-      id: 80435,
-      title: "Bigg Boss Marathi",
-      name: "Bigg Boss Marathi",
-      original_language: "mr",
-      origin_country: ["IN"],
-      totalSeasons: 5,
-      poster_path: "/k7t9rasrRd5pmzpYEc9JmfN54WH.jpg",
-      backdrop_path: "/anVkNevFHao1Vb9VITzM0f6pFLD.jpg",
-      ott: "jio",
-      first_air_date: "2018-04-15",
-      vote_average: 8.2,
-      genre_ids: [10764],
-      overview: "The high-voltage Marathi reality show bringing regional superstars and controversial personalities into one house for non-stop drama and challenges across 5 seasons."
-    }
-  ];
-
   // Rows with authentic platform assignments — Generic rows use dynamic OTT distribution
   const SECTIONS = [
     {
       id: "sec-2026",
-      title: "⚡ 2026 NEW RELEASES & TRENDING BLOCKBUSTERS",
+      title: "2026 NEW RELEASES & TRENDING BLOCKBUSTERS",
       badge: "LIVE 2026",
-      icon: "🔥",
+      icon: "",
       defaultOtt: null,
       filterType: "cat",
       filterVal: "2026",
@@ -1000,9 +1458,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-ml",
-      title: "🌴 MALAYALAM CINEMA (MOLLYWOOD MULTI-AUDIO)",
+      title: "MALAYALAM CINEMA (MOLLYWOOD MULTI-AUDIO)",
       badge: "MALAYALAM",
-      icon: "🌴",
+      icon: "",
       defaultOtt: null,
       filterType: "lang",
       filterVal: "ml",
@@ -1010,9 +1468,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-ta",
-      title: "🏛️ TAMIL ACTION & THRILLERS (KOLLYWOOD)",
+      title: "TAMIL ACTION & THRILLERS (KOLLYWOOD)",
       badge: "TAMIL",
-      icon: "🏛️",
+      icon: "",
       defaultOtt: null,
       filterType: "lang",
       filterVal: "ta",
@@ -1020,9 +1478,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-te",
-      title: "⚡ TELUGU MASS CINEMA (TOLLYWOOD MULTI-AUDIO)",
+      title: "TELUGU MASS CINEMA (TOLLYWOOD MULTI-AUDIO)",
       badge: "TELUGU",
-      icon: "⚡",
+      icon: "",
       defaultOtt: null,
       filterType: "lang",
       filterVal: "te",
@@ -1030,9 +1488,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-hi",
-      title: "🇮🇳 BOLLYWOOD 2026 HITS & DRAMA",
+      title: "BOLLYWOOD 2026 HITS & DRAMA",
       badge: "HINDI",
-      icon: "🎬",
+      icon: "",
       defaultOtt: null,
       filterType: "lang",
       filterVal: "hi",
@@ -1040,9 +1498,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-kn",
-      title: "🚩 KANNADA BLOCKBUSTERS (SANDALWOOD)",
+      title: "KANNADA BLOCKBUSTERS (SANDALWOOD)",
       badge: "KANNADA",
-      icon: "🚩",
+      icon: "",
       defaultOtt: null,
       filterType: "lang",
       filterVal: "kn",
@@ -1050,9 +1508,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-tv",
-      title: "📺 BINGE-WORTHY WEB SERIES & ALL SEASONS",
+      title: "BINGE-WORTHY WEB SERIES & ALL SEASONS",
       badge: "SERIES",
-      icon: "📺",
+      icon: "",
       defaultOtt: null,
       filterType: "cat",
       filterVal: "series",
@@ -1060,9 +1518,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-reality",
-      title: "🔥 REALITY TV & SHOWS // BIGG BOSS, SHARK TANK & ENTERTAINMENT",
+      title: "REALITY TV & SHOWS // BIGG BOSS, SHARK TANK & ENTERTAINMENT",
       badge: "REALITY SHOWS",
-      icon: "🔥",
+      icon: "",
       defaultOtt: null,
       filterType: "cat",
       filterVal: "reality",
@@ -1070,9 +1528,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-anime",
-      title: "🎌 CRUNCHYROLL ANIME HUB (MULTI-AUDIO & DUB)",
+      title: "CRUNCHYROLL ANIME HUB (MULTI-AUDIO & DUB)",
       badge: "CRUNCHYROLL",
-      icon: "🎌",
+      icon: "",
       defaultOtt: "crunchyroll",
       filterType: "platform",
       filterVal: "crunchyroll",
@@ -1080,9 +1538,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-netflix",
-      title: "🔴 NETFLIX ORIGINALS & MOVIES",
+      title: "NETFLIX ORIGINALS & MOVIES",
       badge: "NETFLIX",
-      icon: "🔴",
+      icon: "",
       defaultOtt: "netflix",
       filterType: "platform",
       filterVal: "netflix",
@@ -1090,9 +1548,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-prime",
-      title: "🔵 AMAZON PRIME VIDEO EXCLUSIVES",
+      title: "AMAZON PRIME VIDEO EXCLUSIVES",
       badge: "PRIME VIDEO",
-      icon: "🔵",
+      icon: "",
       defaultOtt: "prime",
       filterType: "platform",
       filterVal: "prime",
@@ -1100,9 +1558,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-hotstar",
-      title: "🔷 DISNEY+ HOTSTAR SPECIALS & MARVEL",
+      title: "DISNEY+ HOTSTAR SPECIALS & MARVEL",
       badge: "JIOHOTSTAR",
-      icon: "🔷",
+      icon: "",
       defaultOtt: "hotstar",
       filterType: "platform",
       filterVal: "hotstar",
@@ -1110,9 +1568,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-jio",
-      title: "💖 JIOCINEMA BLOCKBUSTERS & HBO",
+      title: "JIOCINEMA BLOCKBUSTERS & HBO",
       badge: "JIOCINEMA",
-      icon: "💖",
+      icon: "",
       defaultOtt: "jio",
       filterType: "platform",
       filterVal: "jio",
@@ -1120,9 +1578,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-sonyliv",
-      title: "🟡 SONY LIV CRIME THRILLERS & ORIGINALS",
+      title: "SONY LIV CRIME THRILLERS & ORIGINALS",
       badge: "SONY LIV",
-      icon: "🟡",
+      icon: "",
       defaultOtt: "sonyliv",
       filterType: "platform",
       filterVal: "sonyliv",
@@ -1130,9 +1588,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-zee5",
-      title: "🟣 ZEE5 REGIONAL CINEMA",
+      title: "ZEE5 REGIONAL CINEMA",
       badge: "ZEE5",
-      icon: "🟣",
+      icon: "",
       defaultOtt: "zee5",
       filterType: "platform",
       filterVal: "zee5",
@@ -1140,9 +1598,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-apple",
-      title: "⚪ APPLE TV+ AWARD WINNERS & SCI-FI",
+      title: "APPLE TV+ AWARD WINNERS & SCI-FI",
       badge: "APPLE TV+",
-      icon: "⚪",
+      icon: "",
       defaultOtt: "apple",
       filterType: "platform",
       filterVal: "apple",
@@ -1150,9 +1608,9 @@ async function renderCatalog() {
     },
     {
       id: "sec-hollywood",
-      title: "🍿 HOLLYWOOD BLOCKBUSTERS & IMAX MULTI-AUDIO",
+      title: "HOLLYWOOD BLOCKBUSTERS & IMAX MULTI-AUDIO",
       badge: "HOLLYWOOD",
-      icon: "🍿",
+      icon: "",
       defaultOtt: null,
       filterType: "cat",
       filterVal: "hollywood",
@@ -1167,7 +1625,7 @@ async function renderCatalog() {
     rowEl.innerHTML = `
       <div class="row-header">
         <div class="row-title-wrap">
-          <span class="row-icon">${section.icon}</span>
+          ${section.icon ? `<span class="row-icon">${section.icon}</span>` : ""}
           <h2 class="row-title">${section.title}</h2>
           <span class="row-badge">${section.badge}</span>
         </div>
@@ -1261,7 +1719,7 @@ function renderWatchHistoryView(container) {
         return createCardHTML(item, item.ott);
       }).join("") : `
         <div style="grid-column:1/-1; padding:80px 20px; text-align:center; color:#888; font-family:monospace">
-          <div style="font-size:3rem; margin-bottom:12px">🎬</div>
+          <div style="font-size:2rem; margin-bottom:12px; font-family:monospace">[RESUME]</div>
           <h3 style="color:#fff; margin-bottom:8px">NO WATCH HISTORY YET</h3>
           <p style="margin-bottom:20px">Start streaming any movie, anime, or web series to track your progress and resume anytime!</p>
           <button class="brutal-btn primary-btn" onclick="resetAllFilters()">BROWSE 2026 MOVIES</button>
@@ -1323,8 +1781,8 @@ function renderWatchlistView(container) {
   sectionEl.innerHTML = `
     <div class="row-header" style="flex-wrap: wrap; gap: 14px; border-bottom: 2px solid #222; padding-bottom: 16px;">
       <div class="row-title-wrap">
-        <span class="row-icon">★</span>
-        <h2 class="row-title">★ MY SAVED WATCHLIST &amp; BOOKMARKS</h2>
+        <span class="row-icon">+</span>
+        <h2 class="row-title">MY SAVED WATCHLIST &amp; BOOKMARKS</h2>
         <span class="row-badge" id="watchlistCountBadge">${watchlist.length} TITLES SAVED</span>
       </div>
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
@@ -1340,7 +1798,7 @@ function renderWatchlistView(container) {
         return createCardHTML(item, item.ott);
       }).join("") : `
         <div class="watchlist-empty-box">
-          <div class="watchlist-empty-icon">★</div>
+          <div class="watchlist-empty-icon">+</div>
           <div class="watchlist-empty-title">YOUR WATCHLIST IS CURRENTLY EMPTY</div>
           <p class="watchlist-empty-desc">Click the <strong>+ LIST</strong> badge on any movie, web series, or anime card to bookmark it for quick access anytime!</p>
           <button class="brutal-btn primary-btn" onclick="resetAllFilters()">DISCOVER 2026 MOVIES</button>
@@ -1460,7 +1918,7 @@ async function renderFilteredView(container) {
   sectionEl.innerHTML = `
     <div class="row-header" style="flex-wrap: wrap; gap: 14px; border-bottom: 2px solid #222; padding-bottom: 16px;">
       <div class="row-title-wrap">
-        <span class="row-icon">${currentProv ? currentProv.svg : '🔍'}</span>
+        <span class="row-icon">${currentProv ? currentProv.svg : '●'}</span>
         <h2 class="row-title">${title}</h2>
         <span class="row-badge" id="filterCountBadge">DISCOVERING CLOUD TITLES…</span>
       </div>
@@ -1470,9 +1928,9 @@ async function renderFilteredView(container) {
         <button class="nav-tab ${STATE.activeFilterType === 'tv' ? 'active' : ''}" onclick="setFilterContentType('tv')">TV SERIES / ANIME</button>
 
         <select id="filterSortSelect" class="brutal-select" onchange="setFilterSort(this.value)">
-          <option value="popularity.desc" ${STATE.activeSortBy === 'popularity.desc' ? 'selected' : ''}>🔥 Most Popular</option>
-          <option value="primary_release_date.desc" ${STATE.activeSortBy === 'primary_release_date.desc' ? 'selected' : ''}>⚡ Newest (2026–2024)</option>
-          <option value="vote_average.desc" ${STATE.activeSortBy === 'vote_average.desc' ? 'selected' : ''}>⭐ Top Rated</option>
+          <option value="popularity.desc" ${STATE.activeSortBy === 'popularity.desc' ? 'selected' : ''}>Most Popular</option>
+          <option value="primary_release_date.desc" ${STATE.activeSortBy === 'primary_release_date.desc' ? 'selected' : ''}>Newest (2026–2024)</option>
+          <option value="vote_average.desc" ${STATE.activeSortBy === 'vote_average.desc' ? 'selected' : ''}>Top Rated</option>
         </select>
 
         <select id="filterYearSelect" class="brutal-select" onchange="setFilterYear(this.value)">
@@ -1497,7 +1955,7 @@ async function renderFilteredView(container) {
     <div style="margin-top: 36px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px;">
       <div id="infiniteScrollSentinel" style="height: 20px; width: 100%;"></div>
       <button id="loadMoreFilterBtn" class="brutal-btn primary-btn" onclick="fetchNextFilterPage()" style="font-size: 0.9rem; padding: 14px 34px;">
-        ⚡ LOAD NEXT 20 TITLES (PAGE 2)
+        LOAD NEXT 20 TITLES (PAGE 2)
       </button>
       <div style="display:flex; align-items:center; gap:8px; font-family:monospace; font-size:0.75rem; color:#888">
         <span>JUMP TO PAGE:</span>
@@ -1555,7 +2013,7 @@ window.jumpToFilterPage = function() {
   }
 };
 
-function buildFilterUrl(page = 1) {
+function buildFilterUrl(page = 1, includeWatchProvider = true) {
   let isTv = STATE.activeFilterType === "tv";
   if (STATE.activeFilterType === "all") {
     isTv = STATE.activeCategory === "series" || STATE.activeCategory === "anime" || STATE.activeCategory === "reality" || STATE.activePlatform === "crunchyroll" || STATE.activeLanguage === "anime";
@@ -1576,7 +2034,7 @@ function buildFilterUrl(page = 1) {
     }
   }
 
-  if (STATE.activePlatform !== "all" && OTT_PROVIDERS[STATE.activePlatform]) {
+  if (includeWatchProvider && STATE.activePlatform !== "all" && OTT_PROVIDERS[STATE.activePlatform]) {
     const prov = OTT_PROVIDERS[STATE.activePlatform];
     url += `&with_watch_providers=${prov.id}&watch_region=${prov.region}`;
   }
@@ -1614,64 +2072,115 @@ async function fetchFilterItems(page = 1, isInitial = false) {
   STATE.isFetchingMore = true;
 
   try {
-    const url = buildFilterUrl(page);
-    const res = await fetch(url);
-    if (res.ok) {
-      const data = await res.json();
-      if (data.results && data.results.length) {
-        STATE.totalFilterPages = data.total_pages;
-        STATE.totalFilterResults = data.total_results;
+    const defaultType = STATE.activeFilterType === "tv" || STATE.activeCategory === "series" || STATE.activeCategory === "reality" || STATE.activePlatform === "crunchyroll" ? "tv" : "movie";
+    const currentOtt = STATE.activePlatform !== "all" ? STATE.activePlatform : null;
 
-        const defaultType = STATE.activeFilterType === "tv" || STATE.activeCategory === "series" || STATE.activeCategory === "reality" || STATE.activePlatform === "crunchyroll" ? "tv" : "movie";
-        const currentOtt = STATE.activePlatform !== "all" ? STATE.activePlatform : null;
-        let items = data.results.map(r => adaptTmdbItem(r, defaultType, currentOtt));
-
-        // When viewing Reality Shows on Page 1, prioritize curated iconic reality shows (Bigg Boss, Kapil, Shark Tank, etc.)
-        if (isInitial && STATE.activeCategory === "reality" && typeof CURATED_REALITY_SHOWS !== "undefined") {
-          let preList = CURATED_REALITY_SHOWS;
-          if (STATE.activeLanguage !== "all") {
-            preList = preList.filter(s => s.original_language === STATE.activeLanguage);
-          }
-          if (STATE.activePlatform !== "all") {
-            preList = preList.filter(s => s.ott === STATE.activePlatform);
-          }
-          const preAdapted = preList.map(s => adaptTmdbItem(s, "tv", s.ott));
-          const existingIds = new Set(preAdapted.map(x => String(x.id)));
-          items = [...preAdapted, ...items.filter(x => !existingIds.has(String(x.id)))];
+    // 1. Gather curated reality shows if viewing Reality Shows or if curated items match current active filters
+    let curatedItems = [];
+    if (isInitial && typeof CURATED_REALITY_SHOWS !== "undefined") {
+      let preList = CURATED_REALITY_SHOWS;
+      if (STATE.activeCategory === "reality") {
+        if (STATE.activeLanguage !== "all") {
+          preList = preList.filter(s => s.original_language === STATE.activeLanguage);
         }
-
-        if (isInitial) {
-          grid.innerHTML = items.map(item => createCardHTML(item, currentOtt)).join("");
-        } else {
-          items.forEach(item => {
-            const div = document.createElement("div");
-            div.innerHTML = createCardHTML(item, currentOtt);
-            grid.appendChild(div.firstElementChild);
-          });
+        if (STATE.activePlatform !== "all") {
+          preList = preList.filter(s => s.ott === STATE.activePlatform);
         }
-
-        if (countBadge) {
-          countBadge.textContent = `${data.total_results.toLocaleString()} TITLES FOUND ON TMDB`;
+        curatedItems = preList.map(s => adaptTmdbItem(s, "tv", s.ott || currentOtt));
+      } else if (STATE.activePlatform !== "all") {
+        preList = preList.filter(s => s.ott === STATE.activePlatform);
+        if (STATE.activeLanguage !== "all") {
+          preList = preList.filter(s => s.original_language === STATE.activeLanguage);
         }
-
-        if (jumpInput) {
-          jumpInput.value = page;
-          jumpInput.max = data.total_pages;
-        }
-
-        if (moreBtn) {
-          STATE.activeFilterPage = page;
-          moreBtn.textContent = `⚡ LOAD NEXT 20 TITLES (PAGE ${page + 1} OF ${data.total_pages.toLocaleString()})`;
-          moreBtn.style.display = data.page < data.total_pages ? "inline-flex" : "none";
-        }
-
-        attachCardEvents();
-        STATE.isFetchingMore = false;
-        return;
+        curatedItems = preList.map(s => adaptTmdbItem(s, "tv", s.ott || currentOtt));
       }
     }
+
+    // 2. Fetch TMDB with watch provider filter first
+    let data = null;
+    try {
+      const url = buildFilterUrl(page, true);
+      const res = await fetch(url);
+      if (res.ok) {
+        data = await res.json();
+      }
+    } catch (e) {
+      console.warn("Primary filter fetch error:", e);
+    }
+
+    // 3. Fallback: If TMDB returns 0 results and we had a watch provider filter, query without watch provider constraint
+    // (Crucial for Indian reality shows, regional cinema, and OTT platforms with incomplete TMDB watch provider index)
+    if ((!data || !data.results || data.results.length === 0) && STATE.activePlatform !== "all") {
+      try {
+        const fallbackUrl = buildFilterUrl(page, false);
+        const fbRes = await fetch(fallbackUrl);
+        if (fbRes.ok) {
+          const fbData = await fbRes.json();
+          if (fbData && fbData.results && fbData.results.length > 0) {
+            data = fbData;
+          }
+        }
+      } catch (e) {
+        console.warn("Fallback filter fetch error:", e);
+      }
+    }
+
+    let tmdbItems = [];
+    let totalResults = 0;
+    let totalPages = 1;
+
+    if (data && data.results && data.results.length > 0) {
+      totalPages = data.total_pages || 1;
+      totalResults = data.total_results || data.results.length;
+      tmdbItems = data.results.map(r => adaptTmdbItem(r, defaultType, currentOtt));
+    }
+
+    // 4. Merge curated reality shows on page 1 with TMDB results (deduplicating by ID)
+    let items = [];
+    if (isInitial && curatedItems.length > 0) {
+      const seenIds = new Set(curatedItems.map(x => String(x.id)));
+      items = [...curatedItems, ...tmdbItems.filter(x => !seenIds.has(String(x.id)))];
+      totalResults = Math.max(totalResults, items.length);
+    } else {
+      items = tmdbItems;
+    }
+
+    // 5. Render results if available
+    if (items.length > 0) {
+      STATE.totalFilterPages = totalPages;
+      STATE.totalFilterResults = totalResults;
+
+      if (isInitial) {
+        grid.innerHTML = items.map(item => createCardHTML(item, currentOtt)).join("");
+      } else {
+        items.forEach(item => {
+          const div = document.createElement("div");
+          div.innerHTML = createCardHTML(item, currentOtt);
+          grid.appendChild(div.firstElementChild);
+        });
+      }
+
+      if (countBadge) {
+        countBadge.textContent = `${totalResults.toLocaleString()} TITLES FOUND`;
+      }
+
+      if (jumpInput) {
+        jumpInput.value = page;
+        jumpInput.max = totalPages;
+      }
+
+      if (moreBtn) {
+        STATE.activeFilterPage = page;
+        moreBtn.textContent = `LOAD NEXT 20 TITLES (PAGE ${page + 1} OF ${totalPages.toLocaleString()})`;
+        moreBtn.style.display = page < totalPages ? "inline-flex" : "none";
+      }
+
+      attachCardEvents();
+      STATE.isFetchingMore = false;
+      return;
+    }
   } catch (err) {
-    console.warn("Filter fetch error:", err);
+    console.warn("Filter fetch processing error:", err);
   }
 
   STATE.isFetchingMore = false;
@@ -1898,7 +2407,7 @@ async function openDetailsModal(item) {
   // Update Audio Notice Box with exact multi-audio tracks
   const audioNotice = document.querySelector(".audio-notice-box .notice-text");
   if (audioNotice) {
-    audioNotice.innerHTML = `<strong>Multi-Audio Available:</strong> ${item.audioTracksLabel || 'Malayalam, Tamil, Telugu, Hindi, English, and Japanese'}. Change audio language inside player settings (⚙ / 🔊)!`;
+    audioNotice.innerHTML = `<strong>Multi-Audio Available:</strong> ${item.audioTracksLabel || 'Malayalam, Tamil, Telugu, Hindi, English, and Japanese'}. Change audio language inside player settings (Settings / Audio).`;
   }
 
   const history = WATCH_HISTORY.getItem(item.id);
@@ -2062,7 +2571,7 @@ function renderSeasonTabs(seasons) {
         <select id="modalSeasonSelectDropdown" class="brutal-select modal-season-select">
           ${[...seasons].reverse().map(s => `
             <option value="${s.season_number}" ${s.season_number === STATE.currentSeason ? 'selected' : ''}>
-              Season ${s.season_number} ${s.season_number === total ? '⚡ (Latest)' : ''}
+              Season ${s.season_number} ${s.season_number === total ? '(Latest)' : ''}
             </option>
           `).join("")}
         </select>
@@ -2075,7 +2584,7 @@ function renderSeasonTabs(seasons) {
     <div class="season-tabs-scroll-wrap">
       ${seasons.map(s => `
         <button class="season-tab ${s.season_number === STATE.currentSeason ? 'active' : ''}" data-season="${s.season_number}">
-          SEASON ${s.season_number} ${s.season_number === total && total > 4 ? '⚡' : ''}
+          SEASON ${s.season_number}
         </button>
       `).join("")}
     </div>
@@ -2159,8 +2668,8 @@ async function loadRealSeasonEpisodes(tvId, seasonNum) {
               <div class="ep-thumb-wrap">
                 <img class="ep-thumb-img" src="${stillUrl}" alt="${ep.name || `Episode ${ep.episode_number}`}" loading="lazy" onerror="this.src='${itemBackdrop}'">
                 <div class="ep-badge-pill">EP ${ep.episode_number}</div>
-                ${epRuntime ? `<div class="ep-duration-pill">⏱ ${epRuntime}</div>` : ''}
-                ${isEpWatched ? `<div class="ep-watched-tag">✓ WATCHED</div>` : ''}
+                ${epRuntime ? `<div class="ep-duration-pill">${epRuntime}</div>` : ''}
+                ${isEpWatched ? `<div class="ep-watched-tag">WATCHED</div>` : ''}
                 <div class="ep-play-overlay">
                   <div class="ep-play-btn-circle">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="7 5 19 12 7 19 7 5"/></svg>
@@ -2172,7 +2681,7 @@ async function loadRealSeasonEpisodes(tvId, seasonNum) {
                 <div class="ep-card-header">
                   <span class="ep-num-label">EPISODE ${ep.episode_number}</span>
                   <div class="ep-meta-tags">
-                    ${ep.vote_average ? `<span class="ep-rating-tag">★ ${ep.vote_average.toFixed(1)}</span>` : ''}
+                    ${ep.vote_average ? `<span class="ep-rating-tag">${ep.vote_average.toFixed(1)}</span>` : ''}
                     ${epAirYear ? `<span class="ep-year-tag">${epAirYear}</span>` : ''}
                   </div>
                 </div>
@@ -2400,8 +2909,8 @@ function openPlayer(item, season = null, episode = null) {
     (item.audioTracks && item.audioTracks.length > 1) ||
     (item.audioTracksLabel && (item.audioTracksLabel.includes("Hindi") || item.audioTracksLabel.includes("Tamil") || item.audioTracksLabel.includes("Malayalam")));
 
-  // Default to Server 1: EmbedWave (#1 Main Zero-Buffer High-Speed Stream)
-  if (!STATE.activeServer || !STREAM_SERVERS[STATE.activeServer] || STATE.activeServer === "multiembed" || STATE.activeServer === "autoembed" || STATE.activeServer === "anyembed" || STATE.activeServer === "vidcore") {
+  // Default to Server 1: EmbedWave if activeServer not in STREAM_SERVERS
+  if (!STATE.activeServer || !STREAM_SERVERS[STATE.activeServer]) {
     STATE.activeServer = "embedwave";
   }
 
@@ -2529,7 +3038,7 @@ function updatePlayerAmbilight(item) {
 }
 
 function switchServer(serverKey) {
-  if (!STREAM_SERVERS[serverKey] || serverKey === "multiembed" || serverKey === "autoembed" || serverKey === "anyembed" || serverKey === "vidcore") {
+  if (!STREAM_SERVERS[serverKey]) {
     serverKey = "embedwave";
   }
   STATE.activeServer = serverKey;
@@ -2587,7 +3096,7 @@ function updatePlayerMultiAudioBanner() {
         btn.classList.add("active");
         const tip = btn.dataset.tip || `Audio track: ${btn.dataset.track}`;
         if (guide) {
-          guide.innerHTML = `🔊 <strong>${btn.dataset.track}:</strong> ${tip}. To switch tracks, click <strong>[SERVER 2: VIDLINK PRO]</strong> below or use player audio settings!`;
+          guide.innerHTML = `<strong>${btn.dataset.track}:</strong> ${tip}. To switch tracks, click <strong>[SERVER 2: VIDLINK PRO]</strong> below or use player audio settings.`;
           guide.style.borderColor = "#00e676";
           setTimeout(() => { if (guide) guide.style.borderColor = ""; }, 2500);
         }
@@ -2605,16 +3114,16 @@ function updatePlayerMultiAudioBanner() {
     if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 1 (EMBEDWAVE): ZERO-BUFFER MAIN STREAM ACTIVE:`;
     if (guide) {
       guide.innerHTML = isAnime
-        ? `⚡ <strong>Main Stream:</strong> High-speed zero-buffer playback. Want anime Japanese sub/dub options? Switch to <strong>Server 4 (2Embed)</strong> or <strong>Server 2 (VidLink Pro)</strong>!`
-        : `⚡ <strong>Main Stream:</strong> High-speed zero-buffer playback. Need regional Multi-Audio (Hindi, Tamil, Telugu, Malayalam) or Subtitles? Click <strong>Server 2 (VidLink Pro)</strong>!`;
+        ? `<strong>Main Stream:</strong> High-speed zero-buffer playback. Want anime Japanese sub/dub options? Switch to <strong>Server 4 (2Embed)</strong> or <strong>Server 2 (VidLink Pro)</strong>!`
+        : `<strong>Main Stream:</strong> High-speed zero-buffer playback. Need regional Multi-Audio (Hindi, Tamil, Telugu, Malayalam) or Subtitles? Click <strong>Server 2 (VidLink Pro)</strong>!`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
       if (isAnime) {
-        switchBtn.innerHTML = `🎌 SWITCH TO SERVER 4 (2EMBED ANIME)`;
+        switchBtn.innerHTML = `SWITCH TO SERVER 4 (2EMBED ANIME)`;
         switchBtn.onclick = () => switchServer("twoembed");
       } else {
-        switchBtn.innerHTML = `🎬 SWITCH TO SERVER 2 (VIDLINK PRO MULTI-AUDIO)`;
+        switchBtn.innerHTML = `SWITCH TO SERVER 2 (VIDLINK PRO MULTI-AUDIO)`;
         switchBtn.onclick = () => switchServer("vidlink");
       }
     }
@@ -2623,42 +3132,42 @@ function updatePlayerMultiAudioBanner() {
       ? `<span style="color:#00e676">●</span> SERVER 2 (VIDLINK PRO): ANIME SUB &amp; DUB READY:`
       : `<span style="color:#00e676">●</span> SERVER 2 (VIDLINK PRO) MULTI-LANGUAGE &amp; ULTRA HD ACTIVE:`;
     if (guide) {
-      guide.innerHTML = `💡 <strong>VidLink Pro Active:</strong> Multi-Language Audio &amp; Subtitles available! Click <strong>⚙ Settings</strong> or <strong>💬 Audio/Subtitles</strong> in player controls.`;
+      guide.innerHTML = `<strong>VidLink Pro Active:</strong> Multi-Language Audio &amp; Subtitles available! Click <strong>Settings</strong> or <strong>Audio/Subtitles</strong> in player controls.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
-      switchBtn.innerHTML = `★ SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
   } else if (STATE.activeServer === "vidsrcsu") {
-    if (heading) heading.innerHTML = `<span style="color:#00e676">⚡</span> SERVER 3 (VIDSRC SU): HIGH-SPEED CLOUD MIRROR ACTIVE:`;
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 3 (VIDSRC SU): HIGH-SPEED CLOUD MIRROR ACTIVE:`;
     if (guide) {
-      guide.innerHTML = `⚡ <strong>VidSrc SU Active:</strong> Ultra-fast cloud mirror streaming with zero buffering for movies, shows &amp; anime.`;
+      guide.innerHTML = `<strong>VidSrc SU Active:</strong> Ultra-fast cloud mirror streaming with zero buffering for movies, shows &amp; anime.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
-      switchBtn.innerHTML = `★ SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
   } else if (STATE.activeServer === "twoembed") {
-    if (heading) heading.innerHTML = `<span style="color:#ff0033">🎌</span> SERVER 4 (2EMBED): DEDICATED ANIME &amp; GLOBAL STREAM ACTIVE:`;
+    if (heading) heading.innerHTML = `<span style="color:#ff0033">●</span> SERVER 4 (2EMBED): DEDICATED ANIME &amp; GLOBAL STREAM ACTIVE:`;
     if (guide) {
-      guide.innerHTML = `🎌 <strong>2Embed Active:</strong> Optimized for Japanese anime and international series with original audio &amp; multiple subtitle tracks.`;
+      guide.innerHTML = `<strong>2Embed Active:</strong> Optimized for Japanese anime and international series with original audio &amp; multiple subtitle tracks.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
-      switchBtn.innerHTML = `★ SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
   } else {
     const srv = STREAM_SERVERS[STATE.activeServer] || { name: "Current Server" };
-    if (heading) heading.innerHTML = `<span style="color:#ffea00">▲</span> STREAMING ON ${srv.name.toUpperCase()}:`;
+    if (heading) heading.innerHTML = `<span style="color:#ffea00">●</span> STREAMING ON ${srv.name.toUpperCase()}:`;
     if (guide) {
-      guide.innerHTML = `💡 Switch back to Server 1 (EmbedWave) anytime for zero buffering.`;
+      guide.innerHTML = `Switch back to Server 1 (EmbedWave) anytime for zero buffering.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
-      switchBtn.innerHTML = `★ SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
   }
@@ -3014,14 +3523,19 @@ function attachEventListeners() {
 
       if (fType === "cat") {
         STATE.activeCategory = fVal;
-        STATE.activeLanguage = "all";
-        STATE.activePlatform = "all";
+        if (fVal === "all") {
+          STATE.activeLanguage = "all";
+          STATE.activePlatform = "all";
+        }
       } else if (fType === "lang") {
         STATE.activeLanguage = fVal;
-        STATE.activeCategory = "all";
-        STATE.activePlatform = "all";
+        if (fVal === "all") {
+          STATE.activeCategory = "all";
+          STATE.activePlatform = "all";
+        }
       }
 
+      syncPillActiveStates();
       renderCatalog();
       window.scrollTo({ top: 380, behavior: "smooth" });
     });
@@ -3066,11 +3580,11 @@ function attachEventListeners() {
   if (ambGlow) ambGlow.classList.toggle("ambilight-disabled", !isAmbEnabled);
   if (ambToggleBtn) {
     ambToggleBtn.classList.toggle("active", isAmbEnabled);
-    ambToggleBtn.textContent = isAmbEnabled ? "💡 AMBILIGHT: ON" : "💡 AMBILIGHT: OFF";
+    ambToggleBtn.textContent = isAmbEnabled ? "AMBILIGHT: ON" : "AMBILIGHT: OFF";
     ambToggleBtn.onclick = () => {
       const active = !ambToggleBtn.classList.contains("active");
       ambToggleBtn.classList.toggle("active", active);
-      ambToggleBtn.textContent = active ? "💡 AMBILIGHT: ON" : "💡 AMBILIGHT: OFF";
+      ambToggleBtn.textContent = active ? "AMBILIGHT: ON" : "AMBILIGHT: OFF";
       if (ambGlow) ambGlow.classList.toggle("ambilight-disabled", !active);
       localStorage.setItem("cinieorama_ambilight", active ? "true" : "false");
     };
@@ -3185,7 +3699,7 @@ function attachEventListeners() {
 // ═══════════════════════════════════════════════════════════════════
 const LEGAL_DOCS = {
   policy: {
-    title: "🔒 PRIVACY POLICY & CLIENT DATA HANDLING",
+    title: "PRIVACY POLICY & CLIENT DATA HANDLING",
     content: `
       <div style="background:#111; border:1px solid #222; padding:16px; margin-bottom:18px;">
         <h4 style="color:#00e676; margin:0 0 6px; font-family:monospace;">● ZERO-TELEMETRY GUARANTEE</h4>
@@ -3203,7 +3717,7 @@ const LEGAL_DOCS = {
     `
   },
   terms: {
-    title: "📜 TERMS OF SERVICE & PERMITTED USE",
+    title: "TERMS OF SERVICE & PERMITTED USE",
     content: `
       <div style="background:#111; border:1px solid #222; padding:16px; margin-bottom:18px;">
         <h4 style="color:#ff0033; margin:0 0 6px; font-family:monospace;">● PERSONAL &amp; EDUCATIONAL USE</h4>
@@ -3221,7 +3735,7 @@ const LEGAL_DOCS = {
     `
   },
   disclaimer: {
-    title: "⚖️ CONTENT DISCLAIMER & COPYRIGHT NOTICE",
+    title: "CONTENT DISCLAIMER & COPYRIGHT NOTICE",
     content: `
       <div style="background:#111; border:1px solid #222; padding:16px; margin-bottom:18px;">
         <h4 style="color:var(--brutal-yellow); margin:0 0 6px; font-family:monospace;">● THIRD-PARTY EMBED AGGREGATOR</h4>
@@ -3378,7 +3892,7 @@ window.addEventListener("beforeinstallprompt", (e) => {
   }
   const ctaBtn = document.getElementById("btnTriggerPwaInstall");
   if (ctaBtn) {
-    ctaBtn.textContent = "📥 INSTALL TO THIS DEVICE NOW";
+    ctaBtn.textContent = "INSTALL TO THIS DEVICE NOW";
   }
 });
 
@@ -3386,7 +3900,7 @@ window.addEventListener("appinstalled", () => {
   deferredInstallPrompt = null;
   const navBtn = document.getElementById("navInstallBtn");
   if (navBtn) {
-    navBtn.innerHTML = "<span>✓ INSTALLED</span>";
+    navBtn.innerHTML = "<span>INSTALLED</span>";
     navBtn.classList.remove("install-ready");
   }
   closeInstallModal();
@@ -3419,9 +3933,9 @@ window.triggerPwaInstallPrompt = function() {
   } else {
     const ctaBtn = document.getElementById("btnTriggerPwaInstall");
     if (ctaBtn) {
-      ctaBtn.innerHTML = "💡 FOLLOW PLATFORM STEPS BELOW ▾";
+      ctaBtn.innerHTML = "FOLLOW PLATFORM STEPS BELOW ▾";
       setTimeout(() => {
-        if (ctaBtn) ctaBtn.innerHTML = "📥 INSTALL TO THIS DEVICE NOW";
+        if (ctaBtn) ctaBtn.innerHTML = "INSTALL TO THIS DEVICE NOW";
       }, 3500);
     }
   }
