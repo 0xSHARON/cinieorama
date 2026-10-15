@@ -580,8 +580,14 @@ function setHeroItem(item, idx) {
 // 8. TMDB ADAPTER (Accurate Year, Multi-Audio Detection, Platform Mapping)
 // ═══════════════════════════════════════════════════════════════════
 function adaptTmdbItem(raw, defaultType = "movie", defaultOtt = null) {
-  const isTv = raw.media_type === "tv" || (!raw.media_type && (raw.first_air_date !== undefined || defaultType === "tv"));
   const title = raw.title || raw.name || raw.original_title || raw.original_name || "Untitled";
+  const lang = raw.original_language || raw.lang || "multi";
+
+  // Detect Reality Shows (TMDB genre 10764 = Reality, 10767 = Talk, or keywords)
+  const isReality = (raw.genre_ids && (raw.genre_ids.includes(10764) || raw.genre_ids.includes(10767))) ||
+                    /bigg boss|shark tank|kapil show|khatron ke khiladi|splitsvilla|roadies|crorepati|indian idol|dance india/i.test(title);
+
+  const isTv = isReality || raw.media_type === "tv" || (!raw.media_type && (raw.first_air_date !== undefined || defaultType === "tv"));
 
   // Accurate Year extraction
   let year = "";
@@ -598,17 +604,19 @@ function adaptTmdbItem(raw, defaultType = "movie", defaultOtt = null) {
   const poster = raw.poster_path ? `${TMDB_CONFIG.imgBase}${raw.poster_path}` : (raw.poster || FALLBACK_POSTER);
   const backdrop = raw.backdrop_path ? `${TMDB_CONFIG.backdropBase}${raw.backdrop_path}` : (raw.backdrop || poster);
   const rating = raw.vote_average ? raw.vote_average.toFixed(1) : (raw.rating || "8.2");
-  const lang = raw.original_language || raw.lang || "multi";
 
   // Detect Genuine Anime vs Indian vs Hollywood (Do not classify generic animations as Japanese anime)
   const isAnime = lang === "ja" || defaultOtt === "crunchyroll" || (raw.origin_country && raw.origin_country.includes("JP")) || (raw.original_language === "ja");
-  const isIndian = ["hi", "ml", "ta", "te", "kn", "pa", "bn"].includes(lang) || (raw.origin_country && raw.origin_country.includes("IN"));
+  const isIndian = ["hi", "ml", "ta", "te", "kn", "pa", "bn", "mr"].includes(lang) || (raw.origin_country && raw.origin_country.includes("IN"));
 
   // Authentic Platform Assignment — Dynamic distribution across top Indian & global OTT platforms
   let ott = "netflix";
   let ottLabel = "NETFLIX";
 
-  if (defaultOtt && OTT_PROVIDERS[defaultOtt]) {
+  if (raw.ott && OTT_PROVIDERS[raw.ott]) {
+    ott = raw.ott;
+    ottLabel = OTT_PROVIDERS[raw.ott].name;
+  } else if (defaultOtt && OTT_PROVIDERS[defaultOtt]) {
     ott = defaultOtt;
     ottLabel = OTT_PROVIDERS[defaultOtt].name;
   } else if (STATE.activePlatform !== "all" && OTT_PROVIDERS[STATE.activePlatform]) {
@@ -654,7 +662,10 @@ function adaptTmdbItem(raw, defaultType = "movie", defaultOtt = null) {
   let audioTracksLabel = "Multi-Audio (Hindi • Tamil • Telugu • Malayalam • English)";
   let audioBadge = "MULTI-AUDIO";
 
-  if (isAnime) {
+  if (isReality) {
+    audioBadge = "REALITY TV // EPISODES";
+    audioTracksLabel = "Full Episodes • Uncut Feeds • Multi-Season Highlights";
+  } else if (isAnime) {
     audioTracksLabel = "Japanese (Original) • Hindi Dub • English Dub • Tamil • Telugu • Multi-Subs";
     audioBadge = "MULTI-LANGUAGE (DUB + SUB)";
   } else if (isIndian) {
@@ -667,9 +678,11 @@ function adaptTmdbItem(raw, defaultType = "movie", defaultOtt = null) {
   }
 
   const isAnimated = raw.genre_ids && raw.genre_ids.includes(16);
-  const defaultGenres = isAnime
-    ? ["Anime", "Japanese", "Multi-Audio"]
-    : (isAnimated ? ["Animation", "Family", "Multi-Audio"] : ["Cinema", "Stream", "Multi-Audio"]);
+  const defaultGenres = isReality
+    ? ["Reality TV", "Entertainment", "Episodes"]
+    : (isAnime
+      ? ["Anime", "Japanese", "Multi-Audio"]
+      : (isAnimated ? ["Animation", "Family", "Multi-Audio"] : ["Cinema", "Stream", "Multi-Audio"]));
 
   const adapted = {
     id: raw.id,
@@ -788,6 +801,178 @@ async function renderCatalog() {
     container.appendChild(watchlistRow);
   }
 
+  // Curated Pre-Seeded Reality TV Shows (Bigg Boss Hindi/Malayalam/Tamil/Telugu, Kapil Show, Shark Tank India, Roadies, Splitsvilla)
+  const CURATED_REALITY_SHOWS = [
+    {
+      id: 11436,
+      title: "Bigg Boss (Hindi)",
+      name: "Bigg Boss",
+      original_language: "hi",
+      origin_country: ["IN"],
+      poster_path: "/AspHixRhWg5q8sOER7BoZ3U6xsn.jpg",
+      backdrop_path: "/hyPQPnMLlUqmLuFpzoUe6Hp8oXG.jpg",
+      ott: "jio",
+      first_air_date: "2006-11-03",
+      vote_average: 8.6,
+      genre_ids: [10764],
+      overview: "Hosted by Salman Khan. Celebrities are locked inside an isolated, camera-rigged house under constant 24/7 surveillance, facing high-tension tasks, nominations, and explosive drama."
+    },
+    {
+      id: 80372,
+      title: "Bigg Boss Malayalam",
+      name: "Bigg Boss",
+      original_language: "ml",
+      origin_country: ["IN"],
+      poster_path: "/o75RAzbauCTLnchulrlLGK3mTgo.jpg",
+      backdrop_path: "/cogvLaZrWRZYjSgRHTvVhkORbPj.jpg",
+      ott: "hotstar",
+      first_air_date: "2018-06-24",
+      vote_average: 8.8,
+      genre_ids: [10764],
+      overview: "Hosted by legendary superstar Mohanlal. Contestants from Kerala and the Malayali diaspora enter the ultimate social experiment, competing through grueling weekly captaincy tasks and public votes."
+    },
+    {
+      id: 247769,
+      title: "The Great Indian Kapil Show",
+      name: "The Great Indian Kapil Show",
+      original_language: "hi",
+      origin_country: ["IN"],
+      poster_path: "/3KMCmGDlYLlJ8zGOhCs6f3FZcnj.jpg",
+      backdrop_path: "/w8L2oVjsSRZdZ1Wcszot9cKZMRO.jpg",
+      ott: "netflix",
+      first_air_date: "2024-03-30",
+      vote_average: 8.5,
+      genre_ids: [10767, 10764],
+      overview: "Kapil Sharma and his comedy family host Bollywood megastars, cricketers, and global icons with sidesplitting comedy, sketches, and uncensored conversations."
+    },
+    {
+      id: 153870,
+      title: "Shark Tank India",
+      name: "Shark Tank India",
+      original_language: "hi",
+      origin_country: ["IN"],
+      poster_path: "/iGw6R4e4G07xjffVifFLSN3dEAb.jpg",
+      backdrop_path: "/tLL91JBiCCvBF7oKSN6dFR7yd8c.jpg",
+      ott: "sonyliv",
+      first_air_date: "2021-12-20",
+      vote_average: 8.5,
+      genre_ids: [10764],
+      overview: "Aspiring Indian entrepreneurs pitch their business models to a panel of self-made business titans ('Sharks') to secure life-changing investments and mentorship."
+    },
+    {
+      id: 72908,
+      title: "Bigg Boss Tamil",
+      name: "Bigg Boss",
+      original_language: "ta",
+      origin_country: ["IN"],
+      poster_path: "/8O1LjYsGvLQY8XxajupuDwpaJa2.jpg",
+      backdrop_path: "/wzHxE333DkZIlTLSuTgbqP23UP5.jpg",
+      ott: "hotstar",
+      first_air_date: "2017-06-25",
+      vote_average: 8.4,
+      genre_ids: [10764],
+      overview: "The mega Tamil reality phenomenon featuring intense house rivalries, psychological warfare, dramatic twists, and public eliminations."
+    },
+    {
+      id: 73085,
+      title: "Bigg Boss Telugu",
+      name: "Bigg Boss",
+      original_language: "te",
+      origin_country: ["IN"],
+      poster_path: "/f0NBdGndpAc7ySIqE9eQlE3tkOo.jpg",
+      backdrop_path: "/bt1utXk5wn1zcUSv6WWlt55iSmV.jpg",
+      ott: "hotstar",
+      first_air_date: "2017-07-16",
+      vote_average: 8.3,
+      genre_ids: [10764],
+      overview: "Hosted by King Akkineni Nagarjuna. South cinema stars and social influencers face emotional trials, captaincy tasks, and nominations in Hyderabad."
+    },
+    {
+      id: 130780,
+      title: "Bigg Boss OTT (Hindi)",
+      name: "Bigg Boss OTT",
+      original_language: "hi",
+      origin_country: ["IN"],
+      poster_path: "/ev0pJtwCG0oeaQHSO2VToMEPyne.jpg",
+      backdrop_path: "/1Oh6jcDYkjtndtgWw58Afh3qyEt.jpg",
+      ott: "jio",
+      first_air_date: "2021-08-08",
+      vote_average: 8.2,
+      genre_ids: [10764],
+      overview: "24x7 unfiltered live reality entertainment featuring digital creators, actors, and firebrand personalities competing under the unfiltered OTT camera lens."
+    },
+    {
+      id: 7420,
+      title: "MTV Splitsvilla",
+      name: "MTV Splitsvilla",
+      original_language: "hi",
+      origin_country: ["IN"],
+      poster_path: "/hbdX2LLJhJemnf3HLodwhjwNaFx.jpg",
+      backdrop_path: "/b09hHDE3xNMUxAHCn453Hk0C9Nh.jpg",
+      ott: "jio",
+      first_air_date: "2008-06-20",
+      vote_average: 8.0,
+      genre_ids: [10764],
+      overview: "Young singles check into a luxury retreat searching for love and supremacy, navigating wild date twists, mischief makers, dome sessions, and toxic eliminations."
+    },
+    {
+      id: 8426,
+      title: "MTV Roadies",
+      name: "MTV Roadies",
+      original_language: "hi",
+      origin_country: ["IN"],
+      poster_path: "/rxuX0kszEyVJLDVIZLiZHOcM65y.jpg",
+      backdrop_path: "/2kEe8kiXc0cJUdmwIjnhXwxIEPL.jpg",
+      ott: "jio",
+      first_air_date: "2003-08-15",
+      vote_average: 8.1,
+      genre_ids: [10764],
+      overview: "India's longest-running youth adventure reality show. Gang leaders battle across extreme terrains on motorcycles, facing grueling survival tests and vote-outs."
+    },
+    {
+      id: 7523,
+      title: "Fear Factor: Khatron Ke Khiladi",
+      name: "Fear Factor: Khatron Ke Khiladi",
+      original_language: "hi",
+      origin_country: ["IN"],
+      poster_path: "/1PBuOGJ6uJKu5MIKXEGrP6Ti4ic.jpg",
+      backdrop_path: "/1PBuOGJ6uJKu5MIKXEGrP6Ti4ic.jpg",
+      ott: "jio",
+      first_air_date: "2008-07-21",
+      vote_average: 8.2,
+      genre_ids: [10764],
+      overview: "Hosted by action maestro Rohit Shetty. Celebrities face terrifying adrenaline stunts involving high-altitude jumps, fire, wild predators, and deep-water cages."
+    },
+    {
+      id: 80386,
+      title: "Bigg Boss Kannada",
+      name: "Bigg Boss",
+      original_language: "kn",
+      origin_country: ["IN"],
+      poster_path: "/appTzzKcwZvksjtiwkVfqT3zyZl.jpg",
+      backdrop_path: "/sIHsoe6Qg4RvwmOvTXvp6szR2f8.jpg",
+      ott: "jio",
+      first_air_date: "2013-03-24",
+      vote_average: 8.3,
+      genre_ids: [10764],
+      overview: "Hosted by Kiccha Sudeep. Sandalwood stars and public personalities live together in the Bigg Boss house, facing tasks, eliminations, and intense public voting."
+    },
+    {
+      id: 80435,
+      title: "Bigg Boss Marathi",
+      name: "Bigg Boss Marathi",
+      original_language: "mr",
+      origin_country: ["IN"],
+      poster_path: "/k7t9rasrRd5pmzpYEc9JmfN54WH.jpg",
+      backdrop_path: "/anVkNevFHao1Vb9VITzM0f6pFLD.jpg",
+      ott: "jio",
+      first_air_date: "2018-04-15",
+      vote_average: 8.2,
+      genre_ids: [10764],
+      overview: "The high-voltage Marathi reality show bringing regional superstars and controversial personalities into one house for non-stop drama and challenges."
+    }
+  ];
+
   // Rows with authentic platform assignments — Generic rows use dynamic OTT distribution
   const SECTIONS = [
     {
@@ -859,6 +1044,16 @@ async function renderCatalog() {
       filterType: "cat",
       filterVal: "series",
       url: `${TMDB_CONFIG.baseUrl}/discover/tv?api_key=${TMDB_CONFIG.apiKey}&sort_by=popularity.desc&page=1`
+    },
+    {
+      id: "sec-reality",
+      title: "🔥 REALITY TV & SHOWS // BIGG BOSS, SHARK TANK & ENTERTAINMENT",
+      badge: "REALITY SHOWS",
+      icon: "🔥",
+      defaultOtt: null,
+      filterType: "cat",
+      filterVal: "reality",
+      url: `${TMDB_CONFIG.baseUrl}/discover/tv?api_key=${TMDB_CONFIG.apiKey}&with_genres=10764|10767&sort_by=popularity.desc&page=1`
     },
     {
       id: "sec-anime",
@@ -986,17 +1181,38 @@ async function renderCatalog() {
 
 async function loadRowData(rowId, url, defaultOtt) {
   try {
-    const res = await fetch(url);
-    if (!res.ok) return;
-    const data = await res.json();
-    if (!data.results || !data.results.length) return;
-
     const slider = document.getElementById(`${rowId}-slider`);
     if (!slider) return;
 
-    const isTvRow = rowId.includes("-tv") || rowId.includes("-anime");
-    const items = data.results.map(r => adaptTmdbItem(r, isTvRow ? "tv" : "movie", defaultOtt));
-    slider.innerHTML = items.map(item => createCardHTML(item, defaultOtt)).join("");
+    const isTvRow = rowId.includes("-tv") || rowId.includes("-anime") || rowId.includes("-reality");
+    let items = [];
+
+    // Pre-seed reality row with curated iconic shows (Bigg Boss, Kapil Show, Shark Tank, Khatron Ke Khiladi, etc.)
+    if (rowId === "sec-reality" && typeof CURATED_REALITY_SHOWS !== "undefined") {
+      items = CURATED_REALITY_SHOWS.map(show => adaptTmdbItem(show, "tv", show.ott));
+    }
+
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.results && data.results.length) {
+          const fetchedItems = data.results.map(r => adaptTmdbItem(r, isTvRow ? "tv" : "movie", defaultOtt));
+          const existingIds = new Set(items.map(x => String(x.id)));
+          fetchedItems.forEach(fi => {
+            if (!existingIds.has(String(fi.id))) {
+              items.push(fi);
+            }
+          });
+        }
+      }
+    } catch (fetchErr) {
+      console.warn(`Row ${rowId} fetch warning:`, fetchErr);
+    }
+
+    if (!items.length) return;
+
+    slider.innerHTML = items.map(item => createCardHTML(item, item.ott || defaultOtt)).join("");
     attachCardEvents();
   } catch (err) {
     console.warn(`Row ${rowId} error:`, err);
@@ -1329,7 +1545,7 @@ window.jumpToFilterPage = function() {
 function buildFilterUrl(page = 1) {
   let isTv = STATE.activeFilterType === "tv";
   if (STATE.activeFilterType === "all") {
-    isTv = STATE.activeCategory === "series" || STATE.activeCategory === "anime" || STATE.activePlatform === "crunchyroll" || STATE.activeLanguage === "anime";
+    isTv = STATE.activeCategory === "series" || STATE.activeCategory === "anime" || STATE.activeCategory === "reality" || STATE.activePlatform === "crunchyroll" || STATE.activeLanguage === "anime";
   }
 
   const endpoint = isTv ? "discover/tv" : "discover/movie";
@@ -1352,7 +1568,14 @@ function buildFilterUrl(page = 1) {
     url += `&with_watch_providers=${prov.id}&watch_region=${prov.region}`;
   }
 
-  if (STATE.activeLanguage !== "all" && LANG_MAP[STATE.activeLanguage]) {
+  if (STATE.activeCategory === "reality") {
+    url += `&with_genres=10764|10767`;
+    if (STATE.activeLanguage !== "all" && LANG_MAP[STATE.activeLanguage]) {
+      const l = LANG_MAP[STATE.activeLanguage];
+      if (l.code) url += `&with_original_language=${l.code}`;
+      if (l.country) url += `&with_origin_country=${l.country}`;
+    }
+  } else if (STATE.activeLanguage !== "all" && LANG_MAP[STATE.activeLanguage]) {
     const l = LANG_MAP[STATE.activeLanguage];
     if (l.code) url += `&with_original_language=${l.code}`;
     if (l.genre) url += `&with_genres=${l.genre}`;
@@ -1386,9 +1609,23 @@ async function fetchFilterItems(page = 1, isInitial = false) {
         STATE.totalFilterPages = data.total_pages;
         STATE.totalFilterResults = data.total_results;
 
-        const defaultType = STATE.activeFilterType === "tv" || STATE.activeCategory === "series" || STATE.activePlatform === "crunchyroll" ? "tv" : "movie";
+        const defaultType = STATE.activeFilterType === "tv" || STATE.activeCategory === "series" || STATE.activeCategory === "reality" || STATE.activePlatform === "crunchyroll" ? "tv" : "movie";
         const currentOtt = STATE.activePlatform !== "all" ? STATE.activePlatform : null;
-        const items = data.results.map(r => adaptTmdbItem(r, defaultType, currentOtt));
+        let items = data.results.map(r => adaptTmdbItem(r, defaultType, currentOtt));
+
+        // When viewing Reality Shows on Page 1, prioritize curated iconic reality shows (Bigg Boss, Kapil, Shark Tank, etc.)
+        if (isInitial && STATE.activeCategory === "reality" && typeof CURATED_REALITY_SHOWS !== "undefined") {
+          let preList = CURATED_REALITY_SHOWS;
+          if (STATE.activeLanguage !== "all") {
+            preList = preList.filter(s => s.original_language === STATE.activeLanguage);
+          }
+          if (STATE.activePlatform !== "all") {
+            preList = preList.filter(s => s.ott === STATE.activePlatform);
+          }
+          const preAdapted = preList.map(s => adaptTmdbItem(s, "tv", s.ott));
+          const existingIds = new Set(preAdapted.map(x => String(x.id)));
+          items = [...preAdapted, ...items.filter(x => !existingIds.has(String(x.id)))];
+        }
 
         if (isInitial) {
           grid.innerHTML = items.map(item => createCardHTML(item, currentOtt)).join("");

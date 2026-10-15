@@ -67,7 +67,12 @@ Filtered discovery for major streaming platforms with authentic dynamic platform
 - **Apple TV+ Award Winners & Sci-Fi**
 - **Crunchyroll Dubbed & Subbed Anime**
 
-### 6. ▶ In-Modal 4K Official Trailer Viewer
+### 6. 🔥 Reality TV & Shows Hub (Bigg Boss, Shark Tank & Entertainment)
+- **Top Indian & Global Reality Shows:** Dedicated catalog row and navigation tab for unscripted entertainment: *Bigg Boss* (Hindi, Malayalam, Tamil, Telugu, Kannada, Marathi), *The Great Indian Kapil Show*, *Shark Tank India*, *Fear Factor: Khatron Ke Khiladi*, *MTV Splitsvilla*, *MTV Roadies*, and more.
+- **Full Season & Episode Browser:** Reality shows are treated with full TV series multi-season indexing, letting viewers browse seasons, episode numbers, and high-resolution 16:9 episode still thumbnails.
+- **Language-Composable Discovery:** Filter reality TV with regional language pills (e.g. Reality + Malayalam for *Bigg Boss Malayalam*, or Reality + Hindi for *Bigg Boss Hindi*, *The Great Indian Kapil Show*, and *Shark Tank India*).
+
+### 7. ▶ In-Modal 4K Official Trailer Viewer
 - Live TMDB YouTube API integration providing official 4K trailers directly inside the details modal.
 - Multi-trailer switcher chips (`[TRAILER 1]`, `[TRAILER 2]`, `[TEASER]`).
 - Auto-dismisses trailer stream upon starting movie playback or closing modal.
