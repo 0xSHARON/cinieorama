@@ -70,6 +70,17 @@ Filtered discovery for major streaming platforms with authentic dynamic platform
 - Debounced real-time search across 10,000+ movies, web series, and anime.
 - Dual-source querying combining TMDB Multi-Search and IMDb Public Suggestion API.
 
+### 9. 🎬 Real Episode Thumbnails & Navigation
+- **High-Resolution Episode Artwork:** Pulls authentic 16:9 episode thumbnails (`still_path`) live from TMDB for every season and episode.
+- **Rich Episode Metadata:** Shows episode duration (`⏱ 45m`), rating (`★ 8.5`), air date, full episode title, and synopsis clamp.
+- **Watch Progress on Episodes:** Highlights currently active episode and displays `✓ WATCHED` badge or progress indicator if previously streamed.
+- **In-Player Episode Drawer:** Seamless slide-out drawer during playback allowing instant episode hopping with thumbnail previews without reloading the player.
+
+### 10. 📲 Progressive Web App (PWA) & 1-Click Install
+- **Install on Any Device:** Installable on Windows, macOS, Android, iPhone/iPad, Linux, and ChromeOS as a standalone desktop or mobile application.
+- **No App Store Needed:** Uses native browser PWA engines (`manifest.json` and `sw.js` Service Worker).
+- **Dedicated Guide:** Complete step-by-step installation instructions available in [INSTALL.md](INSTALL.md) and inside the in-app `[📥 INSTALL APP]` modal.
+
 ---
 
 ## 🛠️ Tech Stack & Architecture
@@ -79,9 +90,10 @@ Filtered discovery for major streaming platforms with authentic dynamic platform
 | **Structure** | Semantic HTML5 |
 | **Styling** | Vanilla CSS3 (Custom Design Tokens, Neo-Brutalist Layouts, Ambilight Glow, Glassmorphism) |
 | **Logic** | Vanilla Modern JavaScript (ES6+, Async/Await, IntersectionObserver, Canvas API) |
+| **PWA & Offline** | Web App Manifest v1.0, Service Worker Shell Cache (`sw.js`) |
 | **Data Source** | TMDB REST API v3 (Live Discover, Search, Videos, Watch Providers) |
 | **Storage** | Client-Side Web Storage API (`localStorage`) |
-| **Deployment** | 100% Static (GitHub Pages, Vercel, Netlify, Cloudflare Pages) |
+| **Deployment** | 100% Static (GitHub Pages: [0xsharon.github.io/cinieorama](https://0xsharon.github.io/cinieorama/)) |
 
 ---
 
@@ -89,7 +101,7 @@ Filtered discovery for major streaming platforms with authentic dynamic platform
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/cinieorama.git
+   git clone https://github.com/0xSHARON/cinieorama.git
    cd cinieorama
    ```
 

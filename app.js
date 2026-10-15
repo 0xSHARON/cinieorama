@@ -1788,9 +1788,9 @@ async function loadRealSeasonEpisodes(tvId, seasonNum) {
   if (!listContainer) return;
 
   listContainer.innerHTML = `
-    <div style="grid-column:1/-1; padding:20px; text-align:center; font-family:monospace; color:#888">
-      <div class="brutal-spinner" style="margin: 0 auto 8px; width:28px; height:28px"></div>
-      LOADING SEASON ${seasonNum} EPISODES FROM TMDB…
+    <div style="grid-column:1/-1; padding:32px; text-align:center; font-family:monospace; color:#888">
+      <div class="brutal-spinner" style="margin: 0 auto 10px; width:32px; height:32px"></div>
+      LOADING SEASON ${seasonNum} EPISODES &amp; THUMBNAILS FROM TMDB…
     </div>
   `;
 
@@ -1800,16 +1800,52 @@ async function loadRealSeasonEpisodes(tvId, seasonNum) {
       const sData = await res.json();
       if (sData.episodes && sData.episodes.length > 0) {
         STATE.currentSeasonEpisodes = sData.episodes;
-        listContainer.innerHTML = sData.episodes.map(ep => `
-          <button class="ep-btn ${ep.episode_number === STATE.currentEpisode ? 'active' : ''}" data-ep="${ep.episode_number}" title="${ep.name || ''}">
-            <div style="font-weight:900; font-size:0.8rem">EP ${ep.episode_number}</div>
-            <div style="font-size:0.65rem; color:#aaa; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${ep.name || `Episode ${ep.episode_number}`}</div>
-          </button>
-        `).join("");
+        const itemBackdrop = STATE.selectedMedia?.backdrop || STATE.selectedMedia?.poster || FALLBACK_POSTER;
+        const history = WATCH_HISTORY.getItem(tvId);
 
-        listContainer.querySelectorAll(".ep-btn").forEach(btn => {
-          btn.onclick = () => {
-            STATE.currentEpisode = parseInt(btn.dataset.ep, 10);
+        listContainer.innerHTML = sData.episodes.map(ep => {
+          const stillUrl = ep.still_path
+            ? `${TMDB_CONFIG.imageBase}/w500${ep.still_path}`
+            : itemBackdrop;
+          const isEpActive = (STATE.currentSeason === seasonNum && STATE.currentEpisode === ep.episode_number);
+          const hasEpHistory = history && parseInt(history.season, 10) === seasonNum && parseInt(history.episode, 10) === ep.episode_number;
+          const isEpWatched = hasEpHistory && history.progress >= 90;
+          const epProgress = hasEpHistory ? history.progress : 0;
+          const epAirYear = ep.air_date ? ep.air_date.slice(0, 4) : '';
+          const epRuntime = ep.runtime ? `${ep.runtime}m` : '';
+
+          return `
+            <div class="ep-card ${isEpActive ? 'active' : ''}" data-ep="${ep.episode_number}" title="${(ep.name || '').replace(/"/g, '&quot;')}">
+              <div class="ep-thumb-wrap">
+                <img class="ep-thumb-img" src="${stillUrl}" alt="${ep.name || `Episode ${ep.episode_number}`}" loading="lazy" onerror="this.src='${itemBackdrop}'">
+                <div class="ep-badge-pill">EP ${ep.episode_number}</div>
+                ${epRuntime ? `<div class="ep-duration-pill">⏱ ${epRuntime}</div>` : ''}
+                ${isEpWatched ? `<div class="ep-watched-tag">✓ WATCHED</div>` : ''}
+                <div class="ep-play-overlay">
+                  <div class="ep-play-btn-circle">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="7 5 19 12 7 19 7 5"/></svg>
+                  </div>
+                </div>
+                ${epProgress > 0 && !isEpWatched ? `<div class="ep-progress-bar"><div class="ep-progress-fill" style="width:${epProgress}%"></div></div>` : ''}
+              </div>
+              <div class="ep-card-body">
+                <div class="ep-card-header">
+                  <span class="ep-num-label">EPISODE ${ep.episode_number}</span>
+                  <div class="ep-meta-tags">
+                    ${ep.vote_average ? `<span class="ep-rating-tag">★ ${ep.vote_average.toFixed(1)}</span>` : ''}
+                    ${epAirYear ? `<span class="ep-year-tag">${epAirYear}</span>` : ''}
+                  </div>
+                </div>
+                <h4 class="ep-card-title">${ep.name || `Episode ${ep.episode_number}`}</h4>
+                <p class="ep-card-overview">${ep.overview ? ep.overview : 'Watch episode in high definition with multi-audio servers.'}</p>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        listContainer.querySelectorAll(".ep-card").forEach(card => {
+          card.onclick = () => {
+            STATE.currentEpisode = parseInt(card.dataset.ep, 10);
             closeDetailsModal();
             openPlayer(STATE.selectedMedia, STATE.currentSeason, STATE.currentEpisode);
           };
@@ -1828,18 +1864,37 @@ function renderFallbackEpisodes(count) {
   const listContainer = document.getElementById("modalEpisodeList");
   if (!listContainer) return;
 
+  const itemBackdrop = STATE.selectedMedia?.backdrop || STATE.selectedMedia?.poster || FALLBACK_POSTER;
   STATE.currentSeasonEpisodes = Array.from({ length: count }, (_, i) => ({
     episode_number: i + 1,
-    name: `Episode ${i + 1}`
+    name: `Episode ${i + 1}`,
+    overview: `Episode ${i + 1} of ${STATE.selectedMedia?.title || 'series'}. Available in Ultra-HD with multiple audio streams.`
   }));
 
-  listContainer.innerHTML = STATE.currentSeasonEpisodes
-    .map(ep => `<button class="ep-btn ${ep.episode_number === STATE.currentEpisode ? 'active' : ''}" data-ep="${ep.episode_number}">EPISODE ${ep.episode_number}</button>`)
-    .join("");
+  listContainer.innerHTML = STATE.currentSeasonEpisodes.map(ep => `
+    <div class="ep-card ${ep.episode_number === STATE.currentEpisode ? 'active' : ''}" data-ep="${ep.episode_number}">
+      <div class="ep-thumb-wrap">
+        <img class="ep-thumb-img" src="${itemBackdrop}" alt="Episode ${ep.episode_number}" loading="lazy">
+        <div class="ep-badge-pill">EP ${ep.episode_number}</div>
+        <div class="ep-play-overlay">
+          <div class="ep-play-btn-circle">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="7 5 19 12 7 19 7 5"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="ep-card-body">
+        <div class="ep-card-header">
+          <span class="ep-num-label">EPISODE ${ep.episode_number}</span>
+        </div>
+        <h4 class="ep-card-title">${ep.name}</h4>
+        <p class="ep-card-overview">${ep.overview}</p>
+      </div>
+    </div>
+  `).join("");
 
-  listContainer.querySelectorAll(".ep-btn").forEach(btn => {
-    btn.onclick = () => {
-      STATE.currentEpisode = parseInt(btn.dataset.ep, 10);
+  listContainer.querySelectorAll(".ep-card").forEach(card => {
+    card.onclick = () => {
+      STATE.currentEpisode = parseInt(card.dataset.ep, 10);
       closeDetailsModal();
       openPlayer(STATE.selectedMedia, STATE.currentSeason, STATE.currentEpisode);
     };
@@ -2322,18 +2377,38 @@ function populateInPlayerEpisodeDrawer() {
 
   const episodes = STATE.currentSeasonEpisodes && STATE.currentSeasonEpisodes.length
     ? STATE.currentSeasonEpisodes
-    : Array.from({ length: 10 }, (_, i) => ({ episode_number: i + 1, name: `EP ${i + 1}` }));
+    : Array.from({ length: 10 }, (_, i) => ({ episode_number: i + 1, name: `Episode ${i + 1}` }));
 
-  drawerGrid.innerHTML = episodes.map(ep => `
-    <button class="drawer-ep-btn ${ep.episode_number === STATE.currentEpisode ? 'active' : ''}" data-ep="${ep.episode_number}" title="${ep.name || ''}">
-      EP ${ep.episode_number}
-    </button>
-  `).join("");
+  const itemBackdrop = STATE.selectedMedia?.backdrop || STATE.selectedMedia?.poster || FALLBACK_POSTER;
 
-  drawerGrid.querySelectorAll(".drawer-ep-btn").forEach(btn => {
-    btn.onclick = () => {
-      STATE.currentEpisode = parseInt(btn.dataset.ep, 10);
-      drawerGrid.querySelectorAll(".drawer-ep-btn").forEach(b => b.classList.toggle("active", parseInt(b.dataset.ep, 10) === STATE.currentEpisode));
+  drawerGrid.innerHTML = episodes.map(ep => {
+    const stillUrl = ep.still_path
+      ? `${TMDB_CONFIG.imageBase}/w300${ep.still_path}`
+      : itemBackdrop;
+    const isActive = ep.episode_number === STATE.currentEpisode;
+
+    return `
+      <div class="drawer-ep-card ${isActive ? 'active' : ''}" data-ep="${ep.episode_number}" title="${(ep.name || `Episode ${ep.episode_number}`).replace(/"/g, '&quot;')}">
+        <div class="drawer-thumb-wrap">
+          <img class="drawer-thumb-img" src="${stillUrl}" alt="${ep.name || 'EP ' + ep.episode_number}" loading="lazy" onerror="this.src='${itemBackdrop}'">
+          <div class="drawer-ep-badge">EP ${ep.episode_number}</div>
+          ${ep.runtime ? `<div class="drawer-runtime-badge">${ep.runtime}m</div>` : ''}
+          <div class="drawer-play-icon">▶</div>
+        </div>
+        <div class="drawer-ep-info">
+          <div class="drawer-ep-num">EPISODE ${ep.episode_number}</div>
+          <div class="drawer-ep-title">${ep.name || `Episode ${ep.episode_number}`}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  drawerGrid.querySelectorAll(".drawer-ep-card").forEach(card => {
+    card.onclick = () => {
+      STATE.currentEpisode = parseInt(card.dataset.ep, 10);
+      drawerGrid.querySelectorAll(".drawer-ep-card").forEach(c => {
+        c.classList.toggle("active", parseInt(c.dataset.ep, 10) === STATE.currentEpisode);
+      });
       loadStreamUrl();
     };
   });
@@ -2363,7 +2438,7 @@ function updatePlayerHeaders() {
 
   const drawerGrid = document.getElementById("playerDrawerEpisodes");
   if (drawerGrid) {
-    drawerGrid.querySelectorAll(".drawer-ep-btn").forEach(b => {
+    drawerGrid.querySelectorAll(".drawer-ep-card").forEach(b => {
       b.classList.toggle("active", parseInt(b.dataset.ep, 10) === STATE.currentEpisode);
     });
   }
@@ -2742,14 +2817,22 @@ function attachEventListeners() {
       closeDetailsModal();
       closePlayer();
       closePolicyModal();
+      closeInstallModal();
     }
   });
 
-  // Close policy modal when clicking outside
+  // Close policy & install modal when clicking outside
   const policyModal = document.getElementById("policyModal");
   if (policyModal) {
     policyModal.onclick = (e) => {
       if (e.target === policyModal) closePolicyModal();
+    };
+  }
+
+  const installModal = document.getElementById("installModal");
+  if (installModal) {
+    installModal.onclick = (e) => {
+      if (e.target === installModal) closeInstallModal();
     };
   }
 }
@@ -2929,3 +3012,75 @@ function attachSliderArrows() {
     };
   });
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// 15. PROGRESSIVE WEB APP (PWA) INSTALLATION & SERVICE WORKER
+// ═══════════════════════════════════════════════════════════════════
+let deferredInstallPrompt = null;
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(err => {
+      console.warn("Service Worker registration skipped:", err);
+    });
+  });
+}
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  const navBtn = document.getElementById("navInstallBtn");
+  if (navBtn) {
+    navBtn.classList.add("install-ready");
+  }
+  const ctaBtn = document.getElementById("btnTriggerPwaInstall");
+  if (ctaBtn) {
+    ctaBtn.textContent = "📥 INSTALL TO THIS DEVICE NOW";
+  }
+});
+
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  const navBtn = document.getElementById("navInstallBtn");
+  if (navBtn) {
+    navBtn.innerHTML = "<span>✓ INSTALLED</span>";
+    navBtn.classList.remove("install-ready");
+  }
+  closeInstallModal();
+});
+
+window.openInstallModal = function() {
+  const modal = document.getElementById("installModal");
+  if (!modal) return;
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+};
+
+window.closeInstallModal = function() {
+  const modal = document.getElementById("installModal");
+  if (!modal) return;
+  modal.style.display = "none";
+  document.body.style.overflow = "";
+};
+
+window.triggerPwaInstallPrompt = function() {
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted PWA installation");
+      }
+      deferredInstallPrompt = null;
+      closeInstallModal();
+    });
+  } else {
+    const ctaBtn = document.getElementById("btnTriggerPwaInstall");
+    if (ctaBtn) {
+      ctaBtn.innerHTML = "💡 FOLLOW PLATFORM STEPS BELOW ▾";
+      setTimeout(() => {
+        if (ctaBtn) ctaBtn.innerHTML = "📥 INSTALL TO THIS DEVICE NOW";
+      }, 3500);
+    }
+  }
+};
+

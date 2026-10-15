@@ -3,13 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CINIEORAMA // CINEMA HUB</title>
+  <title>CINIEORAMA // CINEMA &amp; ANIME HUB</title>
   <meta name="description" content="Cinieorama: Watch 2026 movies, web series, Malayalam, Tamil, Telugu, Hindi, Multi-Audio &amp; Anime across all OTT hubs free. Neo-Brutalist Netflix UI for GitHub Pages.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Cinieorama">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23E50914%22/><text y=%22.76em%22 x=%22.18em%22 font-size=%2280%22 font-family=%22monospace%22 font-weight=%22900%22 fill=%22white%22>C</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="alternate icon" type="image/png" href="icon-192.png">
 </head>
 <body>
 
@@ -47,6 +55,9 @@
       </div>
 
       <div class="nav-search-group">
+        <button id="navInstallBtn" class="brutal-btn install-nav-btn" onclick="openInstallModal()" title="Install Cinieorama Desktop / Mobile App">
+          <span>📥</span> <span>INSTALL APP</span>
+        </button>
         <div class="brutal-search" id="searchBox">
           <span class="search-symbol">⌕</span>
           <input id="searchInput" type="text" placeholder="SEARCH ANY MOVIE, SHOW, ANIME WORLDWIDE…" autocomplete="off" spellcheck="false">
@@ -223,6 +234,14 @@
           <a href="TERMS.md" target="_blank" rel="noopener">TERMS.md ↗</a>
           <a href="LICENSE.md" target="_blank" rel="noopener">LICENSE.md ↗</a>
         </div>
+        <div class="footer-col">
+          <span class="col-title">GET APP &amp; SOURCE</span>
+          <a href="#" onclick="openInstallModal();return false;">📥 Install App (PWA)</a>
+          <a href="INSTALL.md" target="_blank" rel="noopener">INSTALL.md ↗</a>
+          <a href="https://github.com/0xSHARON/cinieorama" target="_blank" rel="noopener">GitHub Repository ↗</a>
+          <a href="README.md" target="_blank" rel="noopener">README.md ↗</a>
+          <a href="https://0xsharon.github.io/cinieorama/" target="_blank" rel="noopener">Live Web App ↗</a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -235,6 +254,8 @@
         <a href="#" onclick="openPolicyModal('disclaimer');return false;" style="color:#aaa; text-decoration: underline;">Disclaimer</a>
         <span style="color:#444">•</span>
         <a href="LICENSE.md" target="_blank" rel="noopener" style="color:#aaa; text-decoration: underline;">MIT License</a>
+        <span style="color:#444">•</span>
+        <a href="#" onclick="openInstallModal();return false;" style="color:var(--brutal-yellow); font-weight:bold; text-decoration: underline;">Install App</a>
       </div>
       <p>© 2026 CINIEORAMA DIRECT // HIGH-PERFORMANCE STATIC ARCHITECTURE</p>
     </div>
@@ -261,6 +282,94 @@
       <div style="padding: 14px 28px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; background: #0c0c0c;">
         <span style="font-size: 0.75rem; color: #666; font-family: monospace;">EFFECTIVE DATE: OCTOBER 2026</span>
         <button class="brutal-btn secondary-btn" style="padding: 6px 18px; font-size: 0.75rem;" onclick="closePolicyModal()">CLOSE ✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BRUTALIST INSTALL APP / PWA MODAL ═══ -->
+  <div id="installModal" class="brutal-modal" style="display:none">
+    <div class="modal-card install-modal-window">
+      <button id="closeInstallBtn" class="modal-close" onclick="closeInstallModal()" title="Close Install Window">✕</button>
+      <div class="modal-header-bar" style="padding: 22px 28px 16px; border-bottom: 2px solid #222;">
+        <div class="install-brand-title">
+          <span class="brand-badge" style="width: 32px; height: 32px; font-size: 1.1rem;">C</span>
+          <h2 style="font-size: 1.25rem; font-weight: 900; letter-spacing: 0.5px; margin: 0; color: #fff;">INSTALL CINIEORAMA APP</h2>
+          <span class="brand-year" style="font-size: 0.7rem;">PWA v1.0</span>
+        </div>
+      </div>
+      <div class="install-modal-body">
+        <div class="install-hero-card">
+          <img src="icon-192.png" alt="Cinieorama App Icon" class="install-app-icon">
+          <div class="install-hero-info">
+            <h3>CINIEORAMA // DESKTOP &amp; MOBILE APP</h3>
+            <p>Install Cinieorama directly to your device for an instant borderless cinema experience, hardware-accelerated playback, zero browser bars, and 100% private local storage.</p>
+            <div class="install-action-row">
+              <button id="btnTriggerPwaInstall" class="brutal-btn primary-btn install-cta-btn" onclick="triggerPwaInstallPrompt()">
+                📥 INSTALL TO THIS DEVICE NOW
+              </button>
+              <a href="https://0xsharon.github.io/cinieorama/" target="_blank" class="brutal-btn secondary-btn" style="padding: 10px 18px; font-size: 0.8rem; font-family: var(--font-mono);">
+                🌐 OPEN GITHUB PAGES LIVE ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="install-os-guides">
+          <h4 class="guides-heading">WHERE &amp; HOW USERS CAN INSTALL CINIEORAMA</h4>
+          
+          <div class="os-cards-grid">
+            <!-- Windows & Mac -->
+            <div class="os-guide-card">
+              <div class="os-guide-header">
+                <span class="os-icon">💻</span>
+                <span class="os-name">WINDOWS &amp; MAC (CHROME &amp; EDGE)</span>
+              </div>
+              <ol class="os-steps-list">
+                <li>Open <a href="https://0xsharon.github.io/cinieorama/" target="_blank">0xsharon.github.io/cinieorama</a> in Chrome or Edge.</li>
+                <li>Click the <strong>Install</strong> icon in the address bar (computer with down arrow) or click the <strong>[INSTALL APP]</strong> button above.</li>
+                <li>Click <strong>Install</strong> when prompted.</li>
+                <li>Cinieorama opens as a dedicated borderless desktop app with Taskbar and Desktop shortcuts!</li>
+              </ol>
+            </div>
+
+            <!-- Android -->
+            <div class="os-guide-card">
+              <div class="os-guide-header">
+                <span class="os-icon">🤖</span>
+                <span class="os-name">ANDROID (CHROME &amp; BRAVE)</span>
+              </div>
+              <ol class="os-steps-list">
+                <li>Visit <a href="https://0xsharon.github.io/cinieorama/" target="_blank">0xsharon.github.io/cinieorama</a> on your phone.</li>
+                <li>Tap <strong>[INSTALL APP]</strong> or the install banner.</li>
+                <li>Or tap Chrome menu (⋮) ➔ <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.</li>
+                <li>Cinieorama installs directly into your Android app drawer with full-screen cinema mode!</li>
+              </ol>
+            </div>
+
+            <!-- iOS / Safari -->
+            <div class="os-guide-card">
+              <div class="os-guide-header">
+                <span class="os-icon">🍏</span>
+                <span class="os-name">IPHONE &amp; IPAD (SAFARI)</span>
+              </div>
+              <ol class="os-steps-list">
+                <li>Open <a href="https://0xsharon.github.io/cinieorama/" target="_blank">0xsharon.github.io/cinieorama</a> in <strong>Safari</strong>.</li>
+                <li>Tap the <strong>Share</strong> button (square with arrow ⬆️) in Safari bottom bar.</li>
+                <li>Scroll down and tap <strong>"Add to Home Screen"</strong> (➕).</li>
+                <li>Tap <strong>"Add"</strong> in the top-right corner.</li>
+                <li>Cinieorama is now installed on your iPhone home screen!</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: #161616; border: 1px dashed #333; padding: 12px 16px; font-family: var(--font-mono); font-size: 0.75rem; color: #888; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <span>Zero app store signups. Zero APKs required. Pure web progressive technology.</span>
+          <a href="INSTALL.md" target="_blank" style="color: var(--brutal-yellow); text-decoration: underline;">Read Full INSTALL.md Guide ↗</a>
+        </div>
+      </div>
+      <div style="padding: 14px 28px; border-top: 1px solid #222; display: flex; justify-content: flex-end; background: #0c0c0c;">
+        <button class="brutal-btn secondary-btn" style="padding: 6px 18px; font-size: 0.75rem;" onclick="closeInstallModal()">CLOSE ✕</button>
       </div>
     </div>
   </div>
