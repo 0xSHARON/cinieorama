@@ -3570,5 +3570,216 @@ html, body {
   letter-spacing: 0.02em;
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   BRUTALIST EXTERNAL PLAYER MODAL & TOAST NOTIFICATION
+   ═══════════════════════════════════════════════════════════════════ */
+.ext-modal-card {
+  max-width: 620px;
+  width: 95%;
+  border: 2px solid var(--brutal-yellow, #ffea00);
+  box-shadow: 0 0 35px rgba(255, 234, 0, 0.25), 0 10px 40px rgba(0, 0, 0, 0.9);
+  background: #0d0d0d;
+}
+
+.ext-modal-inner {
+  padding: 24px;
+}
+
+.ext-modal-header-tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.ext-modal-header-tag .yellow-tag {
+  background: #ffea00;
+  color: #000;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  padding: 3px 8px;
+}
+
+.ext-modal-header-tag .server-badge-tag {
+  background: #222;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.ext-modal-title {
+  font-size: 1.3rem;
+  margin: 0 0 8px 0;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.ext-modal-subtitle {
+  color: #aaa;
+  font-size: 0.85rem;
+  margin: 0 0 20px 0;
+  font-family: var(--font-mono);
+  line-height: 1.4;
+}
+
+.ext-copy-box {
+  background: #111;
+  border: 1px solid #333;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ext-url-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #00e676;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  outline: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ext-copy-btn {
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  background: #ffea00;
+  color: #000;
+  font-weight: 700;
+  border: 1px solid #000;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.ext-copy-btn:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+.ext-player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.ext-app-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #181818;
+  border: 1px solid #333;
+  padding: 12px 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  color: #fff;
+}
+
+.ext-app-btn:hover {
+  background: #242424;
+  border-color: var(--brutal-yellow, #ffea00);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+
+.ext-app-btn:active {
+  transform: translateY(0);
+}
+
+.ext-app-btn .ext-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.ext-app-btn .ext-info strong {
+  display: block;
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.ext-app-btn .ext-info span {
+  display: block;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: #888;
+}
+
+.ext-guide-box {
+  background: #161616;
+  border-left: 3px solid var(--brutal-red, #ff0033);
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  color: #888;
+  font-family: var(--font-mono);
+  line-height: 1.5;
+}
+
+.ext-guide-box kbd {
+  background: #242424;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid #444;
+}
+
+.ext-modal-footer {
+  padding: 12px 24px;
+  border-top: 1px solid #222;
+  display: flex;
+  justify-content: flex-end;
+  background: #0c0c0c;
+}
+
+/* Global Toast Notification */
+.cinieorama-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #0f0f0f;
+  color: #fff;
+  border: 2px solid var(--brutal-yellow, #ffea00);
+  padding: 12px 20px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 234, 0, 0.2);
+  z-index: 10000000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cinieorama-toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .cinieorama-toast {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
 
 

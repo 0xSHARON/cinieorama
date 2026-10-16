@@ -109,6 +109,15 @@ Filtered discovery for major streaming platforms with authentic dynamic platform
 - **No App Store Needed:** Uses native browser PWA engines (`manifest.json` and `sw.js` Service Worker).
 - **Dedicated Guide:** Complete step-by-step installation instructions available in [INSTALL.md](INSTALL.md) and inside the in-app `[📥 INSTALL APP]` modal.
 
+### 11. 🚀 Open in External Media Player (VLC, MX Player, PotPlayer, MPV)
+- **Direct App Launching:** Launch any movie, anime, or web series episode into your favorite native player with 1 click:
+  - 🟠 **VLC Media Player:** Auto-launches via `vlc://` protocol or Android intent, with automatic network stream link copying.
+  - 🔵 **MX Player:** Direct Android intent launch for hardware-accelerated mobile playback.
+  - 🟡 **PotPlayer:** 1-click Windows desktop protocol handler (`potplayer://`).
+  - ⚪ **IINA / MPV:** Direct URL launch for macOS and Linux power users.
+- **1-Click Network Link Copy:** Instant clipboard copy with desktop shortcut guide (`Ctrl+N` / `Cmd+N`) for streaming directly over local networks, casting, or third-party players.
+- **Convenient Access:** Available directly inside the **Player Toolbar** (`▶ EXTERNAL APP`), the **Details Modal**, or via the `X` keyboard shortcut.
+
 ---
 
 ## 🛠️ Tech Stack & Architecture

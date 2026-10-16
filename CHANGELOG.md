@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.10.0] - 2026-10-16
+
+### Added
+- **"Open in External Player" Multi-App Launch Suite:**
+  - Added dedicated `▶ EXTERNAL APP` buttons in both the **In-Player Toolbar** and the **Movie/Show Details Modal**.
+  - Built the Neo-Brutalist `#externalPlayerModal` with custom protocol and intent dispatchers:
+    - 🟠 **VLC Media Player:** Auto-dispatches `vlc://` (desktop), Android VLC intents (`org.videolan.vlc`), and iOS URL schemes with automatic stream URL clipboard backup.
+    - 🔵 **MX Player:** Android intent launching (`com.mxtech.videoplayer.ad`) for mobile hardware acceleration.
+    - 🟡 **PotPlayer:** 1-click Windows native player invocation (`potplayer://`).
+    - ⚪ **IINA / MPV:** Direct URL launch for macOS and Linux.
+  - **1-Click Network Link Copy:** Instant stream link copy with custom feedback and VLC `Ctrl+N` / `Cmd+N` desktop cheat sheet.
+  - **Global Toast Notification:** Added a high-contrast Neo-Brutalist toast component (`#cinieoramaToast`) for sleek clipboard copy and app launching confirmations.
+  - **Cinema Hotkey:** Added `X` keyboard shortcut to open the External Player modal instantly during playback.
+
+---
+
 ## [2.9.0] - 2026-10-16
 
 ### Added

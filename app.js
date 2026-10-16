@@ -3101,6 +3101,14 @@ async function openDetailsModal(item) {
     };
   }
 
+  // Wire External Player button in Details Modal
+  const modalExtBtn = document.getElementById("modalExternalBtn");
+  if (modalExtBtn) {
+    modalExtBtn.onclick = () => {
+      openExternalPlayerModal();
+    };
+  }
+
   // Wire Share button
   const shareBtn = document.getElementById("modalShareBtn");
   if (shareBtn) {
@@ -4142,9 +4150,17 @@ function loadStreamUrl() {
       window.open(streamUrl, "_blank", "width=1280,height=720,scrollbars=no,resizable=yes");
     };
   }
+
+  const extBtn = document.getElementById("playerExternalBtn");
+  if (extBtn) {
+    extBtn.onclick = () => {
+      openExternalPlayerModal(streamUrl);
+    };
+  }
 }
 
 function closePlayer() {
+  closeExternalPlayerModal();
   const playerModal = document.getElementById("playerModal");
   const iframe = document.getElementById("streamIframe");
   if (iframe) iframe.src = "";
@@ -4482,6 +4498,7 @@ function attachEventListeners() {
     }
 
     if (e.key === "Escape") {
+      closeExternalPlayerModal();
       closeDetailsModal();
       closePlayer();
       closePolicyModal();
@@ -4494,6 +4511,12 @@ function attachEventListeners() {
 
     if (isPlayerOpen) {
       const key = e.key.toLowerCase();
+      // 'x' = Open in External Player Modal
+      if (key === "x") {
+        e.preventDefault();
+        openExternalPlayerModal();
+        return;
+      }
       // 'f' = Fullscreen toggle
       if (key === "f") {
         e.preventDefault();
@@ -4847,4 +4870,164 @@ window.triggerPwaInstallPrompt = function() {
     }
   }
 };
+
+// ═══════════════════════════════════════════════════════════════════
+// 15. EXTERNAL MEDIA PLAYER INTEGRATION (VLC, MX, POTPLAYER, MPV)
+// ═══════════════════════════════════════════════════════════════════
+function showToast(msg) {
+  let toast = document.getElementById("cinieoramaToast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "cinieoramaToast";
+    toast.className = "cinieorama-toast";
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `<span style="color:#00e676">●</span> ${msg}`;
+  toast.classList.add("visible");
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => {
+    toast.classList.remove("visible");
+  }, 3200);
+}
+
+window.openExternalPlayerModal = function(explicitUrl) {
+  const item = STATE.selectedMedia;
+  if (!item) return;
+
+  const serverKey = STATE.activeServer || "embedwave";
+  const server = STREAM_SERVERS[serverKey] || STREAM_SERVERS.embedwave;
+
+  let streamUrl = explicitUrl || STATE.currentStreamUrl;
+  if (!streamUrl) {
+    streamUrl = item.type === "tv"
+      ? server.tv(item.id, STATE.currentSeason || 1, STATE.currentEpisode || 1)
+      : server.movie(item.id);
+  }
+
+  STATE.currentStreamUrl = streamUrl;
+
+  const modal = document.getElementById("externalPlayerModal");
+  if (!modal) return;
+
+  const titleEl = document.getElementById("extPlayerTitle");
+  if (titleEl) {
+    titleEl.textContent = item.type === "tv"
+      ? `${item.title || item.name} — S${STATE.currentSeason || 1}:E${STATE.currentEpisode || 1}`
+      : (item.title || item.name);
+  }
+
+  const badgeEl = document.getElementById("extPlayerActiveServerBadge");
+  if (badgeEl) {
+    badgeEl.textContent = (server.name || serverKey).toUpperCase();
+  }
+
+  const inputEl = document.getElementById("extPlayerUrlInput");
+  if (inputEl) {
+    inputEl.value = streamUrl;
+  }
+
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+};
+
+window.closeExternalPlayerModal = function() {
+  const modal = document.getElementById("externalPlayerModal");
+  if (modal) modal.style.display = "none";
+  const playerModal = document.getElementById("playerModal");
+  const detailsModal = document.getElementById("detailsModal");
+  if ((!playerModal || playerModal.style.display === "none") && (!detailsModal || detailsModal.style.display === "none")) {
+    document.body.style.overflow = "";
+  }
+};
+
+window.launchInVlc = function() {
+  const input = document.getElementById("extPlayerUrlInput");
+  const url = STATE.currentStreamUrl || (input ? input.value : "");
+  if (!url) return;
+
+  const cleanUrl = url.replace(/^https?:\/\//i, "");
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isAndroid) {
+    const vlcIntent = `intent://${cleanUrl}#Intent;package=org.videolan.vlc;type=video/*;scheme=https;end`;
+    window.location.href = vlcIntent;
+  } else if (isIOS) {
+    window.location.href = `vlc-x-callback://x-callback-url/stream?url=${encodeURIComponent(url)}`;
+  } else {
+    window.location.href = `vlc://${url}`;
+  }
+
+  copyExternalStreamUrl(false);
+  showToast("LAUNCHING VLC (STREAM LINK COPIED TO CLIPBOARD)");
+};
+
+window.launchInMxPlayer = function() {
+  const input = document.getElementById("extPlayerUrlInput");
+  const url = STATE.currentStreamUrl || (input ? input.value : "");
+  if (!url) return;
+
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  if (isAndroid) {
+    const cleanUrl = url.replace(/^https?:\/\//i, "");
+    const mxIntent = `intent://${cleanUrl}#Intent;package=com.mxtech.videoplayer.ad;type=video/*;scheme=https;end`;
+    window.location.href = mxIntent;
+    showToast("LAUNCHING MX PLAYER ON ANDROID");
+  } else {
+    copyExternalStreamUrl(false);
+    showToast("MX PLAYER IS FOR ANDROID — LINK COPIED TO CLIPBOARD!");
+  }
+};
+
+window.launchInPotPlayer = function() {
+  const input = document.getElementById("extPlayerUrlInput");
+  const url = STATE.currentStreamUrl || (input ? input.value : "");
+  if (!url) return;
+
+  window.location.href = `potplayer://${url}`;
+  copyExternalStreamUrl(false);
+  showToast("LAUNCHING POTPLAYER (LINK COPIED TO CLIPBOARD)");
+};
+
+window.launchInIinaMpv = function() {
+  const input = document.getElementById("extPlayerUrlInput");
+  const url = STATE.currentStreamUrl || (input ? input.value : "");
+  if (!url) return;
+
+  const isMac = /Mac/i.test(navigator.userAgent);
+  if (isMac) {
+    window.location.href = `iina://open?url=${encodeURIComponent(url)}`;
+  } else {
+    window.location.href = `mpv://${url}`;
+  }
+  copyExternalStreamUrl(false);
+  showToast("LAUNCHING IINA / MPV (LINK COPIED TO CLIPBOARD)");
+};
+
+window.copyExternalStreamUrl = function(showFeedback = true) {
+  const input = document.getElementById("extPlayerUrlInput");
+  const url = input ? input.value : STATE.currentStreamUrl;
+  if (!url) return;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => {
+      if (showFeedback) showToast("✓ STREAM LINK COPIED! PASTE IN VLC (CTRL+N)");
+    }).catch(() => {
+      fallbackCopyText(url, showFeedback);
+    });
+  } else {
+    fallbackCopyText(url, showFeedback);
+  }
+};
+
+function fallbackCopyText(text, showFeedback) {
+  const input = document.getElementById("extPlayerUrlInput");
+  if (input) {
+    input.select();
+    try {
+      document.execCommand("copy");
+      if (showFeedback) showToast("✓ STREAM LINK COPIED! PASTE IN VLC (CTRL+N)");
+    } catch(e) {}
+  }
+}
 

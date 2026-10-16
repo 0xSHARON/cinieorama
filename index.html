@@ -439,6 +439,9 @@
             <button id="modalWatchlistBtn" class="brutal-btn secondary-btn modal-watchlist-btn">
               <span class="btn-icon">+</span> <span class="btn-text">MY LIST</span>
             </button>
+            <button id="modalExternalBtn" class="brutal-btn secondary-btn modal-external-btn" title="Open Stream in External Player (VLC, MX Player, PotPlayer)">
+              <span class="btn-icon">▶</span> <span class="btn-text">EXTERNAL APP</span>
+            </button>
             <button id="modalShareBtn" class="brutal-btn secondary-btn modal-share-btn" title="Share this title">
               <span class="btn-icon">🔗</span> <span class="btn-text">SHARE</span>
             </button>
@@ -505,6 +508,7 @@
           <div class="player-tools">
             <button id="playerAmbilightToggle" class="brutal-tool-btn ambilight-toggle active" title="Toggle Cinema Ambilight Glow">AMBILIGHT: ON</button>
             <button id="playerFullscreenBtn" class="brutal-tool-btn" title="Toggle Fullscreen Mode">⛶ FULLSCREEN</button>
+            <button id="playerExternalBtn" class="brutal-tool-btn" title="Open Stream in External Player (VLC, MX Player, PotPlayer, MPV)">▶ EXTERNAL APP</button>
             <button id="playerPopoutBtn" class="brutal-tool-btn" title="Open Stream in Popout Window / New Tab">↗ POPOUT</button>
             <button id="playerReloadBtn" class="brutal-tool-btn" title="Reload Video Stream">↻ RELOAD</button>
             <button id="closePlayerBtn" class="player-close-btn" title="Close Player">✕</button>
@@ -615,6 +619,71 @@
     </div>
   </div>
 
-  <script src="app.js?v=20261016_14"></script>
+  <!-- ═══ BRUTALIST EXTERNAL PLAYER MODAL ═══ -->
+  <div id="externalPlayerModal" class="brutal-modal" style="display:none; z-index:999999;">
+    <div class="modal-card ext-modal-card">
+      <button id="closeExternalModalBtn" class="modal-close" title="Close" onclick="closeExternalPlayerModal()">✕</button>
+      <div class="ext-modal-inner">
+        <div class="ext-modal-header-tag">
+          <span class="brutal-tag yellow-tag">EXTERNAL STREAM</span>
+          <span id="extPlayerActiveServerBadge" class="brutal-tag server-badge-tag">SERVER 1: EMBEDWAVE</span>
+        </div>
+        <h3 id="extPlayerTitle" class="ext-modal-title">TITLE</h3>
+        <p class="ext-modal-subtitle">
+          Launch this stream directly in VLC, MX Player, PotPlayer, or copy the direct network stream link.
+        </p>
+
+        <!-- Direct Stream URL copy box -->
+        <div class="ext-copy-box">
+          <input type="text" id="extPlayerUrlInput" readonly class="ext-url-input">
+          <button id="extPlayerCopyBtn" class="brutal-btn ext-copy-btn" onclick="copyExternalStreamUrl()">
+            📋 COPY LINK
+          </button>
+        </div>
+
+        <!-- External Player Launch Buttons Grid -->
+        <div class="ext-player-grid">
+          <button class="ext-app-btn vlc-btn" onclick="launchInVlc()">
+            <span class="ext-icon">🟠</span>
+            <div class="ext-info">
+              <strong>VLC MEDIA PLAYER</strong>
+              <span>PC / Mac / Android / iOS</span>
+            </div>
+          </button>
+          <button class="ext-app-btn mx-btn" onclick="launchInMxPlayer()">
+            <span class="ext-icon">🔵</span>
+            <div class="ext-info">
+              <strong>MX PLAYER</strong>
+              <span>Android Intent</span>
+            </div>
+          </button>
+          <button class="ext-app-btn pot-btn" onclick="launchInPotPlayer()">
+            <span class="ext-icon">🟡</span>
+            <div class="ext-info">
+              <strong>POTPLAYER</strong>
+              <span>Windows App</span>
+            </div>
+          </button>
+          <button class="ext-app-btn iina-btn" onclick="launchInIinaMpv()">
+            <span class="ext-icon">⚪</span>
+            <div class="ext-info">
+              <strong>IINA / MPV</strong>
+              <span>macOS &amp; Linux</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Instructions Guide -->
+        <div class="ext-guide-box">
+          <strong>VLC Desktop Shortcut:</strong> Click <strong>"COPY LINK"</strong> above, open VLC on your computer, press <kbd>Ctrl + N</kbd> (or <kbd>Cmd + N</kbd> on Mac), paste link and click <strong>Play</strong>.
+        </div>
+      </div>
+      <div class="ext-modal-footer">
+        <button class="brutal-btn secondary-btn" style="padding: 6px 18px; font-size: 0.75rem;" onclick="closeExternalPlayerModal()">CLOSE ✕</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=20261016_15"></script>
 </body>
 </html>
