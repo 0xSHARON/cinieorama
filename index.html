@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261016_11">
+  <link rel="stylesheet" href="styles.css?v=20261016_12">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <link rel="alternate icon" type="image/png" href="icon-192.png">
 </head>
@@ -154,6 +154,26 @@
     </div>
   </div>
 
+  <!-- ═══ GENRE QUICK-FILTER BAR ═══ -->
+  <div class="genre-bar" id="genreBar">
+    <div class="genre-inner">
+      <span class="genre-label">GENRE:</span>
+      <button class="genre-pill active" data-genre="all">ALL</button>
+      <button class="genre-pill" data-genre="28">ACTION</button>
+      <button class="genre-pill" data-genre="35">COMEDY</button>
+      <button class="genre-pill" data-genre="18">DRAMA</button>
+      <button class="genre-pill" data-genre="27">HORROR</button>
+      <button class="genre-pill" data-genre="878">SCI-FI</button>
+      <button class="genre-pill" data-genre="10749">ROMANCE</button>
+      <button class="genre-pill" data-genre="12">ADVENTURE</button>
+      <button class="genre-pill" data-genre="53">THRILLER</button>
+      <button class="genre-pill" data-genre="16">ANIMATION</button>
+      <button class="genre-pill" data-genre="10764">REALITY TV</button>
+      <button class="genre-pill" data-genre="80">CRIME</button>
+      <button class="genre-pill" data-genre="99">DOCUMENTARY</button>
+    </div>
+  </div>
+
   <!-- ═══ REAL-TIME SEARCH RESULTS OVERLAY PANE ═══ -->
   <section id="searchPane" class="search-pane" style="display:none">
     <div class="search-pane-header">
@@ -247,6 +267,15 @@
     </div>
     <div class="footer-bottom">
       <p>[DISCLAIMER: Cinieorama does not host any media files. Content is indexed and embedded from public third-party CDN streaming nodes.]</p>
+      
+      <!-- TMDB Official Attribution (Terms of Use Compliance) -->
+      <div class="tmdb-attribution">
+        <a href="https://www.themoviedb.org/" target="_blank" rel="noopener" class="tmdb-badge" title="Powered by The Movie Database (TMDB)">
+          <span class="tmdb-pill">TMDB</span>
+        </a>
+        <span class="tmdb-text">This product uses the TMDB API but is not endorsed or certified by TMDB.</span>
+      </div>
+
       <div class="footer-legal-links" style="margin: 8px 0; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; font-size: 0.75rem;">
         <a href="#" onclick="openPolicyModal('policy');return false;" style="color:#aaa; text-decoration: underline;">Privacy Policy</a>
         <span style="color:#444">•</span>
@@ -409,6 +438,9 @@
             </button>
             <button id="modalWatchlistBtn" class="brutal-btn secondary-btn modal-watchlist-btn">
               <span class="btn-icon">+</span> <span class="btn-text">MY LIST</span>
+            </button>
+            <button id="modalShareBtn" class="brutal-btn secondary-btn modal-share-btn" title="Share this title">
+              <span class="btn-icon">🔗</span> <span class="btn-text">SHARE</span>
             </button>
           </div>
 
@@ -580,6 +612,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=20261016_11"></script>
+  <script src="app.js?v=20261016_12"></script>
 </body>
 </html>

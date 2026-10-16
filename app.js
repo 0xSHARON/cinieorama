@@ -1603,8 +1603,12 @@ window.resetAllFilters = function() {
   STATE.activeSortBy = "popularity.desc";
   STATE.activeYearFilter = "all";
   STATE.activeFilterPage = 1;
+  STATE.activeGenre = null;
 
   syncPillActiveStates();
+  document.querySelectorAll(".genre-pill").forEach(p => {
+    p.classList.toggle("active", p.dataset.genre === "all");
+  });
 
   const searchInput = document.getElementById("searchInput");
   if (searchInput) searchInput.value = "";
@@ -1889,7 +1893,7 @@ async function renderCatalog() {
     return;
   }
 
-  if (STATE.activePlatform !== "all" || STATE.activeLanguage !== "all" || STATE.activeCategory !== "all") {
+  if (STATE.activePlatform !== "all" || STATE.activeLanguage !== "all" || STATE.activeCategory !== "all" || Boolean(STATE.activeGenre)) {
     renderFilteredView(container);
     return;
   }
@@ -2148,10 +2152,7 @@ async function renderCatalog() {
         </div>
       </div>
       <div class="row-slider" id="${section.id}-slider">
-        <div style="padding:28px 16px; font-family:monospace; color:#888; display:flex; align-items:center; gap:10px">
-          <div class="brutal-spinner" style="width:20px;height:20px;border-width:2px"></div>
-          STREAMING CATALOG FROM TMDB CLOUD…
-        </div>
+        ${generateSkeletonCards(6)}
       </div>
     `;
 
@@ -2160,6 +2161,25 @@ async function renderCatalog() {
   });
 
   attachSliderArrows();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// 9.0 SKELETON CARD GENERATOR (Shimmer Loading Placeholders)
+// ═══════════════════════════════════════════════════════════════════
+function generateSkeletonCards(count = 6) {
+  return Array.from({ length: count }, () => `
+    <div class="skeleton-card">
+      <div class="skeleton-poster skeleton-shimmer"></div>
+      <div class="skeleton-info">
+        <div class="skeleton-title skeleton-shimmer"></div>
+        <div class="skeleton-sub skeleton-shimmer"></div>
+        <div class="skeleton-badges">
+          <div class="skeleton-badge skeleton-shimmer"></div>
+          <div class="skeleton-badge skeleton-shimmer"></div>
+        </div>
+      </div>
+    </div>
+  `).join("");
 }
 
 async function loadRowData(rowId, url, defaultOtt) {
@@ -2432,7 +2452,22 @@ async function renderFilteredView(container) {
   const hubLabel = currentProv ? `OTT HUB: ${currentProv.name}` : "";
   const langLabel = STATE.activeLanguage !== "all" ? `LANG: ${LANG_MAP[STATE.activeLanguage] ? LANG_MAP[STATE.activeLanguage].name.toUpperCase() : STATE.activeLanguage.toUpperCase()}` : "";
   const catLabel = STATE.activeCategory !== "all" ? `CATEGORY: ${STATE.activeCategory.toUpperCase()}` : "";
-  const title = [hubLabel, langLabel, catLabel].filter(Boolean).join(" // ") || "EXPLORE ALL TITLES";
+  const GENRE_MAP = {
+    "28": "ACTION",
+    "35": "COMEDY",
+    "18": "DRAMA",
+    "27": "HORROR",
+    "878": "SCI-FI",
+    "10749": "ROMANCE",
+    "12": "ADVENTURE",
+    "53": "THRILLER",
+    "16": "ANIMATION",
+    "10764": "REALITY TV",
+    "80": "CRIME",
+    "99": "DOCUMENTARY"
+  };
+  const genreLabel = STATE.activeGenre && GENRE_MAP[STATE.activeGenre] ? `GENRE: ${GENRE_MAP[STATE.activeGenre]}` : "";
+  const title = [hubLabel, langLabel, catLabel, genreLabel].filter(Boolean).join(" // ") || "EXPLORE ALL TITLES";
 
   const sectionEl = document.createElement("section");
   sectionEl.className = "catalog-row";
@@ -2579,6 +2614,11 @@ function buildFilterUrl(page = 1, includeWatchProvider = true) {
     url += `&with_original_language=en`;
   } else if (STATE.activeCategory === "2026") {
     url += isTv ? `&first_air_date_year=2026` : `&primary_release_year=2026`;
+  }
+
+  // Genre filter pill (overrides genre if set)
+  if (STATE.activeGenre) {
+    url += `&with_genres=${STATE.activeGenre}`;
   }
 
   return url;
@@ -2815,6 +2855,25 @@ async function executeSearch(query) {
   let combined = [];
   const seenIds = new Set();
 
+  // 1. Search curated local data first (Reality shows, Anime/Cartoons) — instant results
+  const allCurated = [
+    ...(typeof CURATED_REALITY_SHOWS !== 'undefined' ? CURATED_REALITY_SHOWS : []),
+    ...(typeof CURATED_ANIME_SHOWS !== 'undefined' ? CURATED_ANIME_SHOWS : [])
+  ];
+  const ql = query.toLowerCase();
+  allCurated.forEach(show => {
+    const titleMatch = (show.title || show.name || '').toLowerCase().includes(ql);
+    const overviewMatch = (show.overview || '').toLowerCase().includes(ql);
+    if (titleMatch || overviewMatch) {
+      const adapted = adaptTmdbItem(show, show.type || 'tv', show.ott);
+      if (!seenIds.has(String(adapted.id))) {
+        seenIds.add(String(adapted.id));
+        combined.unshift(adapted); // Put curated results first
+      }
+    }
+  });
+
+
   try {
     const tmdbUrl = `${TMDB_CONFIG.baseUrl}/search/multi?api_key=${TMDB_CONFIG.apiKey}&query=${encodeURIComponent(query)}&include_adult=false`;
     const res = await fetch(tmdbUrl);
@@ -3003,6 +3062,34 @@ async function openDetailsModal(item) {
     watchlistBtn.onclick = () => {
       WATCHLIST.toggle(item);
       updateModalWatchlistBtn(item);
+    };
+  }
+
+  // Wire Share button
+  const shareBtn = document.getElementById("modalShareBtn");
+  if (shareBtn) {
+    shareBtn.onclick = async () => {
+      const shareUrl = `https://0xsharon.github.io/cinieorama/?q=${encodeURIComponent(item.title)}`;
+      const shareData = {
+        title: `${item.title} — Cinieorama`,
+        text: `Watch "${item.title}" (${item.year}) on Cinieorama — Free streaming, multi-audio, no login!`,
+        url: shareUrl
+      };
+      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+        try {
+          await navigator.share(shareData);
+        } catch (e) { /* user cancelled */ }
+      } else {
+        // Fallback: copy to clipboard
+        try {
+          await navigator.clipboard.writeText(`${shareData.text}\n${shareUrl}`);
+          const oldText = shareBtn.innerHTML;
+          shareBtn.innerHTML = '<span class="btn-icon">✓</span> <span class="btn-text">LINK COPIED!</span>';
+          setTimeout(() => { shareBtn.innerHTML = oldText; }, 2200);
+        } catch (e) {
+          window.open(`https://wa.me/?text=${encodeURIComponent(shareData.text + ' ' + shareUrl)}`, '_blank');
+        }
+      }
     };
   }
 
@@ -3603,6 +3690,14 @@ function switchServer(serverKey) {
   loadStreamUrl();
 }
 
+window.switchToNextServer = function() {
+  const serverKeys = Object.keys(STREAM_SERVERS);
+  const currentIdx = serverKeys.indexOf(STATE.activeServer);
+  const nextIdx = (currentIdx + 1) % serverKeys.length;
+  const nextServer = serverKeys[nextIdx];
+  switchServer(nextServer);
+};
+
 function updatePlayerMultiAudioBanner() {
   const item = STATE.selectedMedia;
   const banner = document.getElementById("playerMultiAudioBanner");
@@ -3955,6 +4050,10 @@ function loadStreamUrl() {
         }
       }, 80);
     };
+    iframe.onerror = () => {
+      console.warn("Stream server failed, switching to next available node...");
+      switchToNextServer();
+    };
   }
 
   // Fast auto-dismiss watchdog (500ms) prevents Android Chrome from having spinner linger or block touches
@@ -4117,6 +4216,19 @@ function refreshVisibleCardsProgress() {
 function attachEventListeners() {
   const logo = document.getElementById("logoBtn");
   if (logo) logo.onclick = () => resetAllFilters();
+
+  // Genre filter pills
+  document.querySelectorAll(".genre-pill").forEach(pill => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".genre-pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      const genre = pill.dataset.genre;
+      STATE.activeGenre = genre === "all" ? null : genre;
+      STATE.activeFilterPage = 1;
+      renderCatalog();
+      window.scrollTo({ top: 380, behavior: "smooth" });
+    });
+  });
 
   const searchInput = document.getElementById("searchInput");
   if (searchInput) searchInput.addEventListener("input", handleSearchInput);
@@ -4286,13 +4398,88 @@ function attachEventListeners() {
     };
   }
 
-  // Keyboard escape key closes modals
+  // Keyboard shortcuts (Escape closes modals, Cinema player hotkeys)
   window.addEventListener("keydown", (e) => {
+    // Never intercept keys when user is typing in search, inputs, or selects
+    const activeEl = document.activeElement;
+    const activeTag = activeEl ? activeEl.tagName.toLowerCase() : "";
+    if (activeTag === "input" || activeTag === "textarea" || activeTag === "select") {
+      if (e.key === "Escape") {
+        activeEl.blur();
+      }
+      return;
+    }
+
     if (e.key === "Escape") {
       closeDetailsModal();
       closePlayer();
       closePolicyModal();
       closeInstallModal();
+      return;
+    }
+
+    const playerModal = document.getElementById("playerModal");
+    const isPlayerOpen = playerModal && playerModal.style.display !== "none";
+
+    if (isPlayerOpen) {
+      const key = e.key.toLowerCase();
+      // 'f' = Fullscreen toggle
+      if (key === "f") {
+        e.preventDefault();
+        const stage = document.querySelector(".player-stage") || playerModal;
+        if (!document.fullscreenElement) {
+          if (stage.requestFullscreen) stage.requestFullscreen();
+          else if (stage.webkitRequestFullscreen) stage.webkitRequestFullscreen();
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+        }
+      }
+      // 'm' = Ambilight toggle
+      else if (key === "m") {
+        e.preventDefault();
+        const ambToggle = document.getElementById("playerAmbilightToggle");
+        if (ambToggle) ambToggle.click();
+      }
+      // 'e' = Episodes drawer toggle (for TV/anime)
+      else if (key === "e") {
+        e.preventDefault();
+        const toggleDrawerBtn = document.getElementById("playerEpisodeToggle");
+        if (toggleDrawerBtn && toggleDrawerBtn.offsetParent !== null) toggleDrawerBtn.click();
+      }
+      // 'r' = Reload active stream
+      else if (key === "r") {
+        e.preventDefault();
+        loadStreamUrl();
+      }
+      // 'n' = Next episode
+      else if (key === "n") {
+        e.preventDefault();
+        const nextBtn = document.getElementById("playerNextEpBtn");
+        if (nextBtn && nextBtn.style.display !== "none") nextBtn.click();
+      }
+      // 'p' = Prev episode
+      else if (key === "p") {
+        e.preventDefault();
+        const prevBtn = document.getElementById("playerPrevEpBtn");
+        if (prevBtn && prevBtn.style.display !== "none") prevBtn.click();
+      }
+      // '1' - '9' = Switch directly to Server 1-9
+      else if (e.key >= "1" && e.key <= "9") {
+        const srvBtns = document.querySelectorAll(".server-btn");
+        const idx = parseInt(e.key, 10) - 1;
+        if (srvBtns[idx]) {
+          e.preventDefault();
+          srvBtns[idx].click();
+        }
+      }
+      // '0' = Switch to Server 10
+      else if (e.key === "0") {
+        const srvBtns = document.querySelectorAll(".server-btn");
+        if (srvBtns[9]) {
+          e.preventDefault();
+          srvBtns[9].click();
+        }
+      }
     }
   });
 
@@ -4505,14 +4692,45 @@ window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
   const navBtn = document.getElementById("navInstallBtn");
-  if (navBtn) {
-    navBtn.classList.add("install-ready");
-  }
+  if (navBtn) navBtn.classList.add("install-ready");
   const ctaBtn = document.getElementById("btnTriggerPwaInstall");
-  if (ctaBtn) {
-    ctaBtn.textContent = "INSTALL TO THIS DEVICE NOW";
+  if (ctaBtn) ctaBtn.textContent = "INSTALL TO THIS DEVICE NOW";
+
+  // Show smart PWA install bottom banner after 3 seconds (one-time)
+  const alreadyDismissed = sessionStorage.getItem("cinieorama_install_dismissed");
+  if (!alreadyDismissed) {
+    setTimeout(() => showPwaBanner(), 3000);
   }
 });
+
+function showPwaBanner() {
+  if (document.getElementById("pwaBanner")) return;
+  const banner = document.createElement("div");
+  banner.id = "pwaBanner";
+  banner.className = "pwa-install-banner";
+  banner.innerHTML = `
+    <div class="pwa-banner-inner">
+      <img src="icon-192.png" alt="Cinieorama" class="pwa-banner-icon">
+      <div class="pwa-banner-text">
+        <strong>Install Cinieorama App</strong>
+        <span>Add to home screen for offline & fullscreen cinema mode</span>
+      </div>
+      <button class="pwa-banner-install-btn" onclick="triggerPwaInstallPrompt(); dismissPwaBanner();">INSTALL</button>
+      <button class="pwa-banner-dismiss" onclick="dismissPwaBanner()" title="Dismiss">✕</button>
+    </div>
+  `;
+  document.body.appendChild(banner);
+  requestAnimationFrame(() => banner.classList.add("pwa-banner-visible"));
+}
+
+window.dismissPwaBanner = function() {
+  const banner = document.getElementById("pwaBanner");
+  if (banner) {
+    banner.classList.remove("pwa-banner-visible");
+    setTimeout(() => banner.remove(), 380);
+  }
+  sessionStorage.setItem("cinieorama_install_dismissed", "1");
+};
 
 window.addEventListener("appinstalled", () => {
   deferredInstallPrompt = null;
