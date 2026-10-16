@@ -2727,6 +2727,7 @@ html, body {
   .brutal-ticker {
     font-size: 0.7rem;
     padding: 4px 8px;
+    padding-top: max(4px, env(safe-area-inset-top));
   }
 
   /* Responsive Header & Navbar */
@@ -2738,16 +2739,21 @@ html, body {
     flex-direction: column;
     align-items: stretch;
     gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
   }
   .nav-brand-group {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
     gap: 8px;
   }
   .brand-logo {
+    display: flex;
+    align-items: center;
     gap: 6px;
+    align-self: flex-start;
   }
   .brand-badge {
     width: 30px;
@@ -2767,14 +2773,17 @@ html, body {
     align-items: center;
     gap: 8px;
     width: 100%;
+    box-sizing: border-box;
   }
   .brutal-search {
     flex: 1;
     min-width: 0;
   }
   .brutal-search input {
-    font-size: 0.78rem;
-    padding: 7px 10px 7px 30px;
+    font-size: 0.8rem;
+    padding: 8px 10px 8px 30px;
+    height: 38px;
+    box-sizing: border-box;
   }
   .search-symbol {
     left: 8px;
@@ -2782,9 +2791,13 @@ html, body {
   }
   .install-nav-btn {
     flex-shrink: 0;
-    padding: 6px 10px;
-    font-size: 0.7rem;
+    padding: 8px 12px;
+    font-size: 0.72rem;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
     gap: 4px;
+    box-sizing: border-box;
   }
 
   /* Horizontal Scrollable Menu Pill Strip */
@@ -2797,120 +2810,143 @@ html, body {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 4px 2px 2px 2px;
+    padding: 2px 2px 4px 2px;
     width: 100%;
+    overscroll-behavior-x: contain;
   }
   .nav-menu::-webkit-scrollbar {
     display: none;
   }
   .nav-tab {
     flex-shrink: 0;
-    padding: 5px 10px;
+    padding: 6px 12px;
     font-size: 0.72rem;
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
   }
 
   /* OTT Platforms & Regional Languages Bars */
-  .ott-bar {
+  .ott-bar, .lang-bar {
     padding: 6px 12px;
-  }
-  .ott-chips {
     overflow-x: auto;
-    white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding-bottom: 2px;
-    gap: 6px;
+    overscroll-behavior-x: contain;
   }
-  .ott-chips::-webkit-scrollbar {
+  .ott-bar::-webkit-scrollbar,
+  .lang-bar::-webkit-scrollbar {
     display: none;
   }
-  .ott-pill {
-    flex-shrink: 0;
-    padding: 4px 10px;
-    font-size: 0.72rem;
-  }
-  .lang-bar {
-    padding: 6px 12px;
-  }
-  .lang-inner {
-    overflow-x: auto;
+  .ott-inner, .lang-inner {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     white-space: nowrap;
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding-bottom: 2px;
-    gap: 6px;
   }
+  .ott-inner::-webkit-scrollbar,
   .lang-inner::-webkit-scrollbar {
     display: none;
   }
-  .lang-pill {
+  .ott-pill, .lang-pill {
     flex-shrink: 0;
-    padding: 4px 8px;
-    font-size: 0.7rem;
+    padding: 5px 10px;
+    font-size: 0.72rem;
+    min-height: 32px;
   }
 
-  /* Hero Billboard */
+  /* Hero Billboard on Mobile */
   .hero-billboard {
-    min-height: 52vh;
+    min-height: 48vh;
     border-bottom-width: 2px;
   }
   .hero-container {
-    padding: 24px 16px 20px;
-  }
-  .hero-heading {
-    font-size: clamp(1.6rem, 6.5vw, 2.6rem);
-    max-width: 100%;
-    margin-bottom: 8px;
-    text-shadow: 2px 2px 0px #000;
-  }
-  .hero-synopsis {
-    font-size: 0.85rem;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    margin-bottom: 14px;
-    max-width: 100%;
-  }
-  .hero-cta-group {
+    padding: 20px 14px 18px;
     gap: 8px;
   }
+  .hero-tags {
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .hero-tags .brutal-tag {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+  .hero-heading {
+    font-size: clamp(1.4rem, 6.5vw, 2.2rem);
+    max-width: 100%;
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0px #000;
+    line-height: 1.15;
+  }
+  .hero-synopsis {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 12px;
+    max-width: 100%;
+    line-height: 1.45;
+  }
+  .hero-cta-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
   .hero-cta-group .brutal-btn {
-    padding: 10px 16px;
-    font-size: 0.82rem;
+    padding: 10px 8px;
+    font-size: 0.78rem;
     gap: 6px;
+    justify-content: center;
+    width: 100%;
+    min-height: 42px;
   }
 
   /* Media Rows & Cards */
   .catalog-row {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
   .row-header {
-    padding: 0 14px 8px;
+    padding: 0 12px 6px;
   }
   .row-title {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
   }
   .row-slider {
-    padding: 6px 14px 14px;
+    padding: 6px 12px 14px;
     gap: 10px;
     scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .row-slider::-webkit-scrollbar {
+    display: none;
   }
   .row-arrow {
     display: none !important; /* Touch swipe replaces desktop arrows */
   }
   .media-card {
-    flex: 0 0 148px;
+    flex: 0 0 145px;
     scroll-snap-align: start;
     border-width: 1.5px;
     box-shadow: 3px 3px 0px #000;
+    touch-action: manipulation;
   }
   .card-info {
     padding: 8px 10px;
   }
   .card-title {
     font-size: 0.8rem;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+    line-height: 1.25;
   }
   .card-genres {
     font-size: 0.65rem;
@@ -2918,64 +2954,66 @@ html, body {
   .card-watchlist-btn {
     top: 30px;
     right: 4px;
-    padding: 2px 5px;
-    font-size: 0.58rem;
+    padding: 3px 6px;
+    font-size: 0.6rem;
   }
 
   /* Media Grid (Search / Filter Views) */
   .media-grid {
-    grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
     gap: 10px;
-    padding: 14px;
+    padding: 12px;
   }
 
-  /* Details Modal on Mobile */
+  /* Details Modal on Mobile (Bottom Sheet style with safe area insets) */
   .brutal-modal {
-    padding: 8px;
+    padding: 0;
     align-items: flex-end;
   }
   .modal-card {
     width: 100%;
-    max-height: 92vh;
-    border-width: 2px;
-    box-shadow: 4px 4px 0px #000;
+    max-height: 90dvh;
+    border-width: 2px 2px 0 2px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.9);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
   }
   .modal-close {
     top: 10px;
     right: 10px;
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
+    width: 34px;
+    height: 34px;
+    font-size: 1.1rem;
   }
   .modal-backdrop-img {
-    height: 170px;
+    height: 160px;
   }
   .modal-gradient {
-    height: 170px;
+    height: 160px;
   }
   .modal-content {
     flex-direction: column;
-    margin-top: -65px;
+    margin-top: -60px;
     padding: 14px;
-    gap: 14px;
+    gap: 12px;
   }
   .modal-poster-wrap {
-    width: 130px;
+    width: 120px;
     margin: 0 auto;
   }
   .modal-meta-wrap {
     gap: 10px;
   }
   .modal-title {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     text-align: center;
   }
   .modal-tags-row, .modal-genres {
     justify-content: center;
   }
   .modal-synopsis {
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     line-height: 1.5;
   }
   .modal-actions-row {
@@ -2989,9 +3027,10 @@ html, body {
     justify-content: center;
     padding: 10px 14px;
     font-size: 0.82rem;
+    min-height: 42px;
   }
 
-  /* Episode Cards on Mobile (Horizontal List View with Thumbnails) */
+  /* Episode Cards on Mobile */
   .episodes-container {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -3041,20 +3080,29 @@ html, body {
   /* Full-Screen Streaming Video Player on Mobile */
   .brutal-player-modal {
     padding: 0;
+    align-items: stretch;
   }
   .player-box {
     width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
     border: 0;
     box-shadow: none;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .player-screen-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
   }
   .player-topbar {
     padding: 6px 10px;
+    padding-top: max(6px, env(safe-area-inset-top));
   }
   .player-title {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
   }
   .player-tools {
     gap: 4px;
@@ -3062,11 +3110,12 @@ html, body {
   .brutal-tool-btn {
     padding: 4px 6px;
     font-size: 0.65rem;
+    min-height: 28px;
   }
   .player-close-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 0.9rem;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
   }
   .player-audio-banner {
     flex-direction: column;
@@ -3080,20 +3129,29 @@ html, body {
   .brutal-btn-multi-switch {
     width: 100%;
     justify-content: center;
-    font-size: 0.7rem;
-    padding: 6px 10px;
+    font-size: 0.72rem;
+    padding: 8px 10px;
+    min-height: 36px;
   }
+
+  /* 2-Column Responsive Server Grid on Mobile */
   .server-btn-group {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 6px;
     width: 100%;
   }
   .server-btn {
     width: 100%;
-    padding: 7px 10px;
-    font-size: 0.7rem;
+    padding: 8px 8px;
+    font-size: 0.66rem;
     text-align: left;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.25;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
   }
   .player-ep-drawer {
     padding: 10px;
@@ -3110,8 +3168,10 @@ html, body {
   /* Install App Modal & Policy Modal on Mobile */
   .install-modal-window, .policy-modal-card {
     width: 100vw;
-    max-height: 94vh;
+    max-height: 94dvh;
     border-width: 2px;
+    border-radius: 0;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
   }
   .install-modal-body, .policy-modal-body {
     padding: 14px;
@@ -3124,8 +3184,8 @@ html, body {
     gap: 12px;
   }
   .install-app-icon {
-    width: 72px;
-    height: 72px;
+    width: 68px;
+    height: 68px;
   }
   .install-action-row {
     flex-direction: column;
@@ -3134,6 +3194,7 @@ html, body {
   .install-action-row .brutal-btn {
     width: 100%;
     justify-content: center;
+    min-height: 42px;
   }
   .os-cards-grid {
     grid-template-columns: 1fr;
@@ -3143,6 +3204,7 @@ html, body {
   /* Footer on Mobile */
   .brutal-footer {
     padding: 28px 14px 20px;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
   }
   .footer-wrap {
     flex-direction: column;
@@ -3160,7 +3222,32 @@ html, body {
   }
 }
 
-/* ─── 3. ULTRA-COMPACT SMARTPHONES (≤ 380px) ─── */
+/* ─── 3. MOBILE & HANDHELD LANDSCAPE MODE (IMMERSIVE CINEMA ROTATION) ─── */
+@media (orientation: landscape) and (max-height: 560px) {
+  .player-box {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto;
+  }
+  .player-screen-wrap {
+    width: 100%;
+    height: calc(100dvh - 46px);
+    aspect-ratio: auto;
+  }
+  .player-topbar {
+    padding: 4px 12px;
+    min-height: 42px;
+  }
+  .player-title {
+    font-size: 0.78rem;
+  }
+  .server-btn-group {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ─── 4. ULTRA-COMPACT SMARTPHONES (≤ 380px) ─── */
 @media (max-width: 380px) {
   .brand-badge {
     width: 26px;
@@ -3175,18 +3262,24 @@ html, body {
     font-size: 0.65rem;
   }
   .media-card {
-    flex: 0 0 130px;
+    flex: 0 0 128px;
   }
   .media-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
     gap: 8px;
     padding: 10px;
   }
   .hero-billboard {
-    min-height: 48vh;
+    min-height: 46vh;
   }
   .hero-heading {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
+  }
+  .hero-cta-group {
+    grid-template-columns: 1fr;
+  }
+  .server-btn-group {
+    grid-template-columns: 1fr;
   }
   .footer-columns {
     grid-template-columns: 1fr;
@@ -3194,7 +3287,7 @@ html, body {
   }
 }
 
-/* ─── 4. TOUCH DEVICE OPTIMIZATION (PHONES & TABLETS) ─── */
+/* ─── 5. TOUCH DEVICE OPTIMIZATION (PHONES & TABLETS) ─── */
 @media (hover: none) and (pointer: coarse) {
   .media-card:hover {
     transform: none;
@@ -3208,16 +3301,32 @@ html, body {
   }
   .brutal-btn, .install-nav-btn, .nav-tab, .ott-pill, .lang-pill, .server-btn, .ep-card {
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 }
 
-/* ─── 5. ULTRA-WIDE & 4K DISPLAYS (≥ 1920px) ─── */
+/* ─── 6. TABLETS & MID-SIZE SCREENS (769px to 1024px) ─── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .media-card {
+    flex: 0 0 180px;
+  }
+  .media-grid {
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  }
+  .server-btn-group {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ─── 7. ULTRA-WIDE & 4K DISPLAYS (≥ 1920px) ─── */
 @media (min-width: 1920px) {
-  .nav-container, .hero-container, .footer-wrap, .footer-bottom, .catalog-main {
+  .nav-container, .hero-container, .footer-wrap, .footer-bottom, .catalog-main, .ott-inner, .lang-inner {
     max-width: 1880px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .media-card {
-    flex: 0 0 210px;
+    flex: 0 0 240px;
   }
   .player-box {
     max-width: 1540px;

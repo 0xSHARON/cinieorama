@@ -1050,6 +1050,132 @@ const CURATED_ANIME_SHOWS = [
     isAnime: false,
     audioTracksLabel: "English (Original) • Hindi Dub • Multi-Subs",
     overview: "Homer, Marge, Bart, Lisa and Maggie Simpson navigate life in Springfield — America's longest running primetime animated series with 35 seasons of comedy, satire and heart."
+  },
+  {
+    id: 2190,
+    title: "Ben 10 (Classic 2005)",
+    name: "Ben 10",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 4,
+    poster_path: "/bFqS1dK3M3XG6o23lRz2x1gQkG2.jpg",
+    backdrop_path: "/e2c3F941Q4P2dE1K7mC8W7mQ0P0.jpg",
+    ott: "hotstar",
+    first_air_date: "2005-12-27",
+    vote_average: 8.7,
+    genre_ids: [16, 10759, 10765],
+    isAnime: false,
+    isCartoon: true,
+    audioTracksLabel: "Hindi Dub (Cartoon Network) • Tamil Dub • Telugu Dub • English (Original) • Multi-Subs",
+    overview: "10-year-old Ben Tennyson discovers the Omnitrix alien watch that transforms him into 10 extraordinary alien heroes. The iconic childhood Cartoon Network series that defined a generation."
+  },
+  {
+    id: 246,
+    title: "Avatar: The Last Airbender",
+    name: "Avatar: The Last Airbender",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 3,
+    poster_path: "/cHFZA8790v3i9Y9GeEdV29ik5IO.jpg",
+    backdrop_path: "/bUOI7R47K2D1Z9a3B7K1xQ7m2a.jpg",
+    ott: "netflix",
+    first_air_date: "2005-02-21",
+    vote_average: 9.3,
+    genre_ids: [16, 10759, 10765],
+    isAnime: false,
+    isCartoon: true,
+    audioTracksLabel: "Hindi Dub • English (Original) • Tamil Dub • Telugu Dub • Multi-Subs",
+    overview: "In a war-torn world of elemental magic, a young boy named Aang reawakens to undertake a dangerous mystic quest to fulfill his destiny as the Avatar and bring peace to the world."
+  },
+  {
+    id: 2542,
+    title: "Tom and Jerry",
+    name: "Tom and Jerry",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 6,
+    poster_path: "/98JzZgZfN8e22mQ6Kq1cQ7bX1X.jpg",
+    backdrop_path: "/5OhykR3C6kXwG9x1bKq7x2mC0B.jpg",
+    ott: "hotstar",
+    first_air_date: "1940-02-10",
+    vote_average: 8.8,
+    genre_ids: [16, 35],
+    isAnime: false,
+    isCartoon: true,
+    audioTracksLabel: "English (Original) • Hindi Narration • Multi-Subs",
+    overview: "The eternal, timeless, laugh-out-loud comedy feud between cat Tom and mouse Jerry. Multi-Oscar winning animated masterpiece that continues to entertain millions worldwide."
+  },
+  {
+    id: 2224,
+    title: "Courage the Cowardly Dog",
+    name: "Courage the Cowardly Dog",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 4,
+    poster_path: "/eYh02Uo21g9QWq2mC6Kq7x1bX1.jpg",
+    backdrop_path: "/4a7K8mQ2mC6Kq7x1bX1m2a3B7K.jpg",
+    ott: "hotstar",
+    first_air_date: "1999-11-12",
+    vote_average: 8.6,
+    genre_ids: [16, 35, 10765],
+    isAnime: false,
+    isCartoon: true,
+    audioTracksLabel: "Hindi Dub (Cartoon Network) • English (Original)",
+    overview: "An overly timid pink dog named Courage must constantly overcome his paralyzing fears to defend his elderly owners Muriel and Eustace from bizarre paranormal threats in the Middle of Nowhere."
+  },
+  {
+    id: 3600,
+    title: "Oggy and the Cockroaches",
+    name: "Oggy and the Cockroaches",
+    original_language: "fr",
+    origin_country: ["FR"],
+    totalSeasons: 7,
+    poster_path: "/2qL07d2Yg8QWq2mC6Kq7x1bX1.jpg",
+    backdrop_path: "/9b7K8mQ2mC6Kq7x1bX1m2a3B7K.jpg",
+    ott: "netflix",
+    first_air_date: "1998-09-06",
+    vote_average: 8.2,
+    genre_ids: [16, 35],
+    isAnime: false,
+    isCartoon: true,
+    audioTracksLabel: "Hindi Dub (Shah Rukh Khan & Nana Patekar voice mimicry) • English",
+    overview: "Oggy, an easygoing blue cat, just wants to watch TV and relax — but three mischievous cockroaches (Joey, Dee Dee and Marky) turn his life upside down. Iconic Hindi dubbed edition with celebrity voiceovers that ruled Indian television."
+  },
+  {
+    id: 60625,
+    title: "Rick and Morty",
+    name: "Rick and Morty",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 7,
+    poster_path: "/cvhNj9eoRBe5SxjUQapVTzp08Y5.jpg",
+    backdrop_path: "/uGy4DCmM33I7lPQWNIz6A2vmpKX.jpg",
+    ott: "netflix",
+    first_air_date: "2013-12-02",
+    vote_average: 8.7,
+    genre_ids: [16, 35, 10765],
+    isAnime: false,
+    isCartoon: true,
+    audioTracksLabel: "English (Original) • Hindi Sub • Multi-Subs",
+    overview: "An eccentric, nihilistic sociopathic genius scientist and his anxiety-ridden grandson go on insane, dimension-hopping cosmic adventures through alternate realities and parallel universes."
+  },
+  {
+    id: 2098,
+    title: "Batman: The Animated Series",
+    name: "Batman: The Animated Series",
+    original_language: "en",
+    origin_country: ["US"],
+    totalSeasons: 4,
+    poster_path: "/4PCOqAORc6gVb4s3mN2a1bX7K.jpg",
+    backdrop_path: "/9a3B7K1xQ7m2a1bX7K8mQ2mC6.jpg",
+    ott: "hotstar",
+    first_air_date: "1992-09-05",
+    vote_average: 9.0,
+    genre_ids: [16, 10759, 80],
+    isAnime: false,
+    isCartoon: true,
+    audioTracksLabel: "English (Original) • Hindi Dub • Multi-Subs",
+    overview: "The dark knight of Gotham City defends against the Joker, Two-Face, Harley Quinn and criminal rogues. The definitive animated portrayal of Batman with Kevin Conroy and Mark Hamill."
   }
 ];
 
@@ -1070,103 +1196,110 @@ const STREAM_SERVERS = {
     movie: (id) => `https://embedwave.cc/embed/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://embedwave.cc/embed/tv/${id}/${s}/${e}`
   },
-  // Server 2: VidLink Pro (Ultra HD 4K with Multi-Audio & Subtitles — Best for Anime Dubs)
+  // Server 2: VidLink Pro (Ultra HD with Multi-Audio & Subtitles — Best for Anime & Cartoon Dubs)
   vidlink: {
-    name: "Server 2: VidLink Pro (Anime Dubs & Multi-Audio)",
-    badge: "ANIME DUBS",
-    desc: "Best for anime: Japanese original + Hindi/English/Tamil/Telugu dubs & 20+ subtitle tracks. 4K stream.",
+    name: "Server 2: VidLink Pro (Cartoon & Anime Multi-Audio)",
+    badge: "CARTOON/ANIME DUB",
+    desc: "Best for cartoons & anime: Japanese original + Hindi/English/Tamil/Telugu dubs & 20+ subtitle tracks. 4K stream.",
     hasMultiAudio: true,
     isAnimeFriendly: true,
     isAnimeRecommended: true,
     movie: (id) => `https://vidlink.pro/movie/${id}?primaryColor=ff0033&secondaryColor=111111&iconColor=ffffff&icons=vid&nextbutton=true`,
     tv: (id, s = 1, e = 1) => `https://vidlink.pro/tv/${id}/${s}/${e}?primaryColor=ff0033&secondaryColor=111111&iconColor=ffffff&icons=vid&nextbutton=true`
   },
-  // Server 3: VidSrc SU (High-Speed Cloud Mirror — Movies, Shows & Anime)
-  vidsrcsu: {
-    name: "Server 3: VidSrc SU (Cloud Mirror)",
-    badge: "HIGH SPEED",
-    desc: "Ultra-fast direct cloud mirror with zero buffering across movies, web series, and anime",
-    hasMultiAudio: false,
+  // Server 3: Videasy (Dedicated Cartoon & Anime Player with Multi-Audio Tracks)
+  videasy: {
+    name: "Server 3: Videasy (Cartoons & Anime HD)",
+    badge: "MULTI-AUDIO HD",
+    desc: "Dedicated cartoon and anime player with built-in multi-audio track switcher, multi-subs & fast cloud playback",
+    hasMultiAudio: true,
     isAnimeFriendly: true,
-    movie: (id) => `https://vidsrc.su/embed/movie/${id}`,
-    tv: (id, s = 1, e = 1) => `https://vidsrc.su/embed/tv/${id}/${s}/${e}`
+    isAnimeRecommended: true,
+    movie: (id) => `https://player.videasy.net/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://player.videasy.net/tv/${id}/${s}/${e}`
   },
-  // Server 4: 2Embed (Dedicated Anime Hub — Japanese Original + Dubs + Subs)
+  // Server 4: 2Embed (Dedicated Anime & Cartoon Hub — Japanese Original + Dubs + Subs)
   twoembed: {
-    name: "Server 4: 2Embed (Anime Hub — JPN/DUB/SUB)",
+    name: "Server 4: 2Embed (Anime & Cartoons Hub)",
     badge: "ANIME HUB",
-    desc: "Dedicated anime node: Japanese original audio, English/Hindi dubs & 20+ subtitle tracks. Best for Crunchyroll anime.",
+    desc: "Dedicated anime & cartoon archive: Japanese original audio, English/Hindi dubs & 20+ subtitle tracks.",
     hasMultiAudio: true,
     isAnimeFriendly: true,
     isAnimeRecommended: true,
     movie: (id) => `https://www.2embed.cc/embed/${id}`,
     tv: (id, s = 1, e = 1) => `https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}`
   },
-  // Server 5: VidSrc PM (Direct Stream Node)
-  vidsrcpm: {
-    name: "Server 5: VidSrc PM (Direct Stream)",
-    badge: "DIRECT CDN",
-    desc: "Direct CDN node with instant buffering for movies and TV series",
+  // Server 5: Embed.su (Multi-Source Edge Cloud — Clean & Fast)
+  embedsu: {
+    name: "Server 5: Embed.su (Multi-Source Edge)",
+    badge: "EDGE CLOUD",
+    desc: "High-performance edge CDN node with automated source discovery for cartoons, anime, movies & series",
     hasMultiAudio: false,
     isAnimeFriendly: true,
-    movie: (id) => `https://vidsrc.pm/embed/movie/${id}`,
-    tv: (id, s = 1, e = 1) => `https://vidsrc.pm/embed/tv/${id}/${s}/${e}`
+    movie: (id) => `https://embed.su/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://embed.su/embed/tv/${id}/${s}/${e}`
   },
-  // Server 6: NetMirror (Dedicated Reality TV & Series Cloud)
-  netmirror: {
-    name: "Server 6: NetMirror (Reality & Series Cloud)",
-    badge: "REALITY HUB",
-    desc: "High-compatibility cloud node dedicated to reality TV shows, web series, and regional releases",
-    hasMultiAudio: false,
-    isAnimeFriendly: false,
-    movie: (id) => `https://netmirror.center/movie/${id}/?embed=1`,
-    tv: (id, s = 1, e = 1) => `https://netmirror.center/tv/${id}/?season=${s}&episode=${e}&embed=1`
-  },
-  // Server 7: MultiEmbed (Global Multi-Source Cloud Aggregator)
-  multiembed: {
-    name: "Server 7: MultiEmbed (Global Cloud)",
-    badge: "GLOBAL EMBED",
-    desc: "Global multi-source streaming aggregator with high coverage across TV series, anime and reality shows",
-    hasMultiAudio: false,
-    isAnimeFriendly: true,
-    movie: (id) => `https://multiembed.mov/?video_id=${id}&tmdb=1`,
-    tv: (id, s = 1, e = 1) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
-  },
-  // Server 8: SmashyStream (Fast CDN Mirror)
-  smashystream: {
-    name: "Server 8: SmashyStream (Fast CDN)",
-    badge: "FAST CDN",
-    desc: "Fast responsive media streaming node supporting full TV, anime and reality show catalog",
-    hasMultiAudio: false,
-    isAnimeFriendly: true,
-    movie: (id) => `https://player.smashy.stream/movie/${id}`,
-    tv: (id, s = 1, e = 1) => `https://player.smashy.stream/tv/${id}?s=${s}&e=${e}`
-  },
-  // Server 9: AutoEmbed (Direct Edge Player — Anime & Cartoon Friendly)
+  // Server 6: AutoEmbed (Direct Edge Player — Strong Anime & Cartoon Mirrors)
   autoembed: {
-    name: "Server 9: AutoEmbed (Anime & Cartoons)",
+    name: "Server 6: AutoEmbed (Anime & Cartoon Cloud)",
     badge: "ANIME/CARTOONS",
-    desc: "Direct low-latency player with strong anime & cartoon coverage including dubbed and subbed tracks",
+    desc: "Direct low-latency edge player with dedicated cartoon & anime coverage including dubbed audio tracks",
     hasMultiAudio: true,
     isAnimeFriendly: true,
     isAnimeRecommended: true,
     movie: (id) => `https://player.autoembed.cc/embed/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}`
   },
-  // Server 10: VidSrc CC (Backup Verified Node)
-  vidsrccc: {
-    name: "Server 10: VidSrc CC (Backup Stream)",
-    badge: "BACKUP NODE",
-    desc: "Secondary verified cloud mirror for movies, series, anime and reality shows",
+  // Server 7: VidSrc VIP (Premium Clean CDN — No Popups)
+  vidsrcvip: {
+    name: "Server 7: VidSrc VIP (Premium CDN)",
+    badge: "VIP DIRECT",
+    desc: "Clean verified VIP node with smooth playback for animated series, movies, and reality shows",
     hasMultiAudio: false,
     isAnimeFriendly: true,
-    movie: (id) => `https://vidsrc.cc/v2/embed/movie/${id}`,
-    tv: (id, s = 1, e = 1) => `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`
+    movie: (id) => `https://vidsrc.vip/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://vidsrc.vip/embed/tv/${id}/${s}/${e}`
+  },
+  // Server 8: VidSrc SU (High-Speed Direct Cloud Mirror)
+  vidsrcsu: {
+    name: "Server 8: VidSrc SU (Cloud Mirror)",
+    badge: "HIGH SPEED",
+    desc: "Ultra-fast direct cloud mirror with zero buffering across cartoons, anime, movies and shows",
+    hasMultiAudio: false,
+    isAnimeFriendly: true,
+    movie: (id) => `https://vidsrc.su/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://vidsrc.su/embed/tv/${id}/${s}/${e}`
+  },
+  // Server 9: MultiEmbed (Global Multi-Server Aggregator with Cartoon Hosts)
+  multiembed: {
+    name: "Server 9: MultiEmbed (Global Multi-Server)",
+    badge: "GLOBAL EMBED",
+    desc: "Global multi-host streaming aggregator with direct Streamtape and Vidcloud mirrors for animation",
+    hasMultiAudio: true,
+    isAnimeFriendly: true,
+    movie: (id) => `https://multiembed.mov/?video_id=${id}&tmdb=1`,
+    tv: (id, s = 1, e = 1) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
+  },
+  // Server 10: RiveStream (Direct Edge Stream — Clean Player)
+  rivestream: {
+    name: "Server 10: RiveStream (Direct Stream)",
+    badge: "DIRECT STREAM",
+    desc: "Clean modern HTML5 streaming player supporting animated series, cinema releases and reality TV",
+    hasMultiAudio: false,
+    isAnimeFriendly: true,
+    movie: (id) => `https://rivestream.live/embed?type=movie&id=${id}`,
+    tv: (id, s = 1, e = 1) => `https://rivestream.live/embed?type=tv&id=${id}&season=${s}&episode=${e}`
   }
 };
 
-// Anime-specific server priority order (best for Japanese + dubbed content)
-const ANIME_SERVER_PRIORITY = ["vidlink", "twoembed", "autoembed", "vidsrcsu", "embedwave"];
+// Aliases for backward compatibility
+STREAM_SERVERS.vidsrcpm = STREAM_SERVERS.embedsu;
+STREAM_SERVERS.netmirror = STREAM_SERVERS.autoembed;
+STREAM_SERVERS.smashystream = STREAM_SERVERS.vidsrcsu;
+STREAM_SERVERS.vidsrccc = STREAM_SERVERS.vidsrcvip;
+
+// Anime & Cartoon server priority order (best for multi-audio, dubs & subtitles)
+const ANIME_SERVER_PRIORITY = ["vidlink", "videasy", "twoembed", "autoembed", "embedsu", "embedwave"];
 
 // ═══════════════════════════════════════════════════════════════════
 // 4. WATCH HISTORY & PROGRESS TRACKER (LOCALSTORAGE PERSISTENCE)
@@ -3561,10 +3694,10 @@ function updatePlayerMultiAudioBanner() {
       switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
-  } else if (STATE.activeServer === "vidsrcsu") {
-    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 3 (VIDSRC SU): HIGH-SPEED CLOUD MIRROR ACTIVE:`;
+  } else if (STATE.activeServer === "videasy") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 3 (VIDEASY): CARTOON &amp; ANIME MULTI-AUDIO ACTIVE:`;
     if (guide) {
-      guide.innerHTML = `<strong>VidSrc SU Active:</strong> Ultra-fast cloud mirror streaming with zero buffering for movies, shows &amp; anime.`;
+      guide.innerHTML = `<strong>Videasy Active:</strong> Built-in multi-audio &amp; subtitle selector. Use audio menu in player controls to switch tracks!`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
@@ -3572,9 +3705,69 @@ function updatePlayerMultiAudioBanner() {
       switchBtn.onclick = () => switchServer("embedwave");
     }
   } else if (STATE.activeServer === "twoembed") {
-    if (heading) heading.innerHTML = `<span style="color:#ff0033">●</span> SERVER 4 (2EMBED): DEDICATED ANIME &amp; GLOBAL STREAM ACTIVE:`;
+    if (heading) heading.innerHTML = `<span style="color:#ff0033">●</span> SERVER 4 (2EMBED): DEDICATED ANIME &amp; CARTOON HUB ACTIVE:`;
     if (guide) {
-      guide.innerHTML = `<strong>2Embed Active:</strong> Optimized for Japanese anime and international series with original audio &amp; multiple subtitle tracks.`;
+      guide.innerHTML = `<strong>2Embed Active:</strong> Optimized for Japanese anime and animated series with original audio &amp; multiple subtitle tracks.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "embedsu") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 5 (EMBED.SU): FAST MULTI-SOURCE CLOUD ACTIVE:`;
+    if (guide) {
+      guide.innerHTML = `<strong>Embed.su Active:</strong> Ultra-fast edge CDN with automated source discovery for cartoons, anime, movies &amp; series.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "autoembed") {
+    if (heading) heading.innerHTML = `<span style="color:#ffea00">●</span> SERVER 6 (AUTOEMBED): ANIME &amp; CARTOON CLOUD ACTIVE:`;
+    if (guide) {
+      guide.innerHTML = `<strong>AutoEmbed Active:</strong> Multi-source edge discovery for animated shows and regional dubs.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "vidsrcvip") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 7 (VIDSRC VIP): VIP DIRECT CDN ACTIVE:`;
+    if (guide) {
+      guide.innerHTML = `<strong>VidSrc VIP Active:</strong> High-reliability clean playback for animated series, movies, and reality shows.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "vidsrcsu") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 8 (VIDSRC SU): HIGH-SPEED CLOUD MIRROR ACTIVE:`;
+    if (guide) {
+      guide.innerHTML = `<strong>VidSrc SU Active:</strong> Ultra-fast cloud mirror streaming with zero buffering for cartoons, anime &amp; movies.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "multiembed") {
+    if (heading) heading.innerHTML = `<span style="color:#ffea00">●</span> SERVER 9 (MULTIEMBED): GLOBAL MULTI-HOST ACTIVE:`;
+    if (guide) {
+      guide.innerHTML = `<strong>MultiEmbed Active:</strong> Multiple global cloud mirrors with anime/cartoon hosts available inside the player.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "rivestream") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 10 (RIVESTREAM): DIRECT STREAM ACTIVE:`;
+    if (guide) {
+      guide.innerHTML = `<strong>RiveStream Active:</strong> Clean HTML5 playback with native streaming controls.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
