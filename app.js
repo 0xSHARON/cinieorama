@@ -3931,7 +3931,7 @@ function loadStreamUrl() {
 
   if (loader) {
     loader.style.opacity = "1";
-    loader.style.pointerEvents = "auto";
+    loader.style.pointerEvents = "none"; /* Never block touches on Android touchscreens */
   }
   if (statusMsg) {
     statusMsg.textContent = item.type === "tv"
@@ -3941,27 +3941,30 @@ function loadStreamUrl() {
 
   if (iframe) {
     iframe.loading = "eager";
-    iframe.setAttribute("allow", "autoplay; fullscreen; encrypted-media; picture-in-picture");
+    iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen");
+    iframe.setAttribute("allowfullscreen", "true");
+    iframe.setAttribute("webkitallowfullscreen", "true");
+    iframe.setAttribute("mozallowfullscreen", "true");
+    iframe.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
     iframe.src = streamUrl;
     iframe.onload = () => {
-      // Rapid instant fadeout so video is visible immediately
       setTimeout(() => {
         if (loader) {
           loader.style.opacity = "0";
           loader.style.pointerEvents = "none";
         }
-      }, 120);
+      }, 80);
     };
   }
 
-  // Fast auto-dismiss watchdog (2.2s) prevents any device from getting stuck in loading state
+  // Fast auto-dismiss watchdog (500ms) prevents Android Chrome from having spinner linger or block touches
   if (STATE.playerWatchdogTimer) clearTimeout(STATE.playerWatchdogTimer);
   STATE.playerWatchdogTimer = setTimeout(() => {
-    if (loader && loader.style.opacity !== "0") {
+    if (loader) {
       loader.style.opacity = "0";
       loader.style.pointerEvents = "none";
     }
-  }, 2200);
+  }, 500);
 
   const popoutBtn = document.getElementById("playerPopoutBtn");
   if (popoutBtn) {

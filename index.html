@@ -472,6 +472,7 @@
           </div>
           <div class="player-tools">
             <button id="playerAmbilightToggle" class="brutal-tool-btn ambilight-toggle active" title="Toggle Cinema Ambilight Glow">AMBILIGHT: ON</button>
+            <button id="playerFullscreenBtn" class="brutal-tool-btn" title="Toggle Fullscreen Mode">⛶ FULLSCREEN</button>
             <button id="playerPopoutBtn" class="brutal-tool-btn" title="Open Stream in Popout Window / New Tab">↗ POPOUT</button>
             <button id="playerReloadBtn" class="brutal-tool-btn" title="Reload Video Stream">↻ RELOAD</button>
             <button id="closePlayerBtn" class="player-close-btn" title="Close Player">✕</button>
@@ -500,20 +501,22 @@
         </div>
       </div>
 
-      <!-- Player Stage Frame (Sandbox removed for player compatibility) -->
+      <!-- Player Stage Frame (Optimized for Android GPU & WebKit Hardware Acceleration) -->
       <div class="player-stage">
         <div id="playerLoadingState" class="player-loader">
           <div class="brutal-spinner"></div>
           <span id="playerStatusMessage" class="loader-status">CONNECTING TO HIGH-SPEED VIDEO SERVER…</span>
-          <div class="loader-tips">Server 1 (EmbedWave) is our primary zero-buffer stream. Server 2 (VidLink Pro) includes Multi-Audio &amp; Subtitles.</div>
+          <div class="loader-tips">Android: Tap Server 2 (VidLink Pro) or Server 3 (Videasy) for multi-audio tracks.</div>
         </div>
         <iframe id="streamIframe"
           src=""
           frameborder="0"
           scrolling="no"
-          allowfullscreen
-          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-          referrerpolicy="origin">
+          allowfullscreen="true"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+          referrerpolicy="no-referrer-when-downgrade">
         </iframe>
       </div>
 
