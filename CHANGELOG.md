@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.9.0] - 2026-10-16
+
+### Added
+- **13-Tier High-Availability Streaming Cluster (Expansion from 10 to 13 Servers):**
+  Added 3 verified working global streaming engines tested with HTTP 200 responses and zero frame-blocking (`X-Frame-Options: NONE`):
+  11. **Server 11: VidJoy Pro** (`vidjoy.pro`) — High-speed HTML5 player with multi-audio, full anime and web series library.
+  12. **Server 12: AnyEmbed** (`anyembed.xyz`) — SmashyStream next-gen multi-host streaming cluster with internal server failover, dubs, and multi-subtitles.
+  13. **Server 13: GDrivePlayer** (`database.gdriveplayer.us`) — Global CDN mirror cluster with resilient international failover for movies, TV series, and animation. Supports both TMDB and IMDb lookups.
+
+- **Expanded Anime & Web Series Auto-Priority:**
+  `ANIME_SERVER_PRIORITY` updated to include VidJoy Pro and AnyEmbed for automatic routing when playing anime and animation titles.
+
+- **In-Player UI & Footer Expansion:**
+  - Added Server 11, 12, and 13 buttons to the `.server-btn-group` in `index.html`.
+  - Added dedicated status banners and guide descriptions for all 3 new servers in `updatePlayerMultiAudioBanner()`.
+  - Updated `window.switchToNextServer` cycle to navigate seamlessly across all 13 verified servers.
+
+---
+
 ## [2.8.0] - 2026-10-16
 
 ### Added

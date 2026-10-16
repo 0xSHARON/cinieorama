@@ -1289,6 +1289,38 @@ const STREAM_SERVERS = {
     isAnimeFriendly: true,
     movie: (id) => `https://vsembed.com/embed/movie?tmdb=${id}`,
     tv: (id, s = 1, e = 1) => `https://vsembed.com/embed/tv?tmdb=${id}&season=${s}&episode=${e}`
+  },
+  // Server 11: VidJoy Pro (High-Speed HTML5 Player — Movies, Anime & Web Series)
+  vidjoy: {
+    name: "Server 11: VidJoy Pro (Movies, Anime & Series)",
+    badge: "ALL-ROUND 4K",
+    desc: "Fast, modern HTML5 player with multi-audio, high bitrate and complete anime & web series library",
+    hasMultiAudio: true,
+    isAnimeFriendly: true,
+    isAnimeRecommended: true,
+    movie: (id) => `https://vidjoy.pro/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://vidjoy.pro/embed/tv/${id}/${s}/${e}`
+  },
+  // Server 12: AnyEmbed (SmashyStream Modern Multi-Host Engine)
+  anyembed: {
+    name: "Server 12: AnyEmbed (SmashyStream Engine)",
+    badge: "MULTI-HOST CLUSTER",
+    desc: "SmashyStream next-gen edge player with multi-source internal switching, multi-subs and multi-audio support",
+    hasMultiAudio: true,
+    isAnimeFriendly: true,
+    isAnimeRecommended: true,
+    movie: (id) => `https://anyembed.xyz/embed/tmdb-movie-${id}`,
+    tv: (id, s = 1, e = 1) => `https://anyembed.xyz/embed/tmdb-tv-${id}-${s}-${e}`
+  },
+  // Server 13: GDrivePlayer Cloud (Global Multi-CDN Mirror Cloud)
+  gdriveplayer: {
+    name: "Server 13: GDrivePlayer (Global Mirror CDN)",
+    badge: "GLOBAL CDN",
+    desc: "Direct CDN mirror cluster with resilient failover for international cinema, series and animated content",
+    hasMultiAudio: false,
+    isAnimeFriendly: true,
+    movie: (id) => isTmdbId(id) ? `https://database.gdriveplayer.us/player.php?tmdb=${id}` : `https://database.gdriveplayer.us/player.php?imdb=${id}`,
+    tv: (id, s = 1, e = 1) => isTmdbId(id) ? `https://database.gdriveplayer.us/player.php?type=series&tmdb=${id}&season=${s}&episode=${e}` : `https://database.gdriveplayer.us/player.php?type=series&imdb=${id}&season=${s}&episode=${e}`
   }
 };
 
@@ -1300,9 +1332,10 @@ STREAM_SERVERS.vidsrcvip = STREAM_SERVERS.vidsrcdev;
 STREAM_SERVERS.multiembed = STREAM_SERVERS.cinesrc;
 STREAM_SERVERS.rivestream = STREAM_SERVERS.vsembed;
 STREAM_SERVERS.twoembedstream = STREAM_SERVERS.twoembedskin;
+STREAM_SERVERS.smashystream = STREAM_SERVERS.anyembed;
 
 // Anime & Cartoon server priority order (best for multi-audio, dubs & subtitles)
-const ANIME_SERVER_PRIORITY = ["vidlink", "twoembed", "twoembedskin", "autoembedco", "cinesrc", "vidsrcpm", "embedwave"];
+const ANIME_SERVER_PRIORITY = ["vidlink", "twoembed", "twoembedskin", "vidjoy", "anyembed", "autoembedco", "cinesrc", "vidsrcpm", "embedwave"];
 
 // ═══════════════════════════════════════════════════════════════════
 // 4. WATCH HISTORY & PROGRESS TRACKER (LOCALSTORAGE PERSISTENCE)
@@ -3694,8 +3727,12 @@ function switchServer(serverKey) {
 }
 
 window.switchToNextServer = function() {
-  // Only cycle through the 10 real server keys — skip backward-compat aliases
-  const REAL_SERVER_KEYS = ["embedwave", "vidlink", "twoembed", "twoembedskin", "vidsrcpm", "autoembedco", "vidsrcdev", "vidsrcsu", "cinesrc", "vsembed"];
+  // Cycle through all 13 real server keys — skip backward-compat aliases
+  const REAL_SERVER_KEYS = [
+    "embedwave", "vidlink", "twoembed", "twoembedskin", "vidsrcpm",
+    "autoembedco", "vidsrcdev", "vidsrcsu", "cinesrc", "vsembed",
+    "vidjoy", "anyembed", "gdriveplayer"
+  ];
   const currentIdx = REAL_SERVER_KEYS.indexOf(STATE.activeServer);
   const nextIdx = (currentIdx + 1) % REAL_SERVER_KEYS.length;
   const nextServer = REAL_SERVER_KEYS[nextIdx];
@@ -3867,6 +3904,36 @@ function updatePlayerMultiAudioBanner() {
     if (heading) heading.innerHTML = `<span style="color:#ffea00">●</span> SERVER 10 (VSEMBED): GLOBAL MULTI-SERVER ACTIVE:`;
     if (guide) {
       guide.innerHTML = `<strong>VSEmbed Active:</strong> Global multi-host streaming aggregator with robust failover and edge CDN nodes.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "vidjoy") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 11 (VIDJOY PRO): ALL-ROUND 4K &amp; ANIME ACTIVE:`;
+    if (guide) {
+      guide.innerHTML = `<strong>VidJoy Pro Active:</strong> Fast HTML5 player with multi-audio, full anime and web series support.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "anyembed") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 12 (ANYEMBED): SMASHYSTREAM ENGINE ACTIVE:`;
+    if (guide) {
+      guide.innerHTML = `<strong>AnyEmbed Active:</strong> Multi-host streaming cluster with internal server failover, dubs and multi-subtitles.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "gdriveplayer") {
+    if (heading) heading.innerHTML = `<span style="color:#ffea00">●</span> SERVER 13 (GDRIVEPLAYER): GLOBAL MIRROR CDN ACTIVE:`;
+    if (guide) {
+      guide.innerHTML = `<strong>GDrivePlayer Active:</strong> Global CDN mirror network with international coverage for movies, series &amp; anime.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";

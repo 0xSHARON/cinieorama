@@ -1,5 +1,5 @@
-// Cinieorama Service Worker v1.2.0
-const CACHE_NAME = 'cinieorama-v1.2.0';
+// Cinieorama Service Worker v1.4.0
+const CACHE_NAME = 'cinieorama-v1.4.0';
 const SHELL_ASSETS = [
   './',
   './index.html',
@@ -46,6 +46,12 @@ self.addEventListener('fetch', (event) => {
     url.hostname.includes('vidlink') ||
     url.hostname.includes('vidsrc') ||
     url.hostname.includes('2embed') ||
+    url.hostname.includes('autoembed') ||
+    url.hostname.includes('cinesrc') ||
+    url.hostname.includes('vsembed') ||
+    url.hostname.includes('vidjoy') ||
+    url.hostname.includes('anyembed') ||
+    url.hostname.includes('gdriveplayer') ||
     url.hostname.includes('youtube') ||
     url.hostname.includes('themoviedb.org')
   ) {
