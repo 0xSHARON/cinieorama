@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.8.0] - 2026-10-16
+
+### Added
+- **10-Tier Verified Streaming Node Architecture:**
+  Full replacement of the 5-server lineup with a verified 10-node cloud streaming cluster. All nodes confirmed via HTTP 200 responses with `X-Frame-Options: NONE`. Full lineup:
+  1. **Server 1: EmbedWave** (`embedwave.cc`) — Primary zero-buffer edge stream. Default server for all content.
+  2. **Server 2: VidLink Pro** (`vidlink.pro`) — Ultra HD 4K, multi-audio (Hindi/Tamil/Telugu/Malayalam/Japanese/English), multi-language subtitles. Recommended for Cartoon & Anime multi-audio.
+  3. **Server 3: 2Embed CC** (`2embed.stream`) — Dedicated anime & cartoon archives with Japanese original audio, dubs, and subtitles.
+  4. **Server 4: 2Embed Skin** (`2embed.skin`) — Dedicated cartoon & anime HD player with audio and subtitle selection UI.
+  5. **Server 5: VidSrc PM** (`vidsrc.pm`) — VIP direct edge cloud node for movies, anime & shows.
+  6. **Server 6: AutoEmbed CO** (`autoembed.co`) — Cartoon & dubbed cloud source discovery engine.
+  7. **Server 7: VidSrc DEV** (`vidsrc.dev`) — Premium multi-source CDN node for movies, animation & TV.
+  8. **Server 8: VidSrc SU** (`vidsrc.su`) — High-speed direct cloud mirror for instant failover.
+  9. **Server 9: CineSrc** (`cinesrc.st`) — Modern 4K ultra HTML5 stream with zero frame-blocking.
+  10. **Server 10: VSEmbed** (`vsembed.com`) — Global multi-server aggregator with cloud mirrors.
+
+- **Anime/Cartoon Server Flagging:**
+  Servers 2, 3, 4, and 6 are flagged `anime-rec` in the player switcher UI, visually guiding users toward the best server for Japanese animation and dubbed content.
+
+- **Service Worker Cache Bump:**
+  Updated SW cache key to `cinieorama-v1.3.0` with new streaming domains added to the SW bypass exclusion list to prevent iframe CORS failures.
+
+### Fixed
+- **CineSrc TV Series URL Format:**
+  Corrected TV embed path from non-functional `?id={id}&s={s}&e={e}` to verified slug format `/embed/tv/{id}-{season}-{episode}` (HTTP 200 confirmed vs 404 on old param format).
+- **Asset Cache Busting:**
+  All asset references bumped to `?v=20261016_13` in `index.html` to force Service Worker cache invalidation on deploy.
+- **In-Player Loader Tip:**
+  Updated loader tip text to reference Server 2 (VidLink Pro) and Server 4 (2Embed Skin) for multi-audio tracks instead of outdated server names.
+
+---
+
 ## [2.7.0] - 2026-10-16
 
 ### Added

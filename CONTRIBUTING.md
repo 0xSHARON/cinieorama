@@ -93,14 +93,32 @@ Always validate JavaScript syntax and server responses before submitting PRs:
 # Validate JavaScript syntax
 node -c app.js
 
-# Test candidate stream URLs for HTTP 200 and absence of X-Frame-Options blocking
+# Test all 10 active stream nodes for HTTP 200 and X-Frame-Options
 node -e "
 const https = require('https');
-https.get('https://your-stream-node.com/embed/movie/550', { headers: { 'User-Agent': 'Mozilla/5.0' } }, res => {
-  console.log('Status:', res.statusCode, '| X-Frame:', res.headers['x-frame-options'] || 'NONE');
+const nodes = [
+  'https://embedwave.cc/embed/movie/550',
+  'https://vidlink.pro/movie/550',
+  'https://2embed.stream/embed/movie/550',
+  'https://2embed.skin/embed/movie/550',
+  'https://vidsrc.pm/embed/movie/550',
+  'https://autoembed.co/movie/tmdb/550',
+  'https://vidsrc.dev/embed/movie/550',
+  'https://vidsrc.su/embed/movie/550',
+  'https://cinesrc.st/embed/movie/550',
+  'https://vsembed.com/embed/movie?tmdb=550'
+];
+nodes.forEach(url => {
+  https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, res => {
+    const xfo = res.headers['x-frame-options'] || 'NONE';
+    const ok = res.statusCode === 200 && xfo === 'NONE';
+    console.log(ok ? '[OK ]' : '[FAIL]', res.statusCode, xfo, url);
+  }).on('error', e => console.log('[ERR]', e.message, url));
 });
 "
 ```
+
+> **Note on CineSrc TV URL format:** Use slug format `/embed/tv/{id}-{season}-{episode}`, NOT `?id=...&s=...&e=...`. The param format returns 404.
 
 ---
 

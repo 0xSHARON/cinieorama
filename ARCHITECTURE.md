@@ -35,12 +35,17 @@ graph TD
         C --> C3[cinieorama_ambilight]
     end
 
-    subgraph Verified Streaming Infrastructure
-        D --> D1[Server 1: EmbedWave Main]
-        D --> D2[Server 2: VidLink Pro 4K Multi-Audio]
-        D --> D3[Server 3: VidSrc SU Cloud Mirror]
-        D --> D4[Server 4: 2Embed Anime Hub]
-        D --> D5[Server 5: VidSrc PM Direct CDN]
+    subgraph Verified 10-Node Streaming Cluster
+        D --> D1[S1: EmbedWave — Default Edge CDN]
+        D --> D2[S2: VidLink Pro — 4K Multi-Audio]
+        D --> D3[S3: 2Embed CC — Anime Archives]
+        D --> D4[S4: 2Embed Skin — Anime HD Player]
+        D --> D5[S5: VidSrc PM — VIP Direct Edge]
+        D --> D6[S6: AutoEmbed CO — Dubbed Cloud]
+        D --> D7[S7: VidSrc DEV — Premium CDN]
+        D --> D8[S8: VidSrc SU — Cloud Mirror]
+        D --> D9[S9: CineSrc — 4K Ultra HTML5]
+        D --> D10[S10: VSEmbed — Global Aggregator]
     end
 
     subgraph Visual Engines
@@ -59,19 +64,28 @@ graph TD
 - Implements infinite pagination using browser-native `IntersectionObserver` sentinel watching.
 
 ### 2. Multi-Tier Streaming Node Failover (`STREAM_SERVERS`)
-A verified 5-server streaming cluster supporting movies, TV series, and anime:
+A verified **10-node** streaming cluster supporting movies, TV series, anime, and cartoons:
 
 ```
-[User Click] ──> Default Server 1: EmbedWave (Zero-Buffer Edge CDN)
-                     │ (If user requests Multi-Audio/Subtitles)
-                     ├──> Server 2: VidLink Pro (Ultra HD 4K, Hindi/Tamil/Telugu/Malayalam Dubs)
-                     │ (If server buffer or cloud failover needed)
-                     ├──> Server 3: VidSrc SU (High-Speed Direct Cloud Mirror)
-                     │ (If anime media detected)
-                     ├──> Server 4: 2Embed (Dedicated Anime Specialist Node)
-                     │ (Secondary backup)
-                     └──> Server 5: VidSrc PM (Direct Cloud Node)
+[User Click] ──> Server 1: EmbedWave  (DEFAULT — Zero-Buffer Edge CDN)
+                     │ (Multi-audio / anime detected)
+                     ├──> Server 2: VidLink Pro    (4K Multi-Audio, Hindi/Tamil/Telugu/Malayalam/Jpn/Eng)
+                     ├──> Server 3: 2Embed CC      (Anime & Cartoon Archives, JPN Original/Dub/Sub)
+                     ├──> Server 4: 2Embed Skin    (Cartoon & Anime HD Player w/ Audio UI)
+                     ├──> Server 6: AutoEmbed CO   (Dubbed Cloud Discovery)
+                     │ (Generic failover)
+                     ├──> Server 5: VidSrc PM      (VIP Direct Edge)
+                     ├──> Server 7: VidSrc DEV     (Premium Multi-Source CDN)
+                     ├──> Server 8: VidSrc SU      (High-Speed Direct Cloud Mirror)
+                     ├──> Server 9: CineSrc        (4K Ultra HTML5 Stream)
+                     └──> Server 10: VSEmbed       (Global Multi-Server Aggregator)
 ```
+
+**URL Patterns (verified HTTP 200):**
+- Movies: `/embed/movie/{tmdb_id}`
+- TV Series: `/embed/tv/{tmdb_id}/{season}/{episode}` *(most nodes)*
+- CineSrc TV: `/embed/tv/{id}-{season}-{episode}` *(slug format — param format returns 404)*
+- AutoEmbed TV: `/tv/tmdb/{tmdb_id}-{season}-{episode}`
 
 ### 3. Cinema Ambilight Engine (`updatePlayerAmbilight`)
 - Emulates high-end Philips OLED Ambilight TVs.

@@ -39,13 +39,21 @@ All media indexing is queried dynamically from TMDB and public CDN endpoints wit
 - **Top Navigation "★ MY LIST" Tab:** A dedicated navigation tab with a real-time badge count (`★ MY LIST (N)`) that opens a full-page grid view with filter chips (*All*, *Movies*, *Series/Anime*) and empty-state guidance.
 - **100% Client-Side:** Persists via `localStorage` under `cinieorama_watchlist` — no accounts, passwords, or tracking cookies.
 
-### 3. 🌐 Curated 5-Server Streaming Infrastructure (Movies, Shows & Anime)
-Cinieorama features a verified 5-server streaming node architecture that prioritizes reliable, zero-buffer playback without `X-Frame-Options` blocking:
-- **★ Server 1: EmbedWave (`embedwave.cc`) [DEFAULT]:** Primary zero-buffer stream node powered by global edge CDN.
-- **🎬 Server 2: VidLink Pro (`vidlink.pro`):** Ultra HD 4K streaming with Multi-Audio (Hindi, Tamil, Telugu, Malayalam, English, Japanese) and multi-language subtitles.
-- **⚡ Server 3: VidSrc SU (`vidsrc.su`):** High-speed cloud mirror node with instant playback across movies, web series, and anime.
-- **🎌 Server 4: 2Embed (`2embed.cc`):** Dedicated Anime hub & global CDN with Japanese original audio, English/Hindi dubs, and multi-subs.
-- **🚀 Server 5: VidSrc PM (`vidsrc.pm`):** Direct stream CDN node for fast failover.
+### 3. 🌐 Verified 10-Server Streaming Infrastructure (Movies, Shows & Anime)
+Cinieorama features a verified **10-node cloud streaming cluster** that prioritizes reliable, zero-buffer playback with `X-Frame-Options: NONE` on all nodes. Servers 2, 3, 4 & 6 are recommended for anime and cartoons.
+
+| # | Server | Domain | Best For |
+|---|--------|--------|----------|
+| ★ 1 | **EmbedWave** `[DEFAULT]` | `embedwave.cc` | All content — primary zero-buffer edge CDN |
+| 2 | **VidLink Pro** `[ANIME/CARTOON]` | `vidlink.pro` | 4K Multi-Audio: Hindi/Tamil/Telugu/Malayalam/Japanese/English + subtitles |
+| 3 | **2Embed CC** `[ANIME/CARTOON]` | `2embed.stream` | Anime & cartoon archives, Japanese original + dubs |
+| 4 | **2Embed Skin** `[ANIME/CARTOON]` | `2embed.skin` | Cartoon & anime HD with audio/subtitle selector UI |
+| 5 | **VidSrc PM** | `vidsrc.pm` | VIP direct edge cloud — movies, anime & shows |
+| 6 | **AutoEmbed CO** `[ANIME/CARTOON]` | `autoembed.co` | Cartoon & dubbed cloud source discovery |
+| 7 | **VidSrc DEV** | `vidsrc.dev` | Premium multi-source CDN for movies, animation & TV |
+| 8 | **VidSrc SU** | `vidsrc.su` | High-speed direct cloud mirror for fast failover |
+| 9 | **CineSrc** | `cinesrc.st` | Modern 4K ultra HTML5 stream, zero frame-blocking |
+| 10 | **VSEmbed** | `vsembed.com` | Global multi-server aggregator with cloud mirrors |
 
 ### 4. 🌴 Regional Indian Cinema & Composable Multi-Audio Hubs
 - **Mollywood (Malayalam):** Dedicated Malayalam cinema hub streaming blockbusters, crime thrillers, and indie films (`with_origin_country=IN`).
