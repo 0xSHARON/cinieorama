@@ -1207,58 +1207,58 @@ const STREAM_SERVERS = {
     movie: (id) => `https://vidlink.pro/movie/${id}?primaryColor=ff0033&secondaryColor=111111&iconColor=ffffff&icons=vid&nextbutton=true`,
     tv: (id, s = 1, e = 1) => `https://vidlink.pro/tv/${id}/${s}/${e}?primaryColor=ff0033&secondaryColor=111111&iconColor=ffffff&icons=vid&nextbutton=true`
   },
-  // Server 3: Videasy (Dedicated Cartoon & Anime Player with Multi-Audio Tracks)
-  videasy: {
-    name: "Server 3: Videasy (Cartoons & Anime HD)",
-    badge: "MULTI-AUDIO HD",
-    desc: "Dedicated cartoon and anime player with built-in multi-audio track switcher, multi-subs & fast cloud playback",
-    hasMultiAudio: true,
-    isAnimeFriendly: true,
-    isAnimeRecommended: true,
-    movie: (id) => `https://player.videasy.net/movie/${id}`,
-    tv: (id, s = 1, e = 1) => `https://player.videasy.net/tv/${id}/${s}/${e}`
-  },
-  // Server 4: 2Embed (Dedicated Anime & Cartoon Hub — Japanese Original + Dubs + Subs)
+  // Server 3: 2Embed CC (Dedicated Anime & Cartoon Archives — Japanese Original + Dubs + Subs)
   twoembed: {
-    name: "Server 4: 2Embed (Anime & Cartoons Hub)",
+    name: "Server 3: 2Embed CC (Anime & Cartoons Hub)",
     badge: "ANIME HUB",
     desc: "Dedicated anime & cartoon archive: Japanese original audio, English/Hindi dubs & 20+ subtitle tracks.",
     hasMultiAudio: true,
     isAnimeFriendly: true,
     isAnimeRecommended: true,
-    movie: (id) => `https://www.2embed.cc/embed/${id}`,
-    tv: (id, s = 1, e = 1) => `https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}`
+    movie: (id) => `https://2embed.stream/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://2embed.stream/embed/tv/${id}/${s}/${e}`
   },
-  // Server 5: Embed.su (Multi-Source Edge Cloud — Clean & Fast)
-  embedsu: {
-    name: "Server 5: Embed.su (Multi-Source Edge)",
-    badge: "EDGE CLOUD",
-    desc: "High-performance edge CDN node with automated source discovery for cartoons, anime, movies & series",
+  // Server 4: 2Embed Skin (High-Definition Cartoon & Anime Player)
+  twoembedskin: {
+    name: "Server 4: 2Embed Skin (Cartoons & Anime HD)",
+    badge: "MULTI-AUDIO HD",
+    desc: "Dedicated high-definition anime and cartoon edge mirror with multi-audio & sub selection",
+    hasMultiAudio: true,
+    isAnimeFriendly: true,
+    isAnimeRecommended: true,
+    movie: (id) => `https://2embed.skin/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://2embed.skin/embed/tv/${id}/${s}/${e}`
+  },
+  // Server 5: VidSrc PM (VIP Edge Cloud — Fast Direct Node)
+  vidsrcpm: {
+    name: "Server 5: VidSrc PM (VIP Edge Cloud)",
+    badge: "VIP DIRECT",
+    desc: "Ultra-fast direct edge CDN node with instant buffering across cartoons, anime, movies & series",
     hasMultiAudio: false,
     isAnimeFriendly: true,
-    movie: (id) => `https://embed.su/embed/movie/${id}`,
-    tv: (id, s = 1, e = 1) => `https://embed.su/embed/tv/${id}/${s}/${e}`
+    movie: (id) => `https://vidsrc.pm/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://vidsrc.pm/embed/tv/${id}/${s}/${e}`
   },
-  // Server 6: AutoEmbed (Direct Edge Player — Strong Anime & Cartoon Mirrors)
-  autoembed: {
-    name: "Server 6: AutoEmbed (Anime & Cartoon Cloud)",
+  // Server 6: AutoEmbed CO (Direct Edge Player — Strong Anime & Cartoon Mirrors)
+  autoembedco: {
+    name: "Server 6: AutoEmbed CO (Anime & Cartoon Cloud)",
     badge: "ANIME/CARTOONS",
     desc: "Direct low-latency edge player with dedicated cartoon & anime coverage including dubbed audio tracks",
     hasMultiAudio: true,
     isAnimeFriendly: true,
     isAnimeRecommended: true,
-    movie: (id) => `https://player.autoembed.cc/embed/movie/${id}`,
-    tv: (id, s = 1, e = 1) => `https://player.autoembed.cc/embed/tv/${id}/${s}/${e}`
+    movie: (id) => `https://autoembed.co/movie/tmdb/${id}`,
+    tv: (id, s = 1, e = 1) => `https://autoembed.co/tv/tmdb/${id}-${s}-${e}`
   },
-  // Server 7: VidSrc VIP (Premium Clean CDN — No Popups)
-  vidsrcvip: {
-    name: "Server 7: VidSrc VIP (Premium CDN)",
-    badge: "VIP DIRECT",
-    desc: "Clean verified VIP node with smooth playback for animated series, movies, and reality shows",
+  // Server 7: VidSrc Dev (Premium Clean CDN — No Popups)
+  vidsrcdev: {
+    name: "Server 7: VidSrc Dev (Premium CDN)",
+    badge: "PREMIUM CDN",
+    desc: "Clean verified multi-source CDN cluster with smooth playback for animated series, movies, and reality shows",
     hasMultiAudio: false,
     isAnimeFriendly: true,
-    movie: (id) => `https://vidsrc.vip/embed/movie/${id}`,
-    tv: (id, s = 1, e = 1) => `https://vidsrc.vip/embed/tv/${id}/${s}/${e}`
+    movie: (id) => `https://vidsrc.dev/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://vidsrc.dev/embed/tv/${id}/${s}/${e}`
   },
   // Server 8: VidSrc SU (High-Speed Direct Cloud Mirror)
   vidsrcsu: {
@@ -1270,36 +1270,39 @@ const STREAM_SERVERS = {
     movie: (id) => `https://vidsrc.su/embed/movie/${id}`,
     tv: (id, s = 1, e = 1) => `https://vidsrc.su/embed/tv/${id}/${s}/${e}`
   },
-  // Server 9: MultiEmbed (Global Multi-Server Aggregator with Cartoon Hosts)
-  multiembed: {
-    name: "Server 9: MultiEmbed (Global Multi-Server)",
-    badge: "GLOBAL EMBED",
-    desc: "Global multi-host streaming aggregator with direct Streamtape and Vidcloud mirrors for animation",
-    hasMultiAudio: true,
-    isAnimeFriendly: true,
-    movie: (id) => `https://multiembed.mov/?video_id=${id}&tmdb=1`,
-    tv: (id, s = 1, e = 1) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`
-  },
-  // Server 10: RiveStream (Direct Edge Stream — Clean Player)
-  rivestream: {
-    name: "Server 10: RiveStream (Direct Stream)",
-    badge: "DIRECT STREAM",
-    desc: "Clean modern HTML5 streaming player supporting animated series, cinema releases and reality TV",
+  // Server 9: CineSrc (Modern 4K Ultra Stream — Clean Player)
+  cinesrc: {
+    name: "Server 9: CineSrc (Modern 4K Stream)",
+    badge: "4K ULTRA",
+    desc: "Modern HTML5 edge streaming node with zero frame-blocking for movies, anime & reality TV",
     hasMultiAudio: false,
     isAnimeFriendly: true,
-    movie: (id) => `https://rivestream.live/embed?type=movie&id=${id}`,
-    tv: (id, s = 1, e = 1) => `https://rivestream.live/embed?type=tv&id=${id}&season=${s}&episode=${e}`
+    movie: (id) => `https://cinesrc.st/embed/movie/${id}`,
+    tv: (id, s = 1, e = 1) => `https://cinesrc.st/embed/tv/${id}-${s}-${e}`
+  },
+  // Server 10: VSEmbed (Global Multi-Server Aggregator)
+  vsembed: {
+    name: "Server 10: VSEmbed (Global Multi-Server)",
+    badge: "GLOBAL EMBED",
+    desc: "Global multi-host streaming aggregator with robust failover and edge CDN nodes",
+    hasMultiAudio: true,
+    isAnimeFriendly: true,
+    movie: (id) => `https://vsembed.com/embed/movie?tmdb=${id}`,
+    tv: (id, s = 1, e = 1) => `https://vsembed.com/embed/tv?tmdb=${id}&season=${s}&episode=${e}`
   }
 };
 
-// Aliases for backward compatibility
-STREAM_SERVERS.vidsrcpm = STREAM_SERVERS.embedsu;
-STREAM_SERVERS.netmirror = STREAM_SERVERS.autoembed;
-STREAM_SERVERS.smashystream = STREAM_SERVERS.vidsrcsu;
-STREAM_SERVERS.vidsrccc = STREAM_SERVERS.vidsrcvip;
+// Aliases for backward compatibility with previous server keys
+STREAM_SERVERS.videasy = STREAM_SERVERS.twoembedskin;
+STREAM_SERVERS.embedsu = STREAM_SERVERS.vidsrcpm;
+STREAM_SERVERS.autoembed = STREAM_SERVERS.autoembedco;
+STREAM_SERVERS.vidsrcvip = STREAM_SERVERS.vidsrcdev;
+STREAM_SERVERS.multiembed = STREAM_SERVERS.cinesrc;
+STREAM_SERVERS.rivestream = STREAM_SERVERS.vsembed;
+STREAM_SERVERS.twoembedstream = STREAM_SERVERS.twoembedskin;
 
 // Anime & Cartoon server priority order (best for multi-audio, dubs & subtitles)
-const ANIME_SERVER_PRIORITY = ["vidlink", "videasy", "twoembed", "autoembed", "embedsu", "embedwave"];
+const ANIME_SERVER_PRIORITY = ["vidlink", "twoembed", "twoembedskin", "autoembedco", "cinesrc", "vidsrcpm", "embedwave"];
 
 // ═══════════════════════════════════════════════════════════════════
 // 4. WATCH HISTORY & PROGRESS TRACKER (LOCALSTORAGE PERSISTENCE)
@@ -1532,7 +1535,7 @@ const STATE = {
   searchQuery: "",
   searchResults: [],
   selectedMedia: null,
-  activeServer: "vidlink",
+  activeServer: "embedwave",
   currentSeason: 1,
   currentEpisode: 1,
   currentSeasonEpisodes: [],
@@ -3691,10 +3694,11 @@ function switchServer(serverKey) {
 }
 
 window.switchToNextServer = function() {
-  const serverKeys = Object.keys(STREAM_SERVERS);
-  const currentIdx = serverKeys.indexOf(STATE.activeServer);
-  const nextIdx = (currentIdx + 1) % serverKeys.length;
-  const nextServer = serverKeys[nextIdx];
+  // Only cycle through the 10 real server keys — skip backward-compat aliases
+  const REAL_SERVER_KEYS = ["embedwave", "vidlink", "twoembed", "twoembedskin", "vidsrcpm", "autoembedco", "vidsrcdev", "vidsrcsu", "cinesrc", "vsembed"];
+  const currentIdx = REAL_SERVER_KEYS.indexOf(STATE.activeServer);
+  const nextIdx = (currentIdx + 1) % REAL_SERVER_KEYS.length;
+  const nextServer = REAL_SERVER_KEYS[nextIdx];
   switchServer(nextServer);
 };
 
@@ -3789,50 +3793,50 @@ function updatePlayerMultiAudioBanner() {
       switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
-  } else if (STATE.activeServer === "videasy") {
-    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 3 (VIDEASY): CARTOON &amp; ANIME MULTI-AUDIO ACTIVE:`;
-    if (guide) {
-      guide.innerHTML = `<strong>Videasy Active:</strong> Built-in multi-audio &amp; subtitle selector. Use audio menu in player controls to switch tracks!`;
-    }
-    if (switchBtn) {
-      switchBtn.style.display = "inline-flex";
-      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
-      switchBtn.onclick = () => switchServer("embedwave");
-    }
   } else if (STATE.activeServer === "twoembed") {
-    if (heading) heading.innerHTML = `<span style="color:#ff0033">●</span> SERVER 4 (2EMBED): DEDICATED ANIME &amp; CARTOON HUB ACTIVE:`;
+    if (heading) heading.innerHTML = `<span style="color:#ff0033">●</span> SERVER 3 (2EMBED CC): DEDICATED ANIME &amp; CARTOONS ARCHIVE:`;
     if (guide) {
-      guide.innerHTML = `<strong>2Embed Active:</strong> Optimized for Japanese anime and animated series with original audio &amp; multiple subtitle tracks.`;
+      guide.innerHTML = `<strong>2Embed CC Active:</strong> Optimized for Japanese anime and animated series with original Japanese audio &amp; multi-sub tracks.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
       switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
-  } else if (STATE.activeServer === "embedsu") {
-    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 5 (EMBED.SU): FAST MULTI-SOURCE CLOUD ACTIVE:`;
+  } else if (STATE.activeServer === "twoembedskin") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 4 (2EMBED SKIN): CARTOONS &amp; ANIME HD MIRROR:`;
     if (guide) {
-      guide.innerHTML = `<strong>Embed.su Active:</strong> Ultra-fast edge CDN with automated source discovery for cartoons, anime, movies &amp; series.`;
+      guide.innerHTML = `<strong>2Embed Skin Active:</strong> Dedicated cartoon and anime HD stream with built-in multi-audio &amp; subtitle selection.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
       switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
-  } else if (STATE.activeServer === "autoembed") {
-    if (heading) heading.innerHTML = `<span style="color:#ffea00">●</span> SERVER 6 (AUTOEMBED): ANIME &amp; CARTOON CLOUD ACTIVE:`;
+  } else if (STATE.activeServer === "vidsrcpm") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 5 (VIDSRC PM): VIP DIRECT EDGE CLOUD:`;
     if (guide) {
-      guide.innerHTML = `<strong>AutoEmbed Active:</strong> Multi-source edge discovery for animated shows and regional dubs.`;
+      guide.innerHTML = `<strong>VidSrc PM Active:</strong> Ultra-fast VIP direct edge CDN node with instant buffering across cartoons, anime, movies &amp; series.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
       switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
-  } else if (STATE.activeServer === "vidsrcvip") {
-    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 7 (VIDSRC VIP): VIP DIRECT CDN ACTIVE:`;
+  } else if (STATE.activeServer === "autoembedco") {
+    if (heading) heading.innerHTML = `<span style="color:#ffea00">●</span> SERVER 6 (AUTOEMBED CO): ANIME &amp; CARTOON CLOUD ACTIVE:`;
     if (guide) {
-      guide.innerHTML = `<strong>VidSrc VIP Active:</strong> High-reliability clean playback for animated series, movies, and reality shows.`;
+      guide.innerHTML = `<strong>AutoEmbed CO Active:</strong> Multi-source edge discovery for animated shows, cartoon archives, and regional dubs.`;
+    }
+    if (switchBtn) {
+      switchBtn.style.display = "inline-flex";
+      switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
+      switchBtn.onclick = () => switchServer("embedwave");
+    }
+  } else if (STATE.activeServer === "vidsrcdev") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 7 (VIDSRC DEV): PREMIUM MULTI-SOURCE CDN:`;
+    if (guide) {
+      guide.innerHTML = `<strong>VidSrc Dev Active:</strong> High-reliability clean playback for animated series, movies, and reality shows.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
@@ -3849,20 +3853,20 @@ function updatePlayerMultiAudioBanner() {
       switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
-  } else if (STATE.activeServer === "multiembed") {
-    if (heading) heading.innerHTML = `<span style="color:#ffea00">●</span> SERVER 9 (MULTIEMBED): GLOBAL MULTI-HOST ACTIVE:`;
+  } else if (STATE.activeServer === "cinesrc") {
+    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 9 (CINESRC): 4K ULTRA STREAM ACTIVE:`;
     if (guide) {
-      guide.innerHTML = `<strong>MultiEmbed Active:</strong> Multiple global cloud mirrors with anime/cartoon hosts available inside the player.`;
+      guide.innerHTML = `<strong>CineSrc Active:</strong> Modern HTML5 edge streaming node with zero frame-blocking across cinema releases, anime &amp; reality TV.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
       switchBtn.innerHTML = `SWITCH TO SERVER 1 (EMBEDWAVE MAIN)`;
       switchBtn.onclick = () => switchServer("embedwave");
     }
-  } else if (STATE.activeServer === "rivestream") {
-    if (heading) heading.innerHTML = `<span style="color:#00e676">●</span> SERVER 10 (RIVESTREAM): DIRECT STREAM ACTIVE:`;
+  } else if (STATE.activeServer === "vsembed") {
+    if (heading) heading.innerHTML = `<span style="color:#ffea00">●</span> SERVER 10 (VSEMBED): GLOBAL MULTI-SERVER ACTIVE:`;
     if (guide) {
-      guide.innerHTML = `<strong>RiveStream Active:</strong> Clean HTML5 playback with native streaming controls.`;
+      guide.innerHTML = `<strong>VSEmbed Active:</strong> Global multi-host streaming aggregator with robust failover and edge CDN nodes.`;
     }
     if (switchBtn) {
       switchBtn.style.display = "inline-flex";
@@ -4094,7 +4098,7 @@ function closePlayer() {
 // 13.5 IN-PLAYER WATCH PROGRESS & CARD REFRESH CONTROLLERS
 // ═══════════════════════════════════════════════════════════════════
 function updateInPlayerProgressBar(pct, updatedAt) {
-  const fill = document.getElementById("playerProgressFill");
+  const fill = document.getElementById("playerLiveProgressFill");
   const slider = document.getElementById("playerWatchSlider");
   const label = document.getElementById("playerProgressLabel");
   const timeText = document.getElementById("playerLastWatchedText");
