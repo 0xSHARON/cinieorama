@@ -1,5 +1,5 @@
-// Cinieorama Service Worker v1.0.0
-const CACHE_NAME = 'cinieorama-v1.0.0';
+// Cinieorama Service Worker v1.1.0
+const CACHE_NAME = 'cinieorama-v1.1.0';
 const SHELL_ASSETS = [
   './',
   './index.html',
